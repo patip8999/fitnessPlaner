@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environmet } from '../environments/environments';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom([
       AngularFirestoreModule,
+      AngularFireAuthModule,
       AngularFireModule.initializeApp(environmet.firebaseConfig),
     ]),
   ],

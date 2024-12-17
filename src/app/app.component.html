@@ -1,6 +1,20 @@
-@for(product of products$ | async; track product){
-  {{product.fitness}}
-  <br>
+<!-- Sprawdzanie, czy użytkownik jest zalogowany -->
+@if (user$ | async; as user) {
+  <div>
+    <p>Witaj, {{ user.email }}</p>
+    <button (click)="logout()">Wyloguj</button>
+  </div>
 }
+  <div>
+    <app-login></app-login> <!-- Komponent logowania -->
+    <app-register></app-register> <!-- Komponent rejestracji -->
+  </div>
 
-<router-outlet />
+
+<!-- Lista produktów -->
+
+<ul>
+  @for (product of products$ | async; track product.id) {
+    <li>{{ product.fitness }}</li>
+  }
+</ul>
