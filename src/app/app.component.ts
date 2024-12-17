@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { RouterOutlet } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
-import { User } from 'firebase/auth'; // Dodaj import User
 import { AuthService } from './Services/auth.service';
 export interface ProductModel {
   readonly fitness: string;
@@ -27,7 +25,7 @@ export interface UserModel {
 })
 export class AppComponent {
   private client = inject(AngularFirestore);
-
+  private router = inject(Router);
   private authService = inject(AuthService);
 
   getProducts(): Observable<ProductModel[]> {
@@ -40,7 +38,10 @@ export class AppComponent {
     return this.authService.getCurrentUser();
   }
   readonly user$: Observable<UserModel> = this.getUser();
-
+  currentForm: 'login' | 'register' = 'login';
+  showForm(formType: 'login' | 'register') {
+    this.currentForm = formType;
+  }
   logout() {
     this.authService.logout();
   }

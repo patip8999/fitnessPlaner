@@ -1,17 +1,26 @@
-@if (user$ | async; as user) {
-<div>
-  <p>Witaj, {{ user.email }}</p>
-  <button (click)="logout()">Wyloguj</button>
-</div>
-} @if (!(user$ | async)) {
-<div>
-  <app-login></app-login>
-  <app-register></app-register>
-</div>
-}
+<div class="welcome-container">
+  @if (user$ | async; as user) {
+  <div>
+    <p>Witaj, {{ user.email }}</p>
+    <button (click)="logout()">Wyloguj</button>
+  </div>
+  } @if (!(user$ | async)) {
 
-<ul>
-  @for (product of products$ | async; track product.id) {
-  <li>{{ product.fitness }}</li>
+  <div>
+    <button (click)="showForm('login')">Zaloguj się</button>
+    <button (click)="showForm('register')">Zarejestruj się</button>
+
+    @if (currentForm === 'login') {
+    <app-login></app-login>
+    } @if (currentForm === 'register') {
+    <app-register></app-register>
+    }
+  </div>
   }
-</ul>
+
+  <ul>
+    @for (product of products$ | async; track product.id) {
+    <li>{{ product.fitness }}</li>
+    }
+  </ul>
+</div>
