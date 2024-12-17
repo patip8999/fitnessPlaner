@@ -8,15 +8,10 @@ import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { AuthService } from './Services/auth.service';
 import { NavbarComponent } from './Components/navbar/navbar.component';
-export interface ProductModel {
-  readonly fitness: string;
-  readonly id: string;
-}
+import { ProductModel } from './Models/Product.model';
+import { UserModel } from './Models/User.model';
 
-export interface UserModel {
-  readonly email: string;
-  readonly password: string;
-}
+
 @Component({
   selector: 'app-root',
   standalone: true,
