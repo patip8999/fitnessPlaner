@@ -1,20 +1,17 @@
-<!-- Sprawdzanie, czy użytkownik jest zalogowany -->
 @if (user$ | async; as user) {
-  <div>
-    <p>Witaj, {{ user.email }}</p>
-    <button (click)="logout()">Wyloguj</button>
-  </div>
+<div>
+  <p>Witaj, {{ user.email }}</p>
+  <button (click)="logout()">Wyloguj</button>
+</div>
+} @if (!(user$ | async)) {
+<div>
+  <app-login></app-login>
+  <app-register></app-register>
+</div>
 }
-@if (!(user$ | async)) {
-  <div>
-    <app-login></app-login> <!-- Komponent logowania -->
-    <app-register></app-register> <!-- Komponent rejestracji -->
-  </div>
-}
-<!-- Lista produktów -->
 
 <ul>
   @for (product of products$ | async; track product.id) {
-    <li>{{ product.fitness }}</li>
+  <li>{{ product.fitness }}</li>
   }
 </ul>

@@ -8,21 +8,21 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   private router = inject(Router);
-  private authService = inject(AuthService); // Zakładam, że masz AuthService
-
+  private authService = inject(AuthService);
   email: string = '';
   password: string = '';
 
   login() {
     if (this.email && this.password) {
-      this.authService.login(this.email, this.password)
+      this.authService
+        .login(this.email, this.password)
         .then(() => {
           console.log('Zalogowano pomyślnie');
-          // Po pomyślnym logowaniu, przekierowanie na stronę Home
+
           this.router.navigate(['/home']);
         })
         .catch((error) => {
@@ -32,6 +32,4 @@ export class LoginComponent {
       console.log('Proszę podać e-mail i hasło.');
     }
   }
-
-
 }

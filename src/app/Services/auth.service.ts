@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private afAuth = inject(AngularFireAuth); // Wstrzykiwanie AngularFireAuth
+  private afAuth = inject(AngularFireAuth); 
   private currentUserSubject = new BehaviorSubject<any>(null);
 
   constructor() {
@@ -14,17 +14,17 @@ export class AuthService {
       this.currentUserSubject.next(user);
     });
   }
-  // Rejestracja użytkownika
+  
   register(email: string, password: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  // Logowanie użytkownika
+
   login(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  // Wylogowanie użytkownika
+
   logout() {
     return this.afAuth.signOut();
   }
