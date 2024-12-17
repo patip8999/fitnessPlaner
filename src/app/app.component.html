@@ -5,12 +5,12 @@
     <button (click)="logout()">Wyloguj</button>
   </div>
 }
+@if (!(user$ | async)) {
   <div>
     <app-login></app-login> <!-- Komponent logowania -->
     <app-register></app-register> <!-- Komponent rejestracji -->
   </div>
-
-
+}
 <!-- Lista produktów -->
 
 <ul>
