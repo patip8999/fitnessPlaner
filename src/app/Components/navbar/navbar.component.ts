@@ -17,9 +17,9 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  @Output() formChange = new EventEmitter<'login' | 'register'>(); // Emiter zmiany formularza
-  currentForm: 'login' | 'register' = 'login'; // Zmienna kontrolująca, który formularz jest wyświetlany
-  user$: Observable<UserModel> = this.authService.getCurrentUser(); // Użytkownik
+  @Output() formChange = new EventEmitter<'login' | 'register'>(); 
+  currentForm: 'login' | 'register' = 'login'; 
+  user$: Observable<UserModel> = this.authService.getCurrentUser(); 
 
   logout() {
     this.authService.logout();
@@ -27,6 +27,6 @@ export class NavbarComponent {
   }
 
   showForm(formType: 'login' | 'register') {
-    this.formChange.emit(formType); // Przesyłanie typu formularza do rodzica
+    this.formChange.emit(formType);
   }
 }

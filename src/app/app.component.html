@@ -1,32 +1,20 @@
-<app-navbar (formChange)="showForm($event)"></app-navbar> <!-- Navbar i nasłuchiwany event -->
+<app-navbar (formChange)="showForm($event)"></app-navbar>
 
 <div class="welcome-container">
   @if (user$ | async; as user) {
-    <div>
-      <p>Witaj, {{ user.email }}</p>
-      <button (click)="logout()">Wyloguj</button>
-    </div>
-  }
-
-  @if (!(user$ | async)) {
-    <!-- Przyciski do logowania lub rejestracji -->
-    <div>
-      <button (click)="showForm('login')">Zaloguj się</button>
-      <button (click)="showForm('register')">Zarejestruj się</button>
-    </div>
-
-    <!-- Wyświetlanie formularza -->
-    @if (currentForm === 'login') {
-      <app-login></app-login>
-    }
-    @if (currentForm === 'register') {
-      <app-register></app-register>
-    }
-  }
+  <div>
+    <p>Witaj, {{ user.email }}</p>
+    <button (click)="logout()">Wyloguj</button>
+  </div>
+  } @if (!(user$ | async)) { @if (currentForm === 'login') {
+  <app-login></app-login>
+  } @if (currentForm === 'register') {
+  <app-register></app-register>
+  } }
 
   <ul>
     @for (product of products$ | async; track product.id) {
-      <li>{{ product.fitness }}</li>
+    <li>{{ product.fitness }}</li>
     }
   </ul>
 </div>
