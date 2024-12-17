@@ -1,11 +1,7 @@
-<form (submit)="login()">
-  <label>
-    Email:
-    <input [(ngModel)]="email" type="email" name="email" required />
-  </label>
-  <label>
-    Hasło:
-    <input [(ngModel)]="password" type="password" name="password" required />
-  </label>
-  <button type="submit">Zaloguj</button>
-</form>
+<app-auth-form
+  [isLogin]="true"
+  [buttonText]="'Zaloguj się'"
+  [(email)]="email"
+  [(password)]="password"
+  (formSubmit)="login($event)"
+></app-auth-form>

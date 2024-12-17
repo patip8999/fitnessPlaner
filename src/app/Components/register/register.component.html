@@ -1,11 +1,7 @@
-<form (submit)="register($event)">
-  <label>
-    Email:
-    <input [(ngModel)]="email" type="email" name="email" required />
-  </label>
-  <label>
-    Hasło:
-    <input [(ngModel)]="password" type="password" name="password" required />
-  </label>
-  <button type="submit">Zarejestruj</button>
-</form>
+<app-auth-form
+  [isLogin]="false"
+  [buttonText]="'Zarejestruj się'"
+  [(email)]="email"
+  [(password)]="password"
+  (formSubmit)="register($event)"
+></app-auth-form>

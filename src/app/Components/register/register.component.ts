@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { AuthFormComponent } from '../UI/auth-form/auth-form.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, AuthFormComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -14,15 +15,9 @@ export class RegisterComponent {
   password = '';
   private authService = inject(AuthService);
 
-  register(event: Event) {
-    event.preventDefault();
-
-    console.log('E-mail:', this.email);
-    console.log('Hasło:', this.password);
-
-    if (this.email && this.password) {
-      this.authService
-        .register(this.email, this.password)
+  register({ email, password }: { email: string; password: string }) {
+    if (email && password) {
+      this.authService.register(email, password)
         .then(() => {
           console.log('Zarejestrowano pomyślnie');
         })
