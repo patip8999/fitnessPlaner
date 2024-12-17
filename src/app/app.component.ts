@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { AuthService } from './Services/auth.service';
+import { NavbarComponent } from './Components/navbar/navbar.component';
 export interface ProductModel {
   readonly fitness: string;
   readonly id: string;
@@ -19,7 +20,7 @@ export interface UserModel {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, LoginComponent, RegisterComponent],
+  imports: [RouterOutlet, CommonModule, LoginComponent, RegisterComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -44,5 +45,6 @@ export class AppComponent {
   }
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
