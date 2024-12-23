@@ -2,14 +2,15 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 
 import { Observable } from 'rxjs';
-import { UserModel } from '../../app.component';
+
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { UserModel } from '../../Models/User.model';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -28,5 +29,14 @@ export class NavbarComponent {
 
   showForm(formType: 'login' | 'register') {
     this.formChange.emit(formType);
+  }
+  navigateToLogin() {
+    this.formChange.emit('login'); // Emitowanie zmiany formularza (opcjonalne)
+    this.router.navigate(['/login']);
+  }
+
+  navigateToRegister() {
+    this.formChange.emit('register'); // Emitowanie zmiany formularza (opcjonalne)
+    this.router.navigate(['/register']);
   }
 }

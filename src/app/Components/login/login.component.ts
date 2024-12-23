@@ -16,7 +16,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   email: string = '';
   password: string = '';
-
+  isLogin = true;
   login({ email, password }: { email: string; password: string }) {
     if (email && password) {
       this.authService.login(email, password)
@@ -31,4 +31,5 @@ export class LoginComponent {
       console.log('Proszę podać e-mail i hasło.');
     }
   }
+  
 }

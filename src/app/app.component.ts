@@ -21,8 +21,7 @@ import { UserModel } from './Models/User.model';
 })
 export class AppComponent {
   private client = inject(AngularFirestore);
-  private router = inject(Router);
-  private authService = inject(AuthService);
+
 
   getProducts(): Observable<ProductModel[]> {
     return this.client.collection<ProductModel>('products').valueChanges();
@@ -30,16 +29,10 @@ export class AppComponent {
 
   readonly products$: Observable<ProductModel[]> = this.getProducts();
 
-  getUser(): Observable<UserModel> {
-    return this.authService.getCurrentUser();
-  }
-  readonly user$: Observable<UserModel> = this.getUser();
+
   currentForm: 'login' | 'register' = 'login';
   showForm(formType: 'login' | 'register') {
     this.currentForm = formType;
   }
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
+
 }

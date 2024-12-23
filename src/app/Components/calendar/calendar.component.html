@@ -1,0 +1,16 @@
+<div class="calendar-container">
+    <div class="calendar-header">
+      <button (click)="changeMonth(-1)">&#8592;</button>
+      <span>{{ selectedDate | date: 'MMMM yyyy' }}</span>
+      <button (click)="changeMonth(1)">&#8594;</button>
+    </div>
+  
+    <div class="calendar-grid">
+      @for ( day of daysInMonth(); track day) {
+        <div class="calendar-day">
+          <span>{{ day }}</span>
+        </div>
+    }
+    </div>
+  </div>
+  
