@@ -22,7 +22,9 @@ export class LoginComponent {
       this.authService.login(email, password)
         .then(() => {
           console.log('Zalogowano pomyślnie');
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']).then(() => {
+            console.log('Nawigowano do home');
+          });
         })
         .catch((error) => {
           console.error('Błąd logowania:', error.message);

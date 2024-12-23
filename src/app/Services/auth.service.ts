@@ -6,6 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  isAuthenticated(): boolean {
+    return this.currentUserSubject.value !== null; 
+  }
   private afAuth = inject(AngularFireAuth); 
   private currentUserSubject = new BehaviorSubject<any>(null);
 
