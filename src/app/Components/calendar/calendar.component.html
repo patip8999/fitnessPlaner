@@ -1,16 +1,39 @@
 <div class="calendar-container">
-    <div class="calendar-header">
-      <button (click)="changeMonth(-1)">&#8592;</button>
-      <span>{{ selectedDate | date: 'MMMM yyyy' }}</span>
-      <button (click)="changeMonth(1)">&#8594;</button>
-    </div>
-  
-    <div class="calendar-grid">
-      @for ( day of daysInMonth(); track day) {
-        <div class="calendar-day">
-          <span>{{ day }}</span>
-        </div>
-    }
-    </div>
+  <div class="calendar-header">
+    <button (click)="changeMonth(-1)">&#8592;</button>
+    <span>{{ selectedDate | date: 'MMMM yyyy' }}</span>
+    <button (click)="changeMonth(1)">&#8594;</button>
   </div>
-  
+
+  <div class="calendar-grid">
+    @for (day of daysInMonth(); track day) {
+      <div class="calendar-day">
+        <div class="card">
+          <span>{{ day }}</span>
+
+          <button (click)="addTraining(day)">Dodaj Trening</button>
+          <button (click)="addMeal(day)">Dodaj Posiłek</button>
+
+          <div>
+            <h4>Treningi:</h4>
+            <ul>
+              @for (training of trainings()[day] || []; track training.name) {
+                <li>{{ training.name }}  {{ training.burnedKcal }} kcal</li>
+              }
+            </ul>
+          </div>
+
+
+          <div>
+            <h4>Posiłki:</h4>
+            <ul>
+              @for (meal of meals()[day] || []; track meal.name) {
+                <li>{{ meal.name }} - {{ meal.calories }} kcal - {{ meal.weight }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
