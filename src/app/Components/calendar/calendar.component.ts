@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Component, computed, inject, signal, Signal, SimpleChanges } from '@angular/core';
 import { CalendarService } from '../../Services/calendar.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -25,41 +25,51 @@ export interface Training {
 })
 export class CalendarComponent {
   selectedDate: Date = new Date();
+  selectedDay: number = this.selectedDate.getDate(); // Przechowywanie dnia
 
-  // Używamy sygnałów do przechowywania treningów i posiłków
+  // Sygnały na treningi i posiłki
   trainings = signal<{ [key: number]: { name: string; burnedKcal: string; time: string }[] }>({});
   meals = signal<{ [key: number]: { name: string; calories: string; weight: string }[] }>({});
 
   private calendarService = inject(CalendarService);
   private afAuth = inject(AngularFireAuth);
 
-  // Observable do pobrania treningów i posiłków
+  // Observable do pobierania treningów i posiłków
   trainings$ = this.calendarService.getTrainings();
   meals$ = this.calendarService.getMeals();
 
-  constructor() {
-    // Ładowanie danych treningów i posiłków przy inicjalizacji komponentu
-    this.loadTrainingsData();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["selectedDate"]) {
+      console.log('Zmiana daty', changes["selectedDate"].currentValue);
+    }
+  }
+
+  // Zmiana miesiąca
+  changeMonth(increment: number): void {
+    const currentMonth = this.selectedDate.getMonth();
+    const currentDay = this.selectedDate.getDate();
+    this.selectedDate.setMonth(currentMonth + increment); // Zmiana miesiąca
+
+    // Przywracamy dzień po zmianie miesiąca
+    this.selectedDate.setDate(this.selectedDay); // Ustawiamy poprzedni dzień
+
+    // Ręczne wywołanie wykrywania zmian
+    this.selectedDate = new Date(this.selectedDate);  // Zaktualizowanie referencji, żeby Angular zauważył zmianę
+    this.loadTrainingsData();  // Przeładuj treningi i posiłki przy zmianie miesiąca
     this.loadMealsData();
   }
 
-  // Metoda do zmiany miesiąca
-  changeMonth(direction: number): void {
-    this.selectedDate.setMonth(this.selectedDate.getMonth() + direction);
-  }
-
-  // Metoda do generowania dni w miesiącu
+  // Generowanie dni w miesiącu
   daysInMonth(): number[] {
-    const daysInMonth: number[] = [];
-    const firstDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
-    const lastDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0);
-    const totalDays = lastDayOfMonth.getDate();
+    const days: number[] = [];
+    const date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
+    const lastDay = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
 
-    for (let day = 1; day <= totalDays; day++) {
-      daysInMonth.push(day);
+    for (let day = 1; day <= lastDay; day++) {
+      days.push(day); // Dodaj dni miesiąca
     }
 
-    return daysInMonth;
+    return days;
   }
 
   // Metoda do dodawania treningu
