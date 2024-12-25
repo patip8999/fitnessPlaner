@@ -10,7 +10,7 @@ export class CalendarService {
   private client = inject(AngularFirestore);
   private afAuth = inject(AngularFireAuth);
 
-  // Pobranie treningów dla zalogowanego użytkownika
+
   getTrainings(): Observable<any[]> {
     return new Observable<any[]>(observer => {
       this.afAuth.currentUser
@@ -29,7 +29,6 @@ export class CalendarService {
     });
   }
 
-  // Pobranie posiłków dla zalogowanego użytkownika
   getMeals(): Observable<any[]> {
     return new Observable<any[]>(observer => {
       this.afAuth.currentUser
@@ -38,49 +37,56 @@ export class CalendarService {
           if (uid) {
             this.client.collection('Meal', ref => ref.where('uid', '==', uid)).valueChanges()
               .subscribe(meals => {
+                console.log('Pobrane posiłki:', meals); // Debugowanie
                 observer.next(meals);
               });
           } else {
             observer.next([]);
           }
         })
-        .catch(() => observer.next([]));
+        .catch(err => {
+          console.error('Błąd podczas pobierania posiłków:', err);
+          observer.next([]);
+        });
     });
   }
-
-  // Dodanie treningu do kolekcji 'Training' w Firebase
-  addTraining(day: number, name: string, burnedKcal: string, time: string): void {
+ 
+  addTraining(day: number, name: string, burnedKcal: string, time: string, date: Date): void {
     this.afAuth.currentUser
       .then(user => {
         const uid = user?.uid;
         if (uid) {
-          const docRef = this.client.collection('Training').doc(`${day}`);
-          docRef.set({
+          this.client.collection('Training').add({
+            date: date.toISOString(),
+            name,
+            burnedKcal,
+            time,
+            uid,
             day,
-            Name: name,
-            'Burned kcal': burnedKcal,
-            Time: time,
-            uid,  // Dodanie uid do dokumentu
-          }, { merge: true });
+          }).then(() => console.log('Training added successfully'))
+            .catch(err => console.error('Error adding training:', err));
         }
-      });
+      })
+      .catch(err => console.error('Error getting user:', err));
   }
 
   // Dodanie posiłku do kolekcji 'Meal' w Firebase
-  addMeal(day: number, name: string, calories: string, weight: string): void {
+  addMeal(day: number, name: string, calories: string, weight: string, date: Date): void {
     this.afAuth.currentUser
       .then(user => {
         const uid = user?.uid;
         if (uid) {
-          const docRef = this.client.collection('Meal').doc(`${day}`);
-          docRef.set({
-            day,
-            Name: name,
+          this.client.collection('Meal').add({
+            date: date.toISOString(),
+            name,
             calories,
             weight,
-            uid,  // Dodanie uid do dokumentu
-          }, { merge: true });
+            uid,
+            day,
+          }).then(() => console.log('Meal added successfully'))
+            .catch(err => console.error('Error adding meal:', err));
         }
-      });
+      })
+      .catch(err => console.error('Error getting user:', err));
   }
 }

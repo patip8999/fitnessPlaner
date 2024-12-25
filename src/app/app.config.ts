@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environmet } from '../environments/environments';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { DatePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
       AngularFireAuthModule,
       AngularFireModule.initializeApp(environmet.firebaseConfig),
     ]),
+    DatePipe, // Dodanie DatePipe bezpośrednio w sekcji providers
   ],
 };
