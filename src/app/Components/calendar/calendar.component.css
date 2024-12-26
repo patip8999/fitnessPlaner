@@ -51,3 +51,15 @@
 .card li {
   font-size: 14px;
 }
+.modal {
+  display: none;
+}
+
+.modal.show {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5); /* Tło półprzezroczyste */
+}
+
+.d-block {
+  display: block;
+}

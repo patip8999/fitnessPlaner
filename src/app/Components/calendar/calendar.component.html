@@ -1,9 +1,11 @@
 <div class="calendar-container">
-  <div class="controls">
-    <button (click)="addTraining(today)">Dodaj Trening</button>
-    <button (click)="addMeal(today)">Dodaj Posiłek</button>
-  </div>
 
+  <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#mealModal" >
+    Dodaj Posiłek
+  </button>
+  <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#trainingModal" >
+    Dodaj Trening
+  </button>
   <div class="calendar">
     @for ( day of days; track day) {
       <div class="day">
@@ -37,3 +39,5 @@
     }
   </div>
 </div>
+<app-meal-modal></app-meal-modal>
+<app-training-modal></app-training-modal>
