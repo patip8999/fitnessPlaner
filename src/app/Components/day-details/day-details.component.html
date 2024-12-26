@@ -1,7 +1,11 @@
 <div class="day-details">
     <h2>Details for {{ day() | date: 'fullDate' }}</h2>
   
-    <!-- Debugowanie długości meals -->
+    <div>
+      <h3>Calories balance:</h3>
+      <p>{{ (meals() | caloriesBalance: trainings()) }} kcal</p>
+    </div>
+  
   
     @if (meals().length > 0) {
       <div>

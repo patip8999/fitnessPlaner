@@ -55,7 +55,7 @@ export class CalendarService {
 
   addTraining(
     name: string,
-    burnedKcal: string,
+    burnedKcal: number,
     time: string,
     date: Date
   ): void {

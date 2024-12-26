@@ -1,6 +1,6 @@
 export interface mealModel {
     name: string;
-    calories: string;
+    calories: number;
     weight: string;
     day: number;
     date: Date;

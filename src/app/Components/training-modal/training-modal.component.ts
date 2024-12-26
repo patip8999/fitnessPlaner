@@ -16,13 +16,13 @@ calendarService: CalendarService = inject(CalendarService);
 training: any[] = [];
 model: TrainingModel ={
   name: '',
-  burnedKcal: '',
+  burnedKcal: 0,
   time: '',
   date: new Date(),
   id: '',
 };
 
-addTraining( name: string, burnedKcal: string, time: string, date: Date): void {
+addTraining( name: string, burnedKcal: number, time: string, date: Date): void {
   this.calendarService.addTraining( name, burnedKcal, time, date);
   this.training.push({
    

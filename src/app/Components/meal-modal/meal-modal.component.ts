@@ -20,14 +20,14 @@ meals: any[] =[];
 model: mealModel ={
   name:'',
   
-  calories: '',
+  calories: 0,
   weight: '',
   day: 0,
   date: new Date(),
   id: '',
 };
 
-addMeal(day: number, name: string, calories: string, weight: string, date: Date): void {
+addMeal(day: number, name: string, calories: number, weight: string, date: Date): void {
   // Wywołanie metody z serwisu i przekazanie wymaganych argumentów
   this.calendarService.addMeal(day, name, calories, weight, date);
 

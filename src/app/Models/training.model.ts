@@ -1,6 +1,6 @@
 export interface TrainingModel {
   name: string;
-  burnedKcal: string;
+  burnedKcal: number;
   time: string;
   date: Date;
   id: string;
