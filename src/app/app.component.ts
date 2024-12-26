@@ -15,7 +15,7 @@ import { UserModel } from './Models/User.model';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, LoginComponent, RegisterComponent, NavbarComponent],
+  imports: [RouterOutlet, CommonModule,  NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

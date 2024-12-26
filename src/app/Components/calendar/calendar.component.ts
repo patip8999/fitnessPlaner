@@ -8,8 +8,6 @@ import { TrainingModalComponent } from '../training-modal/training-modal.compone
 import { mealModel } from '../../Models/meal.model';
 import { TrainingModel } from '../../Models/training.model';
 
-
-
 @Component({
   selector: 'app-calendar',
   standalone: true,
@@ -33,7 +31,6 @@ export class CalendarComponent {
 
   constructor() {
     this.loadData();
-    
   }
 
   loadData() {
@@ -58,22 +55,26 @@ export class CalendarComponent {
 
   getMealsForDay(date: Date): mealModel[] {
     return this.meals().filter((meal) => {
-      return meal.date.getDate() === date.getDate() &&
-             meal.date.getMonth() === date.getMonth() &&
-             meal.date.getFullYear() === date.getFullYear();
+      return (
+        meal.date.getDate() === date.getDate() &&
+        meal.date.getMonth() === date.getMonth() &&
+        meal.date.getFullYear() === date.getFullYear()
+      );
     });
   }
 
   getTrainingsForDay(date: Date): TrainingModel[] {
     return this.trainings().filter((training) => {
-      return training.date.getDate() === date.getDate() &&
-             training.date.getMonth() === date.getMonth() &&
-             training.date.getFullYear() === date.getFullYear();
+      return (
+        training.date.getDate() === date.getDate() &&
+        training.date.getMonth() === date.getMonth() &&
+        training.date.getFullYear() === date.getFullYear()
+      );
     });
   }
 
   currentDate = new Date();
-  currentMonth = this.currentDate.getMonth(); // Miesiąc (0-11)
+  currentMonth = this.currentDate.getMonth();
   currentYear = this.currentDate.getFullYear();
   dayNames = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
   months = [
@@ -92,16 +93,13 @@ export class CalendarComponent {
   ];
 
   calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
- 
-
-  
 
   generateCalendar() {
     const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
     const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
     const daysInMonth = lastDayOfMonth.getDate();
 
-    const firstDayWeekday = firstDayOfMonth.getDay() || 7; // Dostosuj niedzielę
+    const firstDayWeekday = firstDayOfMonth.getDay() || 7;
     const daysFromPrevMonth = firstDayWeekday - 1;
 
     const lastDayWeekday = lastDayOfMonth.getDay() || 7;
@@ -109,19 +107,16 @@ export class CalendarComponent {
 
     this.calendarDays = [];
 
-    // Poprzedni miesiąc
     for (let i = daysFromPrevMonth; i > 0; i--) {
       const date = new Date(this.currentYear, this.currentMonth, -i + 1);
       this.calendarDays.push({ date, isOtherMonth: true });
     }
 
-    // Obecny miesiąc
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(this.currentYear, this.currentMonth, i);
       this.calendarDays.push({ date, isOtherMonth: false });
     }
 
-    // Następny miesiąc
     for (let i = 1; i <= daysFromNextMonth; i++) {
       const date = new Date(this.currentYear, this.currentMonth + 1, i);
       this.calendarDays.push({ date, isOtherMonth: true });
@@ -145,7 +140,4 @@ export class CalendarComponent {
     }
     this.generateCalendar();
   }
-
- 
-
 }

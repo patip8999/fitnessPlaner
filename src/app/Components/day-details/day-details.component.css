@@ -1,82 +1,84 @@
-/* Stylowanie kontenera dla szczegółów dnia */
+
 .day-details {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 30px auto;
+  background: linear-gradient(135deg, #e0f7fa, #254636);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 30px auto;
+  color: white; /
+}
+
+
+.day-title {
+  font-size: 2rem;
+  color: #ffffff; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.calories-balance {
+  background-color: rgba(0, 0, 0, 0.4); 
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: white; 
+}
+
+.balance-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff; 
+}
+
+
+.meals, .trainings {
+  background-color: rgba(255, 255, 255, 0.8); 
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.meal-list, .training-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.meal-item, .training-item {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: #333; 
+}
+
+.meal-item span, .training-item span {
+  font-weight: bold;
+}
+
+
+.meal-name, .training-name {
+  color: #006400;
+}
+.meal-calories, .training-burned {
+  color: #d32f2f;
+}
+
+
+@media (max-width: 768px) {
+  .day-details {
+    padding: 15px;
   }
-  
+
   .day-title {
-    font-size: 2rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
   }
-  
-  /* Stylowanie bilansu kalorii */
-  .calories-balance {
-    background-color: #e0f7fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
+
   .balance-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00796b;
+    font-size: 1.3rem;
   }
-  
-  /* Stylowanie sekcji posiłków */
-  .meals, .trainings {
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .meal-list, .training-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+
   .meal-item, .training-item {
-    font-size: 1.1rem;
-    margin: 10px 0;
+    font-size: 1rem;
   }
-  
-  .meal-item span, .training-item span {
-    font-weight: bold;
-  }
-  
-  /* Kolorowanie nazw posiłków i treningów */
-  .meal-name, .training-name {
-    color: #00796b;
-  }
-  
-  .meal-calories, .training-burned {
-    color: #d32f2f;
-  }
-  
-  /* Stylowanie dla responsywności */
-  @media (max-width: 768px) {
-    .day-details {
-      padding: 15px;
-    }
-  
-    .day-title {
-      font-size: 1.8rem;
-    }
-  
-    .balance-value {
-      font-size: 1.3rem;
-    }
-  
-    .meal-item, .training-item {
-      font-size: 1rem;
-    }
-  }
-  
+}

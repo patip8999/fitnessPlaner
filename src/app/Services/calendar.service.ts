@@ -235,7 +235,6 @@ export class CalendarService {
     });
   }
 
-  // Metoda do pobrania treningów w danym zakresie dat
   getTrainingsByDateRange(startDate: Date, endDate: Date): Observable<any[]> {
     return new Observable<any[]>((observer) => {
       this.afAuth.currentUser
@@ -266,5 +265,4 @@ export class CalendarService {
         .catch(() => observer.next([]));
     });
   }
-
 }

@@ -1,31 +1,43 @@
+<div
+  class="modal fade"
+  id="trainingModal"
+  tabindex="-1"
+  aria-labelledby="trainingModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mealModalLabel">Dodaj Posiłek</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Zamknij"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          (ngSubmit)="
+            addTraining(model.name, model.burnedKcal, model.time, model.date)
+          "
+        >
+          <div class="form-group">
+            <label for="name">Nazwa Treningu:</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              [(ngModel)]="model.name"
+              name="name"
+              placeholder="Wprowadź nazwę treningu"
+              required
+            />
+          </div>
 
-
-<div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="mealModalLabel">Dodaj Posiłek</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
-        </div>
-        <div class="modal-body">
-     
-          <form (ngSubmit)="addTraining(   model.name, model.burnedKcal, model.time, model.date)">
-            <div class="form-group">
-              <label for="name">Nazwa Treningu:</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                [(ngModel)]="model.name"
-                name="name"
-                placeholder="Wprowadź nazwę treningu"
-                required
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="calories">Spalone Kalorie:</label>
-              <input
+          <div class="form-group">
+            <label for="calories">Spalone Kalorie:</label>
+            <input
               type="number"
               id="calories"
               class="form-control"
@@ -34,26 +46,24 @@
               placeholder="Wprowadź liczbę kalorii"
               required
             />
-            </div>
-  
-            <div class="form-group">
-              <label for="weight">Czas trwania:</label>
-              <input
-                type="number"
-                id="weight"
-                class="form-control"
-                [(ngModel)]="model.time"
-                name="weight"
-                placeholder="Wprowadź czas trwania treningu"
-                required
-              />
-            </div>
-  
-        
-  
-            <div class="form-group">
-              <label for="date">Data:</label>
-              <input
+          </div>
+
+          <div class="form-group">
+            <label for="weight">Czas trwania:</label>
+            <input
+              type="number"
+              id="weight"
+              class="form-control"
+              [(ngModel)]="model.time"
+              name="weight"
+              placeholder="Wprowadź czas trwania treningu"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="date">Data:</label>
+            <input
               type="date"
               id="date"
               class="form-control"
@@ -62,12 +72,17 @@
               name="date"
               required
             />
-            </div>
-  
-            <button type="submit" class="btn btn-primary mt-3"  data-bs-dismiss="modal">Dodaj Trening</button>
-          </form>
-        </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            data-bs-dismiss="modal"
+          >
+            Dodaj Trening
+          </button>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>

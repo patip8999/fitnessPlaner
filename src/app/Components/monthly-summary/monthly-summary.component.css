@@ -1,43 +1,77 @@
-/* Ogólne style dla zestawienia */
 .monthly-summary {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .summary {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .summary-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Sekcja podsumowań kalorii */
-  .calories-summary {
-    font-size: 18px;
-    color: #555;
-  }
-  
-  .calories-summary p {
-    margin: 10px 0;
-  }
-  
-  .calories-summary strong {
-    color: #333;
-  }
-  
-  /* Dodatkowe style dla estetyki */
-  .calories-summary p:last-child {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #e0f7fa, #254636);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin: 0 auto;
+  color: white;
+}
+
+.summary-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.nav-button {
+  padding: 8px 16px;
+  background-color: #00796b;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid #00796b;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: #00796b;
+  border-color: #00796b;
+  transform: translateY(-2px);
+}
+
+.calories-summary {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.calories-summary p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.calories-summary strong {
+  font-weight: 600;
+}
+
+.nav-button:active {
+  transform: translateY(1px);
+}
+
+.nav-button span {
+  font-size: 16px;
+}

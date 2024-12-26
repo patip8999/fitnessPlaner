@@ -9,7 +9,7 @@ import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
   standalone: true,
   imports: [DatePipe, CaloriesBalancePipe],
   templateUrl: './day-details.component.html',
-  styleUrl: './day-details.component.css'
+  styleUrl: './day-details.component.css',
 })
 export class DayDetailsComponent {
   day = signal<Date | null>(null);
@@ -20,29 +20,27 @@ export class DayDetailsComponent {
   calendarService: CalendarService = inject(CalendarService);
 
   constructor() {
-    // Odczytujemy parametr 'day' z URL
-    this.route.paramMap.subscribe(params => {
-      const dayParam = params.get('day'); // 'day' to parametr w URL
-      console.log('Dzień z parametru URL:', dayParam); // Debugowanie
+    this.route.paramMap.subscribe((params) => {
+      const dayParam = params.get('day');
+      console.log('Dzień z parametru URL:', dayParam);
 
       if (dayParam) {
         const day = new Date(dayParam);
-        this.day.set(day); // Używamy sygnału do ustawiania daty
-        this.loadDetails(day); // Ładujemy dane
+        this.day.set(day);
+        this.loadDetails(day);
       }
     });
   }
 
   loadDetails(day: Date): void {
-    // Ładowanie danych po dacie
-    this.calendarService.getMealsByDate(day).subscribe(meals => {
-      console.log('Pobrane posiłki:', meals); // Dodaj logowanie
-      this.meals.set(meals); // Używamy sygnału do zapisania posiłków
+    this.calendarService.getMealsByDate(day).subscribe((meals) => {
+      console.log('Pobrane posiłki:', meals);
+      this.meals.set(meals);
     });
-  
-    this.calendarService.getTrainingsByDate(day).subscribe(trainings => {
-      console.log('Pobrane treningi:', trainings); // Dodaj logowanie
-      this.trainings.set(trainings); // Używamy sygnału do zapisania treningów
+
+    this.calendarService.getTrainingsByDate(day).subscribe((trainings) => {
+      console.log('Pobrane treningi:', trainings);
+      this.trainings.set(trainings);
     });
   }
 }

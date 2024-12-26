@@ -1,20 +1,20 @@
-
 .calendar-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(135deg, #e0f7fa, #254636);
+  border-radius: 10px;
+  color: #333;
 }
 
-
-.calendar-header {
+/ .calendar-header {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
 }
-
 
 .calendar-header button {
   background: linear-gradient(135deg, #6e7dff, #3d4bff);
@@ -31,7 +31,6 @@
   background: linear-gradient(135deg, #3d4bff, #6e7dff);
 }
 
-
 .button-container {
   display: flex;
   justify-content: center;
@@ -39,9 +38,8 @@
   margin-bottom: 20px;
 }
 
-
 .btn-success {
-  background-color: #28a745;
+  background-color: #254636;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -52,7 +50,7 @@
 }
 
 .btn-success:hover {
-  background-color: #218838;
+  background-color: #2f5957;
 }
 
 .btn-primary {
@@ -69,7 +67,6 @@
   background: linear-gradient(135deg, #3d4bff, #6e7dff);
 }
 
-
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -83,6 +80,7 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
+  color: #333;
 }
 
 .day:hover {
@@ -92,10 +90,12 @@
 .day-name {
   font-weight: bold;
   padding: 10px 0;
+  color: #333;
 }
 
 .day.other-month {
   background: #e0e0e0;
+  color: #888;
 }
 
 .calendar-header h2 {
@@ -104,7 +104,6 @@
   text-align: center;
   color: #333;
 }
-
 
 .day h3 {
   font-size: 20px;

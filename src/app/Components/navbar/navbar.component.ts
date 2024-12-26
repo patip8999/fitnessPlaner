@@ -12,15 +12,15 @@ import { UserModel } from '../../Models/User.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  @Output() formChange = new EventEmitter<'login' | 'register'>(); 
-  currentForm: 'login' | 'register' = 'login'; 
-  user$: Observable<UserModel> = this.authService.getCurrentUser(); 
+  @Output() formChange = new EventEmitter<'login' | 'register'>();
+  currentForm: 'login' | 'register' = 'login';
+  user$: Observable<UserModel> = this.authService.getCurrentUser();
 
   logout() {
     this.authService.logout();
@@ -31,12 +31,12 @@ export class NavbarComponent {
     this.formChange.emit(formType);
   }
   navigateToLogin() {
-    this.formChange.emit('login'); // Emitowanie zmiany formularza (opcjonalne)
+    this.formChange.emit('login');
     this.router.navigate(['/login']);
   }
 
   navigateToRegister() {
-    this.formChange.emit('register'); // Emitowanie zmiany formularza (opcjonalne)
+    this.formChange.emit('register');
     this.router.navigate(['/register']);
   }
 }

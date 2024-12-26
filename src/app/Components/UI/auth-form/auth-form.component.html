@@ -1,14 +1,30 @@
 <div class="auth-form-container">
-  <h2>{{ isLogin ? 'Logowanie' : 'Rejestracja' }}</h2>
+  <h2>{{ isLogin ? "Logowanie" : "Rejestracja" }}</h2>
   <form (ngSubmit)="onSubmit()">
     <div class="input-container">
       <label for="email">E-mail</label>
-      <input id="email" type="email" [(ngModel)]="email" (ngModelChange)="onEmailChange()" name="email" required placeholder="Wpisz e-mail">
+      <input
+        id="email"
+        type="email"
+        [(ngModel)]="email"
+        (ngModelChange)="onEmailChange()"
+        name="email"
+        required
+        placeholder="Wpisz e-mail"
+      />
     </div>
 
     <div class="input-container">
       <label for="password">Hasło</label>
-      <input id="password" type="password" [(ngModel)]="password" (ngModelChange)="onPasswordChange()" name="password" required placeholder="Wpisz hasło">
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        (ngModelChange)="onPasswordChange()"
+        name="password"
+        required
+        placeholder="Wpisz hasło"
+      />
     </div>
 
     <button type="submit" class="btn">{{ buttonText }}</button>

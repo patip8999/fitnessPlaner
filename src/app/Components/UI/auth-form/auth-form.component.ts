@@ -6,10 +6,9 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './auth-form.component.html',
-  styleUrl: './auth-form.component.css'
+  styleUrl: './auth-form.component.css',
 })
 export class AuthFormComponent {
-
   @Input() isLogin: boolean = true;
   @Input() buttonText: string = '';
   @Input() email: string = '';
@@ -17,7 +16,10 @@ export class AuthFormComponent {
 
   @Output() emailChange = new EventEmitter<string>();
   @Output() passwordChange = new EventEmitter<string>();
-  @Output() formSubmit = new EventEmitter<{ email: string, password: string }>();
+  @Output() formSubmit = new EventEmitter<{
+    email: string;
+    password: string;
+  }>();
 
   onEmailChange() {
     this.emailChange.emit(this.email);
