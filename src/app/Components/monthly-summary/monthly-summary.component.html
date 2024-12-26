@@ -1,0 +1,14 @@
+<div class="monthly-summary">
+    <!-- Miesięczne zestawienie -->
+    <div class="summary">
+      <h2 class="summary-title">Zestawienie miesięczne dla miesiąca: {{ currentMonth | date: 'MMMM yyyy' }}</h2>
+  
+      <!-- Obliczanie kalorii -->
+      <div class="calories-summary">
+        <p><strong>Łączna liczba kalorii:</strong> {{ totalCalories() }} kcal</p>
+        <p><strong>Łączna liczba spalonych kalorii:</strong> {{ totalBurnedCalories() }} kcal</p>
+        <p><strong>Łączny czas treningów:</strong> {{ totalTrainingTime() }} min</p>
+      </div>
+    </div>
+  </div>
+  

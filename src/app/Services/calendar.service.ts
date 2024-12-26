@@ -204,4 +204,67 @@ export class CalendarService {
         .catch(() => observer.next([]));
     });
   }
+  getMealsByDateRange(startDate: Date, endDate: Date): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
+      this.afAuth.currentUser
+        .then((user) => {
+          const uid = user?.uid;
+          if (uid) {
+            this.client
+              .collection('Meal', (ref) =>
+                ref
+                  .where('uid', '==', uid)
+                  .where('date', '>=', startDate.toISOString())
+                  .where('date', '<=', endDate.toISOString())
+              )
+              .valueChanges()
+              .subscribe(
+                (meals) => {
+                  observer.next(meals);
+                },
+                (error) => {
+                  console.error('Błąd podczas pobierania posiłków:', error);
+                  observer.next([]);
+                }
+              );
+          } else {
+            observer.next([]);
+          }
+        })
+        .catch(() => observer.next([]));
+    });
+  }
+
+  // Metoda do pobrania treningów w danym zakresie dat
+  getTrainingsByDateRange(startDate: Date, endDate: Date): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
+      this.afAuth.currentUser
+        .then((user) => {
+          const uid = user?.uid;
+          if (uid) {
+            this.client
+              .collection('Training', (ref) =>
+                ref
+                  .where('uid', '==', uid)
+                  .where('date', '>=', startDate.toISOString())
+                  .where('date', '<=', endDate.toISOString())
+              )
+              .valueChanges()
+              .subscribe(
+                (trainings) => {
+                  observer.next(trainings);
+                },
+                (error) => {
+                  console.error('Błąd podczas pobierania treningów:', error);
+                  observer.next([]);
+                }
+              );
+          } else {
+            observer.next([]);
+          }
+        })
+        .catch(() => observer.next([]));
+    });
+  }
+
 }

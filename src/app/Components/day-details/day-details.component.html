@@ -1,38 +1,36 @@
 <div class="day-details">
-    <h2>Details for {{ day() | date: 'fullDate' }}</h2>
-  
-    <div>
-      <h3>Calories balance:</h3>
-      <p>{{ (meals() | caloriesBalance: trainings()) }} kcal</p>
-    </div>
-  
-  
-    @if (meals().length > 0) {
-      <div>
-        <h3>Meals:</h3>
-        <ul>
-          @for (meal of meals(); track meal) {
-            <li>
-              {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
-            </li>
-          }
-        </ul>
-      </div>
-    }
-  
-    <!-- Debugowanie długości trainings -->
-   
-    @if (trainings().length > 0) {
-      <div>
-        <h3>Trainings:</h3>
-        <ul>
-          @for (training of trainings(); track training) {
-            <li>
-              {{ training.name }} - {{ training.burnedKcal }} kcal ({{ training.time }} min)
-            </li>
-          }
-        </ul>
-      </div>
-    }
+  <h2 class="day-title">Details for {{ day() | date: 'fullDate' }}</h2>
+
+  <div class="calories-balance">
+    <h3>Calories balance:</h3>
+    <p class="balance-value">{{ (meals() | caloriesBalance: trainings()) }} kcal</p>
   </div>
-  
+
+  <!-- Wyświetlanie posiłków -->
+  @if (meals().length > 0) {
+    <div class="meals">
+      <h3>Meals:</h3>
+      <ul class="meal-list">
+        @for (meal of meals(); track meal) {
+          <li class="meal-item">
+            <span class="meal-name">{{ meal.name }}</span> - <span class="meal-calories">{{ meal.calories }} kcal</span> ({{ meal.weight }} g)
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  <!-- Wyświetlanie treningów -->
+  @if (trainings().length > 0) {
+    <div class="trainings">
+      <h3>Trainings:</h3>
+      <ul class="training-list">
+        @for (training of trainings(); track training) {
+          <li class="training-item">
+            <span class="training-name">{{ training.name }}</span> - <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{ training.time }} min)
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

@@ -1,4 +1,5 @@
 <div class="navbar">
+  <button class="btn btn-primary"[routerLink]="['/summary']"></button>
   @if (user$ | async; as user) {
   <div>
     <p>Witaj, {{ user.email }}</p>

@@ -1,0 +1,43 @@
+/* Ogólne style dla zestawienia */
+.monthly-summary {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .summary-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Sekcja podsumowań kalorii */
+  .calories-summary {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .calories-summary p {
+    margin: 10px 0;
+  }
+  
+  .calories-summary strong {
+    color: #333;
+  }
+  
+  /* Dodatkowe style dla estetyki */
+  .calories-summary p:last-child {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
