@@ -24,7 +24,8 @@
 
    
     @for (day of calendarDays; track day.date) {
-      <div class="day" [class.other-month]="day.isOtherMonth">
+      <div class="day"   [class.other-month]="day.isOtherMonth"[routerLink]="['/day-details', day.date | date: 'yyyy-MM-dd']" >
+
         <h3>{{ day.date.getDate() }}</h3>
 
        

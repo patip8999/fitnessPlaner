@@ -1,4 +1,4 @@
-/* Kalendarz kontener */
+
 .calendar-container {
   padding: 20px;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-/* Nagłówek kalendarza z przyciskami nawigacyjnymi */
+
 .calendar-header {
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
   margin-bottom: 20px;
 }
 
-/* Przycisk poprzedni/next miesiąc */
+
 .calendar-header button {
   background: linear-gradient(135deg, #6e7dff, #3d4bff);
   border: none;
@@ -31,7 +31,7 @@
   background: linear-gradient(135deg, #3d4bff, #6e7dff);
 }
 
-/* Wyśrodkowanie przycisków 'Dodaj Posiłek' i 'Dodaj Trening' */
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@
   margin-bottom: 20px;
 }
 
-/* Stylizacja przycisków */
+
 .btn-success {
   background-color: #28a745;
   border: none;
@@ -69,7 +69,7 @@
   background: linear-gradient(135deg, #3d4bff, #6e7dff);
 }
 
-/* Dni w kalendarzu */
+
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -98,7 +98,6 @@
   background: #e0e0e0;
 }
 
-/* Stylizacja nagłówka kalendarza */
 .calendar-header h2 {
   font-size: 24px;
   font-weight: bold;
@@ -106,7 +105,7 @@
   color: #333;
 }
 
-/* Tło dla dni */
+
 .day h3 {
   font-size: 20px;
   font-weight: bold;

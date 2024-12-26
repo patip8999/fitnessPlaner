@@ -1,0 +1,34 @@
+<div class="day-details">
+    <h2>Details for {{ day() | date: 'fullDate' }}</h2>
+  
+    <!-- Debugowanie długości meals -->
+  
+    @if (meals().length > 0) {
+      <div>
+        <h3>Meals:</h3>
+        <ul>
+          @for (meal of meals(); track meal) {
+            <li>
+              {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  
+    <!-- Debugowanie długości trainings -->
+   
+    @if (trainings().length > 0) {
+      <div>
+        <h3>Trainings:</h3>
+        <ul>
+          @for (training of trainings(); track training) {
+            <li>
+              {{ training.name }} - {{ training.burnedKcal }} kcal ({{ training.time }} min)
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+  
