@@ -1,0 +1,106 @@
+/* Stylizacja modala */
+.modal-dialog {
+    max-width: 600px;
+    margin: 30px auto;
+    border-radius: 8px;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .btn-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .btn-close:hover {
+    color: #28a745; /* Zielony kolor przy hover */
+  }
+  
+  /* Stylizacja ciała modala */
+  .modal-body {
+    padding: 15px 0;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input.form-control {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  input.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  /* Przycisk "Dodaj Posiłek" */
+  button[type="submit"] {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Zmiany tła modala w przypadku otwarcia */
+  .modal.fade .modal-dialog {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal.show .modal-dialog {
+    opacity: 1;
+  }
+  
+  /* Stylizacja dla daty input */
+  input[type="date"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  input[type="date"]:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  
