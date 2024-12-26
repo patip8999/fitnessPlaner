@@ -3,139 +3,149 @@ import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { CalendarService } from '../../Services/calendar.service';
 
 import { MealModalComponent } from '../meal-modal/meal-modal.component';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TrainingModalComponent } from '../training-modal/training-modal.component';
+import { mealModel } from '../../Models/meal.model';
+import { TrainingModel } from '../../Models/training.model';
 
-export interface Meal {
-  name: string;
-  calories: string;
-  weight: string;
-  day: number;
-  date: Date;
-  id: string;
-}
 
-export interface Training {
-  name: string;
-  burnedKcal: string;
-  time: string;
-  date: Date;
-  id: string;
-}
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [DatePipe, CommonModule, MealModalComponent, RouterModule, TrainingModalComponent],
+  imports: [
+    CommonModule,
+    MealModalComponent,
+    RouterModule,
+    TrainingModalComponent,
+  ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent {
   private calendarService = inject(CalendarService);
-  private datePipe = inject(DatePipe);
-  today = new Date().getDate(); // Dodana właściwość
-  meals = signal<Meal[]>([]);
-  trainings = signal<Training[]>([]);
-  addingMeal: WritableSignal<Meal | undefined> = signal(undefined);
+
+  today = new Date().getDate();
+  meals = signal<mealModel[]>([]);
+  trainings = signal<TrainingModel[]>([]);
+
   days = Array.from({ length: 31 }, (_, i) => i + 1);
-  public readonly showModal = signal(false);
+
   constructor() {
     this.loadData();
+    
   }
-  model: Meal = {
-    name: '',
 
-    calories: '',
-    weight: '',
-    day: 0,
-    date: new Date(),
-    id: '',
-  };
-
-  initializeMealForm(): void {
-    this.model = {
-      name: '',
-      calories: '',
-      weight: '',
-      day: 0,
-      date: new Date(), // Ustaw aktualną datę
-      id: '',
-    };
-  
-    // Ustawienie widoczności modala na true
-    this.showModal.set(true);
-  
-    console.log('Meal form initialized:', this.model);
-  }
-  
-  closeModal(): void {
-    // Ustawienie widoczności modala na false
-    this.showModal.set(false);
-  }
   loadData() {
-    // Pobieranie treningów
     this.calendarService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
         ...training,
-        id: training.id || `training-${index}`, // Generowanie unikalnego identyfikatora
-        date: new Date(training.date), // Parsowanie daty
+        id: training.id || `training-${index}`,
+        date: new Date(training.date),
       }));
       this.trainings.set(parsedTrainings);
     });
 
-    // Pobieranie posiłków
     this.calendarService.getMeals().subscribe((meals) => {
       const parsedMeals = meals.map((meal, index) => ({
         ...meal,
-        id: meal.id || `meal-${index}`, // Generowanie unikalnego identyfikatora
-        date: new Date(meal.date), // Parsowanie daty
+        id: meal.id || `meal-${index}`,
+        date: new Date(meal.date),
       }));
       this.meals.set(parsedMeals);
     });
   }
-  addMeal(day: number) {
-    const name = prompt('Podaj nazwę posiłku:');
-    const calories = prompt('Podaj liczbę kalorii:');
-    const weight = prompt('Podaj wagę posiłku:');
-    const dateInput = prompt('Podaj datę w formacie YYYY-MM-DD:');
-    const date = dateInput ? new Date(dateInput) : null;
 
-    if (name && calories && weight && date) {
-      this.calendarService.addMeal(day, name, calories, weight, date);
-      this.loadData();
-    } else {
-      alert(
-        'Nieprawidłowe dane. Upewnij się, że wszystkie pola są wypełnione.'
-      );
-    }
-  }
-
-  addTraining(day: number) {
-    const name = prompt('Podaj nazwę treningu:');
-    const burnedKcal = prompt('Podaj spalone kalorie:');
-    const time = prompt('Podaj czas trwania treningu:');
-    const dateInput = prompt('Podaj datę w formacie YYYY-MM-DD:');
-    const date = dateInput ? new Date(dateInput) : null;
-
-    if (name && burnedKcal && time && date) {
-      this.calendarService.addTraining( name, burnedKcal, time, date);
-      this.loadData();
-    } else {
-      alert(
-        'Nieprawidłowe dane. Upewnij się, że wszystkie pola są wypełnione.'
-      );
-    }
-  }
-
-  getMealsForDay(day: number): Meal[] {
+  getMealsForDay(date: Date): mealModel[] {
     return this.meals().filter((meal) => {
-      return meal.date.getDate() === day;
+      return meal.date.getDate() === date.getDate() &&
+             meal.date.getMonth() === date.getMonth() &&
+             meal.date.getFullYear() === date.getFullYear();
     });
   }
 
-  getTrainingsForDay(day: number): Training[] {
+  getTrainingsForDay(date: Date): TrainingModel[] {
     return this.trainings().filter((training) => {
-      return training.date.getDate() === day; // `date` jest teraz obiektem `Date`
+      return training.date.getDate() === date.getDate() &&
+             training.date.getMonth() === date.getMonth() &&
+             training.date.getFullYear() === date.getFullYear();
     });
   }
+
+  currentDate = new Date();
+  currentMonth = this.currentDate.getMonth(); // Miesiąc (0-11)
+  currentYear = this.currentDate.getFullYear();
+  dayNames = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
+  months = [
+    'Styczeń',
+    'Luty',
+    'Marzec',
+    'Kwiecień',
+    'Maj',
+    'Czerwiec',
+    'Lipiec',
+    'Sierpień',
+    'Wrzesień',
+    'Październik',
+    'Listopad',
+    'Grudzień',
+  ];
+
+  calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
+ 
+
+  
+
+  generateCalendar() {
+    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const daysInMonth = lastDayOfMonth.getDate();
+
+    const firstDayWeekday = firstDayOfMonth.getDay() || 7; // Dostosuj niedzielę
+    const daysFromPrevMonth = firstDayWeekday - 1;
+
+    const lastDayWeekday = lastDayOfMonth.getDay() || 7;
+    const daysFromNextMonth = 7 - lastDayWeekday;
+
+    this.calendarDays = [];
+
+    // Poprzedni miesiąc
+    for (let i = daysFromPrevMonth; i > 0; i--) {
+      const date = new Date(this.currentYear, this.currentMonth, -i + 1);
+      this.calendarDays.push({ date, isOtherMonth: true });
+    }
+
+    // Obecny miesiąc
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(this.currentYear, this.currentMonth, i);
+      this.calendarDays.push({ date, isOtherMonth: false });
+    }
+
+    // Następny miesiąc
+    for (let i = 1; i <= daysFromNextMonth; i++) {
+      const date = new Date(this.currentYear, this.currentMonth + 1, i);
+      this.calendarDays.push({ date, isOtherMonth: true });
+    }
+  }
+
+  prevMonth() {
+    this.currentMonth--;
+    if (this.currentMonth < 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+    }
+    this.generateCalendar();
+  }
+
+  nextMonth() {
+    this.currentMonth++;
+    if (this.currentMonth > 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+    }
+    this.generateCalendar();
+  }
+
+ 
+
 }

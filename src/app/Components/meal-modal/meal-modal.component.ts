@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CalendarService } from '../../Services/calendar.service';
 
-import { Meal } from '../calendar/calendar.component';
+
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { mealModel } from '../../Models/meal.model';
 
 @Component({
   selector: 'app-meal-modal',
@@ -16,7 +17,7 @@ export class MealModalComponent {
 calendarService: CalendarService = inject(CalendarService);
 meals: any[] =[];
 
-model: Meal ={
+model: mealModel ={
   name:'',
   
   calories: '',

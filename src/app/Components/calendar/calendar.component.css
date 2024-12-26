@@ -1,65 +1,39 @@
 .calendar-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .calendar-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
 }
 
-.calendar-grid {
+.calendar-days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 dni w tygodniu */
-  gap: 10px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  max-width: 600px;
+  width: 100%;
 }
 
-.calendar-day {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-.card {
-  padding: 10px;
-  background-color: white;
+.day {
   border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: #fff;
 }
 
-.card button {
-  margin-top: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+.day.other-month {
+  background-color: #f0f0f0;
+  color: #aaa;
 }
 
-.card h4 {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.card ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.card li {
-  font-size: 14px;
-}
-.modal {
-  display: none;
-}
-
-.modal.show {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5); /* Tło półprzezroczyste */
-}
-
-.d-block {
-  display: block;
+.day-name {
+  font-weight: bold;
+  text-align: center;
 }

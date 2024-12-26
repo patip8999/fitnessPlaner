@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CalendarService } from '../../Services/calendar.service';
-import { Training } from '../calendar/calendar.component';
+
 import { FormsModule } from '@angular/forms';
+import { TrainingModel } from '../../Models/training.model';
 
 @Component({
   selector: 'app-training-modal',
@@ -13,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class TrainingModalComponent {
 calendarService: CalendarService = inject(CalendarService);
 training: any[] = [];
-model: Training ={
+model: TrainingModel ={
   name: '',
   burnedKcal: '',
   time: '',
