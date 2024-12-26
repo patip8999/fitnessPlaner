@@ -2,16 +2,18 @@ import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { CalendarService } from '../../Services/calendar.service';
 import { DatePipe } from '@angular/common';
 
+import { TrainingModel } from '../../Models/training.model';  
+import { mealModel } from '../../Models/meal.model';
 @Component({
   selector: 'app-monthly-summary',
   standalone: true,
   imports: [DatePipe],
   templateUrl: './monthly-summary.component.html',
-  styleUrl: './monthly-summary.component.css',
+  styleUrls: ['./monthly-summary.component.css'],
 })
 export class MonthlySummaryComponent {
-  meals = signal<any[]>([]);
-  trainings = signal<any[]>([]);
+  meals = signal<mealModel[]>([]);
+  trainings = signal<TrainingModel[]>([]);
   currentMonth: Date = new Date();
 
   calendarService: CalendarService = inject(CalendarService);
@@ -56,21 +58,21 @@ export class MonthlySummaryComponent {
 
   totalCalories(): number {
     return this.meals().reduce(
-      (sum, meal) => sum + (Number(meal.calories) || 0),
+      (sum, meal) => sum + (meal.calories ? Number(meal.calories) : 0),
       0
     );
   }
 
   totalBurnedCalories(): number {
     return this.trainings().reduce(
-      (sum, training) => sum + (Number(training.burnedKcal) || 0),
+      (sum, training) => sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
       0
     );
   }
 
   totalTrainingTime(): number {
     return this.trainings().reduce(
-      (sum, training) => sum + (Number(training.time) || 0),
+      (sum, training) => sum + (training.time ? Number(training.time) : 0),
       0
     );
   }

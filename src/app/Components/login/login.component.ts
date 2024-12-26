@@ -9,22 +9,20 @@ import { AuthFormComponent } from '../UI/auth-form/auth-form.component';
   standalone: true,
   imports: [FormsModule, AuthFormComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  private router = inject(Router);
-  private authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
   email: string = '';
   password: string = '';
-  isLogin = true;
-  login({ email, password }: { email: string; password: string }) {
+  isLogin: boolean = true;
+
+  login({ email, password }: { email: string; password: string }): void {
     if (email && password) {
       this.authService.login(email, password)
         .then(() => {
-          console.log('Zalogowano pomyślnie');
-          this.router.navigate(['/home']).then(() => {
-            console.log('Nawigowano do home');
-          });
+          this.router.navigate(['/home']);
         })
         .catch((error) => {
           console.error('Błąd logowania:', error.message);
@@ -33,5 +31,4 @@ export class LoginComponent {
       console.log('Proszę podać e-mail i hasło.');
     }
   }
-  
 }

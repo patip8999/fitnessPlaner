@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarService } from '../../Services/calendar.service';
 import { DatePipe } from '@angular/common';
@@ -9,15 +9,15 @@ import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
   standalone: true,
   imports: [DatePipe, CaloriesBalancePipe],
   templateUrl: './day-details.component.html',
-  styleUrl: './day-details.component.css',
+  styleUrls: ['./day-details.component.css'],
 })
 export class DayDetailsComponent {
-  day = signal<Date | null>(null);
-  meals = signal<any[]>([]);
-  trainings = signal<any[]>([]);
+  readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
+  readonly meals: WritableSignal<any[]> = signal<any[]>([]);
+  readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
 
-  route: ActivatedRoute = inject(ActivatedRoute);
-  calendarService: CalendarService = inject(CalendarService);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly calendarService: CalendarService = inject(CalendarService);
 
   constructor() {
     this.route.paramMap.subscribe((params) => {
@@ -32,7 +32,7 @@ export class DayDetailsComponent {
     });
   }
 
-  loadDetails(day: Date): void {
+  private loadDetails(day: Date): void {
     this.calendarService.getMealsByDate(day).subscribe((meals) => {
       console.log('Pobrane posiłki:', meals);
       this.meals.set(meals);

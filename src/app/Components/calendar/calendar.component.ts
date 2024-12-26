@@ -23,17 +23,20 @@ import { TrainingModel } from '../../Models/training.model';
 export class CalendarComponent {
   private calendarService = inject(CalendarService);
 
-  today = new Date().getDate();
-  meals = signal<mealModel[]>([]);
-  trainings = signal<TrainingModel[]>([]);
-
-  days = Array.from({ length: 31 }, (_, i) => i + 1);
-
+  today: number = new Date().getDate();
+  meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
+  trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
+  calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
+  readonly days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  readonly currentDate: Date = new Date();
+  currentMonth: number = this.currentDate.getMonth();
+  currentYear: number = this.currentDate.getFullYear();
   constructor() {
     this.loadData();
+    this.generateCalendar();
   }
 
-  loadData() {
+  private loadData(): void {
     this.calendarService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
         ...training,
@@ -73,11 +76,8 @@ export class CalendarComponent {
     });
   }
 
-  currentDate = new Date();
-  currentMonth = this.currentDate.getMonth();
-  currentYear = this.currentDate.getFullYear();
-  dayNames = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
-  months = [
+  readonly dayNames: string[] = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
+  readonly months: string[] = [
     'Styczeń',
     'Luty',
     'Marzec',
@@ -92,9 +92,7 @@ export class CalendarComponent {
     'Grudzień',
   ];
 
-  calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
-
-  generateCalendar() {
+  private generateCalendar(): void {
     const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
     const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
     const daysInMonth = lastDayOfMonth.getDate();
@@ -123,7 +121,7 @@ export class CalendarComponent {
     }
   }
 
-  prevMonth() {
+  prevMonth(): void {
     this.currentMonth--;
     if (this.currentMonth < 0) {
       this.currentMonth = 11;
@@ -132,7 +130,7 @@ export class CalendarComponent {
     this.generateCalendar();
   }
 
-  nextMonth() {
+  nextMonth(): void {
     this.currentMonth++;
     if (this.currentMonth > 11) {
       this.currentMonth = 0;
