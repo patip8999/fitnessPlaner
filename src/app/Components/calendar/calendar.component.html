@@ -33,7 +33,11 @@
       [class.other-month]="day.isOtherMonth"
 
     >
-      <h3>{{ day.date.getDate() }}</h3>
+    <h3 class="day-number">
+      <a [routerLink]="['/day-details', day.date.toISOString()]">
+        {{ day.date.getDate() }}
+      </a>
+    </h3>
 
       @if (getMealsForDay(day.date).length > 0) {
       <div>

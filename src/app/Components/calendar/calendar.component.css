@@ -8,7 +8,7 @@
   color: #333;
 }
 
-/ .calendar-header {
+ .calendar-header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,8 +105,11 @@
   color: #333;
 }
 
-.day h3 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
+.day-number a {
+  color: darkgreen; /* Ustawiamy kolor tekstu na ciemnozielony */
+  text-decoration: none; /* Usuwamy domyślną podkreśloną linię */
+}
+
+.day-number a:hover {
+  text-decoration: underline; /* Opcjonalnie - podkreślenie tekstu po najechaniu */
 }
