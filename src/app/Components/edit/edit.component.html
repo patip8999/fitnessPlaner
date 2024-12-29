@@ -1,15 +1,14 @@
-<div class="modal fade" id="meal2Modal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <app-form
-        [title]="'Edytuj posiłek'"
-        [nameLabel]="'Nazwa posiłku'"
-        [caloriesLabel]="'Kalorie'"
-        [weightLabel]="'Waga (g)'"
-       
-        [model]="model"
-        (save)="saveMeal($event)"
-      ></app-form>
-    </div>
-  </div>
-</div>
+<app-modal
+  [modalId]="'meal2Modal'"
+  [title]="'Dodaj posiłek'"
+  [nameLabel]="'Nazwa posiłku'"
+  [caloriesLabel]="'Kalorie'"
+  [weightLabel]="'Waga (g)'"
+  [dateLabel]="'Data'"
+  [model]="model"
+  (save)="saveMeal($event)"
+></app-modal>
+
+
+
+

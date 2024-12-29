@@ -3,15 +3,19 @@ import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { TrainingModel } from '../../Models/training.model';
 import { FormComponent } from "../UI/form/form.component";
+import { ModalComponent } from "../UI/modal/modal.component";
 
 @Component({
   selector: 'app-training-modal',
   standalone: true,
-  imports: [FormsModule, FormComponent],
+  imports: [FormsModule,  ModalComponent],
   templateUrl: './training-modal.component.html',
   styleUrl: './training-modal.component.css',
 })
 export class TrainingModalComponent {
+addMeal($event: Event) {
+throw new Error('Method not implemented.');
+}
   private readonly trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
   );

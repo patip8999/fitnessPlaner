@@ -8,11 +8,12 @@ import {
 import { TrainingModel } from '../../Models/training.model';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from "../UI/form/form.component";
+import { ModalComponent } from "../UI/modal/modal.component";
 
 @Component({
   selector: 'app-edit-training',
   standalone: true,
-  imports: [FormsModule, FormComponent],
+  imports: [FormsModule,  ModalComponent],
   templateUrl: './edit-training.component.html',
   styleUrl: './edit-training.component.css',
 })

@@ -1,15 +1,12 @@
-<div class="modal fade" id="meal3Modal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <app-form
-        [title]="'Edytuj trening'"
-        [nameLabel]="'Nazwa treningu'"
-        [burnedCalories]="'Spalone kalorie'"
-        [weightLabel]="'Czas trwania (min)'"
- 
-        [model]="model"
-        (save)="saveTraining()"
-      ></app-form>
-    </div>
-  </div>
-</div>
+<app-modal
+  [modalId]="'meal3Modal'"
+  [title]="'Edytuj trening'"
+  [nameLabel]="'Nazwa treningu'"
+  [burnedCaloriesLabel]="'Spalone kalorie'"
+  [timeLabel]="'Czas trwania (min)'"
+  [dateLabel]="'Data'"
+  [model]="model"
+  (save)="saveTraining()"
+></app-modal>
+
+

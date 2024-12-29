@@ -8,11 +8,12 @@ import {
 import { mealModel } from '../../Models/meal.model';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from '../UI/form/form.component';
+import { ModalComponent } from "../UI/modal/modal.component";
 
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [FormsModule, FormComponent],
+  imports: [FormsModule, FormComponent, ModalComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })

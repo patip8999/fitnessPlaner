@@ -3,11 +3,12 @@ import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { mealModel } from '../../Models/meal.model';
 import { FormComponent } from "../UI/form/form.component";
+import { ModalComponent } from '../UI/modal/modal.component';
 
 @Component({
   selector: 'app-meal-modal',
   standalone: true,
-  imports: [FormsModule, FormComponent],
+  imports: [FormsModule, FormComponent, ModalComponent],
   templateUrl: './meal-modal.component.html',
   styleUrl: './meal-modal.component.css',
 })

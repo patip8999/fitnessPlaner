@@ -1,0 +1,22 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <div class="modal-body">
+          <!-- Przekazujemy wszystkie odpowiednie parametry do komponentu app-form -->
+          <app-form
+            [title]="title"
+            [nameLabel]="nameLabel"
+            [caloriesLabel]="caloriesLabel"
+            [burnedCalories]="burnedCaloriesLabel"
+            [weightLabel]="weightLabel"
+            [timeLabel]="timeLabel"
+            [dateLabel]="dateLabel"
+            [model]="model"
+            (save)="save.emit($event)"
+          ></app-form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,15 +1,10 @@
-<div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <app-form
-        [title]="'Dodaj trening'"
-        [nameLabel]="'Nazwa treningu'"
-        [burnedCalories]="'Spalone kalorie'"
-        [timeLabel]="'Czas trwania (min)'"
-        [dateLabel]="'Data'"
-        [model]="model"
-        (save)="addTraining($event)"
-      ></app-form>
-    </div>
-  </div>
-</div>
+<app-modal
+  [modalId]="'trainingModal'"
+  [title]="'Dodaj trening'"
+  [nameLabel]="'Nazwa treningu'"
+  [burnedCaloriesLabel]="'Spalone kalorie'"
+  [timeLabel]="'Czas trwania (min)'"
+  [dateLabel]="'Data'"
+  [model]="model"
+  (save)="addTraining($event)"
+></app-modal>

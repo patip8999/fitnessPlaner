@@ -1,18 +1,10 @@
-<div class="modal fade" id="mealModal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    
-      <div class="modal-body">
-        <app-form
-          [title]="'Dodaj posiłek'"
-          [nameLabel]="'Nazwa posiłku'"
-          [caloriesLabel]="'Kalorie'"
-          [weightLabel]="'Waga (g)'"
-          [dateLabel]="'Data'"
-          [model]="model"
-          (save)="addMeal($event)"
-        ></app-form>
-      </div>
-    </div>
-  </div>
-</div>
+<app-modal
+  [modalId]="'mealModal'"
+  [title]="'Dodaj posiłek'"
+  [nameLabel]="'Nazwa posiłku'"
+  [caloriesLabel]="'Kalorie'"
+  [weightLabel]="'Waga (g)'"
+  [dateLabel]="'Data'"
+  [model]="model"
+  (save)="addMeal($event)"
+></app-modal>
