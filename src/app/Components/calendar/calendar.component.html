@@ -66,6 +66,16 @@
             {{ training.name }} - {{ training.burnedKcal }} kcal ({{
               training.time
             }})
+              <button 
+              type="button" 
+              class="btn btn-success" 
+              data-bs-toggle="modal" 
+              data-bs-target="#meal3Modal" 
+         
+              (click)="editTraining(training)">
+              
+              Edytuj
+            </button>
           </li>
           }
         </ul>
@@ -84,3 +94,8 @@
   (Save)="saveEditedMeal($event)"
   (close)="closeModal()"
 ></app-edit>
+<app-edit-training
+  [training]="selectedTraining"
+  (Save)="saveEditedTraining($event)"
+  (close)="closeModal()">
+</app-edit-training>

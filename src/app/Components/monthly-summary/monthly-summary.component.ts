@@ -57,21 +57,24 @@ export class MonthlySummaryComponent {
   }
 
   totalCalories(): number {
-    return this.meals().reduce(
+    const meals = this.meals(); // Pobranie wartości sygnału
+    return meals.reduce(
       (sum, meal) => sum + (meal.calories ? Number(meal.calories) : 0),
       0
     );
   }
-
+  
   totalBurnedCalories(): number {
-    return this.trainings().reduce(
+    const trainings = this.trainings(); // Pobranie wartości sygnału
+    return trainings.reduce(
       (sum, training) => sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
       0
     );
   }
-
+  
   totalTrainingTime(): number {
-    return this.trainings().reduce(
+    const trainings = this.trainings(); // Pobranie wartości sygnału
+    return trainings.reduce(
       (sum, training) => sum + (training.time ? Number(training.time) : 0),
       0
     );

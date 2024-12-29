@@ -13,7 +13,7 @@ import { TrainingModel } from '../../Models/training.model';
 export class TrainingModalComponent {
   private readonly calendarService = inject(CalendarService);
   private training: TrainingModel[] = [];
-
+traingns: any[] = []
   model: TrainingModel = {
     name: '',
     burnedKcal: 0,
@@ -22,20 +22,16 @@ export class TrainingModalComponent {
     id: '',
   };
 
-  addTraining(
-    name: string,
-    burnedKcal: number,
-    time: string,
-    date: Date
-  ): void {
-    const newTraining: TrainingModel = { name, burnedKcal, time, date, id: '' };
-    
-    this.calendarService.addTraining(name, burnedKcal, time, date);
-
-    this.training.push(newTraining);
-    console.groupCollapsed('Training added:', newTraining);
-  }
-
+ 
+  addTraining(training: TrainingModel): void {
+      // Dodanie posiłku do usługi calendarService
+      this.calendarService.addTraining(training);
+  
+      // Dodanie posiłku do lokalnej tablicy meals
+      this.training.push(training);
+  
+      console.log('Meal added:', training);
+    }
   onDateChange(date: string): void {
     this.model.date = new Date(`${date}T00:00:00`);
   }

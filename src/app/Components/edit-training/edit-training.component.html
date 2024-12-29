@@ -1,85 +1,65 @@
+<!-- Modal -->
 <div
   class="modal fade"
-  id="trainingModal"
+  id="meal3Modal"
   tabindex="-1"
-  aria-labelledby="trainingModalLabel"
+  aria-labelledby="mealModalLabel"
   aria-hidden="true"
+  #mealModal
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="mealModalLabel">Dodaj Posiłek</h5>
+        <h5 class="modal-title" id="mealModalLabel">Edytuj posiłek</h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Zamknij"
+          aria-label="Close"
         ></button>
       </div>
       <div class="modal-body">
-        <form
-          (ngSubmit)="
-            addTraining(model)
-          "
-        >
-          <div class="form-group">
-            <label for="name">Nazwa Treningu:</label>
+        <form (ngSubmit)="saveTraining()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nazwa posiłku</label>
             <input
               type="text"
               id="name"
               class="form-control"
               [(ngModel)]="model.name"
               name="name"
-              placeholder="Wprowadź nazwę treningu"
               required
             />
           </div>
-
-          <div class="form-group">
-            <label for="calories">Spalone Kalorie:</label>
+          <div class="mb-3">
+            <label for="calories" class="form-label">Kalorie</label>
             <input
               type="number"
               id="calories"
               class="form-control"
               [(ngModel)]="model.burnedKcal"
               name="calories"
-              placeholder="Wprowadź liczbę kalorii"
               required
             />
           </div>
-
-          <div class="form-group">
-            <label for="weight">Czas trwania:</label>
+          <div class="mb-3">
+            <label for="weight" class="form-label">Waga</label>
             <input
-              type="number"
+              type="text"
               id="weight"
               class="form-control"
               [(ngModel)]="model.time"
               name="weight"
-              placeholder="Wprowadź czas trwania treningu"
               required
             />
           </div>
-
-          <div class="form-group">
-            <label for="date">Data:</label>
-            <input
-              type="date"
-              id="date"
-              class="form-control"
-              [(ngModel)]="model.date"
-              (ngModelChange)="onDateChange($event)"
-              name="date"
-              required
-            />
-          </div>
-
           <button
             type="submit"
-            class="btn btn-primary mt-3"
+            class="btn btn-primary"
             data-bs-dismiss="modal"
+            (click)="saveTraining()"
           >
-            Dodaj Trening
+            Zapisz zmiany
           </button>
         </form>
       </div>

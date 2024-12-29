@@ -3,6 +3,6 @@ export interface TrainingModel {
   readonly burnedKcal: number;
   readonly  time: string;
     date: Date;
-  readonly  id: string;
+    id: string;
  
 }

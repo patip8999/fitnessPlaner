@@ -8,6 +8,7 @@ import { TrainingModalComponent } from '../training-modal/training-modal.compone
 import { mealModel } from '../../Models/meal.model';
 import { TrainingModel } from '../../Models/training.model';
 import { EditComponent } from '../edit/edit.component';
+import { EditTrainingComponent } from '../edit-training/edit-training.component';
 
 @Component({
   selector: 'app-calendar',
@@ -17,7 +18,8 @@ import { EditComponent } from '../edit/edit.component';
     MealModalComponent,
     RouterModule,
     TrainingModalComponent,
-    EditComponent
+    EditComponent,
+    EditTrainingComponent
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
@@ -34,6 +36,7 @@ export class CalendarComponent {
   currentMonth: number = this.currentDate.getMonth();
   currentYear: number = this.currentDate.getFullYear();
   selectedMeal: mealModel | null = null; 
+  selectedTraining: TrainingModel | null = null; 
   public readonly showModal = signal(false);
   constructor() {
     this.loadData();
@@ -141,16 +144,7 @@ export class CalendarComponent {
     }
     this.generateCalendar();
   }
-  openEditMeal(meal: mealModel): void {
-    this.selectedMeal = meal; // Ustawienie wybranego posiłku
-    const modal = document.getElementById('meal2Modal') as HTMLElement;
-    modal.style.display = 'block'; // Otwórz modal
-  }
-closeEditModal(): void {
-  const modal = document.getElementById('meal2Modal') as HTMLElement;
-  modal.style.display = 'none'; // Zamknij modal
-  this.selectedMeal = null; // Reset wybranego posiłku
-}
+
 saveEditedMeal(updatedMeal: mealModel): void {
   this.calendarService
     .updateMeal(updatedMeal)
@@ -160,7 +154,7 @@ saveEditedMeal(updatedMeal: mealModel): void {
           meal.id === updatedMeal.id ? updatedMeal : meal
         )
       );
-      this.closeEditModal();
+  
     })
     .catch((error) => {
       console.error('Error saving edited meal:', error);
@@ -174,5 +168,23 @@ editMeal(meal: mealModel): void {
 closeModal(): void {
   this.showModal.set(false);
 }
-
+saveEditedTraining(updatedTraining: TrainingModel): void {
+  this.calendarService
+    .updateTraining(updatedTraining)
+    .then(() => {
+      this.trainings.set(
+        this.trainings().map((training) =>
+          training.id === updatedTraining.id ? updatedTraining : training
+        )
+      );
+  
+    })
+    .catch((error) => {
+      console.error('Error saving edited meal:', error);
+      alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
+    });
+}
+editTraining(training: TrainingModel): void {
+  this.selectedTraining = { ...training }; // Przekazujesz dane do edytora
+}
 }

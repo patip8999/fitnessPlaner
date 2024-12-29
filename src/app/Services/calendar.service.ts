@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { mealModel } from '../Models/meal.model';
+import { TrainingModel } from '../Models/training.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -54,27 +55,25 @@ export class CalendarService {
     });
   }
 
-  addTraining(
-    name: string,
-    burnedKcal: number,
-    time: string,
-    date: Date
-  ): void {
+  addTraining(training: TrainingModel): void {
+    if (!training.id) {
+      training.id = this.client.createId(); // Generowanie nowego ID, jeśli nie zostało przekazane
+    }
+  
     this.afAuth.currentUser
       .then((user) => {
         const uid = user?.uid;
         if (uid) {
           this.client
             .collection('Training')
-            .add({
-              date: date.toISOString(),
-              name,
-              burnedKcal,
-              time,
+            .doc(training.id)  // Użycie wygenerowanego ID do zapisania treningu
+            .set({
+              ...training,
               uid,
+              date: training.date.toISOString(), // Konwersja daty na odpowiedni format
             })
-            .then(() => console.log('Training added successfully'))
-            .catch((err) => console.error('Error adding training:', err));
+            .then(() => console.log('Training added/updated successfully'))
+            .catch((err) => console.error('Error adding/updating training:', err));
         }
       })
       .catch((err) => console.error('Error getting user:', err));
@@ -82,16 +81,16 @@ export class CalendarService {
 
   addMeal(meal: mealModel): void {
     if (!meal.id) {
-      meal.id = this.client.createId(); // Tworzymy nowe ID, jeśli nie jest ustawione
+      meal.id = this.client.createId(); 
     }
   
     this.afAuth.currentUser.then(user => {
       if (user) {
-        const mealId = meal.id || this.client.createId(); // Jeśli ID nie istnieje, utwórz nowe
+        const mealId = meal.id || this.client.createId(); 
         this.client.collection('Meal').doc(mealId).set({
           ...meal,
           uid: user.uid,
-          date: meal.date.toISOString() // Zamieniamy datę na string w odpowiednim formacie
+          date: meal.date.toISOString() 
         })
         .then(() => console.log('Meal added/updated successfully'))
         .catch(err => console.error('Error adding/updating meal:', err));
@@ -105,6 +104,18 @@ export class CalendarService {
         return this.client.collection('Meal').doc(meal.id).update({
           ...meal,
           date: meal.date.toISOString(),
+        });
+      } else {
+        return Promise.reject('User not authenticated');
+      }
+    });
+  }
+  updateTraining(training: TrainingModel): Promise<void> {
+    return this.afAuth.currentUser.then((user) => {
+      if (user) {
+        return this.client.collection('Training').doc(training.id).update({
+          ...training,
+          date: training.date.toISOString(),
         });
       } else {
         return Promise.reject('User not authenticated');
