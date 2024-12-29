@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { TrainingModel } from '../../Models/training.model';
+import { FormComponent } from "../UI/form/form.component";
 
 @Component({
   selector: 'app-training-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FormComponent],
   templateUrl: './training-modal.component.html',
   styleUrl: './training-modal.component.css',
 })

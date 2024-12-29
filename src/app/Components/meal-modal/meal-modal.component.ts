@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { mealModel } from '../../Models/meal.model';
+import { FormComponent } from "../UI/form/form.component";
 
 @Component({
   selector: 'app-meal-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FormComponent],
   templateUrl: './meal-modal.component.html',
   styleUrl: './meal-modal.component.css',
 })
@@ -26,7 +27,7 @@ export class MealModalComponent {
     id: '',
   };
 
-  addMeal(meal: mealModel): void {
+  addMeal(meal: any): void {
     this.trainingAndMealService.addMeal(meal);
     this.meals.push(meal);
     console.log('Meal added:', meal);

@@ -1,0 +1,90 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">{{ nameLabel }}</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          [(ngModel)]="model.name"
+          name="name"
+          required
+        />
+      </div>
+      @if(caloriesLabel){
+      <div class="mb-3">
+        <label for="calories" class="form-label">{{ caloriesLabel }}</label>
+        <input
+          type="number"
+          id="calories"
+          class="form-control"
+          [(ngModel)]="model.calories"
+          name="calories"
+          required
+        />
+      </div>
+    }
+    @if(burnedCalories) {
+      <div class="mb-3">
+        <label for="burnedKcal" class="form-label">{{ burnedCalories }}</label>
+        <input
+          type="number"
+          id="burnedKcal"
+          class="form-control"
+          [(ngModel)]="model.burnedKcal"
+          name="burnedKcal"
+          required
+        />
+      </div>
+    }
+    @if(weightLabel){
+      <div class="mb-3">
+        <label for="weight" class="form-label">{{ weightLabel }}</label>
+        <input
+          type="number"
+          id="weight"
+          class="form-control"
+          [(ngModel)]="model.weight"
+          name="weight"
+          required
+        />
+      </div>
+    }
+    @if(timeLabel) {
+      <div class="mb-3">
+        <label for="time" class="form-label">{{ timeLabel }}</label>
+        <input
+          type="number"
+          id="time"
+          class="form-control"
+          [(ngModel)]="model.time"
+          name="time"
+          required
+        />
+      </div>
+    }
+    @if(dateLabel){
+      <div class="mb-3">
+        <label for="date" class="form-label">{{ dateLabel }}</label>
+        <input
+          type="date"
+          id="date"
+          class="form-control"
+          [(ngModel)]="model.date"
+          (ngModelChange)="onDateChange($event)"
+          name="date"
+          required
+        />
+      </div>
+    }
+  
+      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+        Zapisz zmiany
+      </button>
+    </form>
+  </div>
+  

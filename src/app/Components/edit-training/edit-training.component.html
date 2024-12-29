@@ -1,67 +1,15 @@
-<div
-  class="modal fade"
-  id="meal3Modal"
-  tabindex="-1"
-  aria-labelledby="mealModalLabel"
-  aria-hidden="true"
-  #mealModal
->
+<div class="modal fade" id="meal3Modal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="mealModalLabel">Edytuj posiłek</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="saveTraining()">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nazwa posiłku</label>
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              [(ngModel)]="model.name"
-              name="name"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="calories" class="form-label">Kalorie</label>
-            <input
-              type="number"
-              id="calories"
-              class="form-control"
-              [(ngModel)]="model.burnedKcal"
-              name="calories"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="weight" class="form-label">Waga</label>
-            <input
-              type="text"
-              id="weight"
-              class="form-control"
-              [(ngModel)]="model.time"
-              name="weight"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            (click)="saveTraining()"
-          >
-            Zapisz zmiany
-          </button>
-        </form>
-      </div>
+      <app-form
+        [title]="'Edytuj trening'"
+        [nameLabel]="'Nazwa treningu'"
+        [burnedCalories]="'Spalone kalorie'"
+        [weightLabel]="'Czas trwania (min)'"
+ 
+        [model]="model"
+        (save)="saveTraining()"
+      ></app-form>
     </div>
   </div>
 </div>

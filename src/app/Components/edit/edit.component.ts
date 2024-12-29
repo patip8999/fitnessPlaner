@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { mealModel } from '../../Models/meal.model';
 import { FormsModule } from '@angular/forms';
+import { FormComponent } from '../UI/form/form.component';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FormComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })
@@ -36,7 +37,7 @@ export class EditComponent {
     }
   }
 
-  saveMeal(): void {
+  saveMeal(updatedMeal: any): void {
     if (this.model.name && this.model.calories > 0 && this.model.weight) {
       this.Save.emit(this.model);
     } else {
