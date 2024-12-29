@@ -1,8 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { CalendarService } from '../../Services/calendar.service';
-
+import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { mealModel } from '../../Models/meal.model';
 
 @Component({
@@ -13,7 +11,9 @@ import { mealModel } from '../../Models/meal.model';
   styleUrl: './meal-modal.component.css',
 })
 export class MealModalComponent {
-  calendarService: CalendarService = inject(CalendarService);
+  trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
   meals: any[] = [];
 
   model: mealModel = {
@@ -27,12 +27,8 @@ export class MealModalComponent {
   };
 
   addMeal(meal: mealModel): void {
-    // Dodanie posiłku do usługi calendarService
-    this.calendarService.addMeal(meal);
-
-    // Dodanie posiłku do lokalnej tablicy meals
+    this.trainingAndMealService.addMeal(meal);
     this.meals.push(meal);
-
     console.log('Meal added:', meal);
   }
 

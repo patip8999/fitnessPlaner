@@ -1,4 +1,4 @@
-/* Ogólne style dla modali */
+
 .modal-dialog {
     max-width: 600px;
     margin: 30px auto;
@@ -13,7 +13,7 @@
     color: #333;
   }
   
-  /* Nagłówek modala */
+
   .modal-header {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
@@ -37,12 +37,12 @@
     color: #28a745;
   }
   
-  /* Treść modala */
+  
   .modal-body {
     padding: 15px 0;
   }
   
-  /* Style dla formularza */
+ 
   .form-group {
     margin-bottom: 15px;
   }
@@ -67,7 +67,7 @@
     box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
   }
   
-  /* Styl dla przycisku submit */
+ 
   button[type="submit"] {
     background-color: #254636;
     border: none;
@@ -85,7 +85,7 @@
     background-color: #2f5957;
   }
   
-  /* Efekty przejścia dla modala */
+  
   .modal.fade .modal-dialog {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -95,7 +95,7 @@
     opacity: 1;
   }
   
-  /* Styl dla input typu date */
+  
   input[type="date"] {
     padding: 10px;
     border-radius: 5px;

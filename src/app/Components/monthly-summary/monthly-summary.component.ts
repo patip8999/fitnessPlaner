@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
-import { CalendarService } from '../../Services/calendar.service';
+import {  TrainingAndMealService } from '../../Services/calendar.service';
 import { DatePipe } from '@angular/common';
-
 import { TrainingModel } from '../../Models/training.model';  
 import { mealModel } from '../../Models/meal.model';
 @Component({
@@ -16,7 +15,7 @@ export class MonthlySummaryComponent {
   trainings = signal<TrainingModel[]>([]);
   currentMonth: Date = new Date();
 
-  calendarService: CalendarService = inject(CalendarService);
+  trainingAndMealService: TrainingAndMealService = inject(TrainingAndMealService);
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   constructor() {
@@ -43,13 +42,13 @@ export class MonthlySummaryComponent {
       0
     );
 
-    this.calendarService
+    this.trainingAndMealService
       .getMealsByDateRange(startOfMonth, endOfMonth)
       .subscribe((meals) => {
         this.meals.set(meals || []);
       });
 
-    this.calendarService
+    this.trainingAndMealService
       .getTrainingsByDateRange(startOfMonth, endOfMonth)
       .subscribe((trainings) => {
         this.trainings.set(trainings || []);
@@ -57,7 +56,7 @@ export class MonthlySummaryComponent {
   }
 
   totalCalories(): number {
-    const meals = this.meals(); // Pobranie wartości sygnału
+    const meals = this.meals(); 
     return meals.reduce(
       (sum, meal) => sum + (meal.calories ? Number(meal.calories) : 0),
       0
@@ -65,7 +64,7 @@ export class MonthlySummaryComponent {
   }
   
   totalBurnedCalories(): number {
-    const trainings = this.trainings(); // Pobranie wartości sygnału
+    const trainings = this.trainings(); 
     return trainings.reduce(
       (sum, training) => sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
       0
@@ -73,7 +72,7 @@ export class MonthlySummaryComponent {
   }
   
   totalTrainingTime(): number {
-    const trainings = this.trainings(); // Pobranie wartości sygnału
+    const trainings = this.trainings(); 
     return trainings.reduce(
       (sum, training) => sum + (training.time ? Number(training.time) : 0),
       0

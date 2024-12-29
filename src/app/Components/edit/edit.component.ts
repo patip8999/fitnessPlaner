@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { mealModel } from '../../Models/meal.model';
 import { FormsModule } from '@angular/forms';
 
@@ -7,10 +13,10 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css'
+  styleUrl: './edit.component.css',
 })
 export class EditComponent {
-  @Input() meal: mealModel | null = null; // Zmienna do trzymania edytowanego posiłku
+  @Input() meal: mealModel | null = null;
   @Output() Save: EventEmitter<mealModel> = new EventEmitter<mealModel>();
   @Output() close = new EventEmitter<void>();
   model: mealModel = {
@@ -23,22 +29,21 @@ export class EditComponent {
   };
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['meal'] && this.meal) {
-      // Tworzenie kopii obiektu wejściowego, aby nie zmieniać oryginału
-      this.model = { 
+      this.model = {
         ...this.meal,
-        date: new Date(this.meal.date) // Konwersja daty, jeśli potrzebne
+        date: new Date(this.meal.date),
       };
     }
   }
 
   saveMeal(): void {
     if (this.model.name && this.model.calories > 0 && this.model.weight) {
-      this.Save.emit(this.model); // Emitowanie tylko, gdy model jest poprawny
+      this.Save.emit(this.model);
     } else {
       console.error('Model jest niekompletny lub zawiera błędy:', this.model);
     }
   }
-  
+
   closeModal() {
     this.close.emit();
   }

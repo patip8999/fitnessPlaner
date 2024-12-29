@@ -7,7 +7,7 @@ import { TrainingModel } from '../Models/training.model';
 @Injectable({
   providedIn: 'root',
 })
-export class CalendarService {
+export class TrainingAndMealService {
   private client = inject(AngularFirestore);
   private afAuth = inject(AngularFireAuth);
 

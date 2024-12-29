@@ -1,6 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { CalendarService } from '../../Services/calendar.service';
+import { TrainingAndMealService } from '../../Services/calendar.service';
 
 import { MealModalComponent } from '../meal-modal/meal-modal.component';
 import { RouterModule } from '@angular/router';
@@ -19,24 +19,23 @@ import { EditTrainingComponent } from '../edit-training/edit-training.component'
     RouterModule,
     TrainingModalComponent,
     EditComponent,
-    EditTrainingComponent
+    EditTrainingComponent,
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent {
-  private calendarService = inject(CalendarService);
+  private TrainingAndMealService = inject(TrainingAndMealService);
 
-  today: number = new Date().getDate();
   meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
   trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
   calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
-  readonly days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+
   readonly currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth();
   currentYear: number = this.currentDate.getFullYear();
-  selectedMeal: mealModel | null = null; 
-  selectedTraining: TrainingModel | null = null; 
+  selectedMeal: mealModel | null = null;
+  selectedTraining: TrainingModel | null = null;
   public readonly showModal = signal(false);
   constructor() {
     this.loadData();
@@ -44,7 +43,7 @@ export class CalendarComponent {
   }
 
   private loadData(): void {
-    this.calendarService.getTrainings().subscribe((trainings) => {
+    this.TrainingAndMealService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
         ...training,
         id: training.id || `training-${index}-${new Date().getTime()}`,
@@ -52,8 +51,8 @@ export class CalendarComponent {
       }));
       this.trainings.set(parsedTrainings);
     });
-  
-    this.calendarService.getMeals().subscribe((meals) => {
+
+    this.TrainingAndMealService.getMeals().subscribe((meals) => {
       const parsedMeals = meals.map((meal, index) => ({
         ...meal,
         id: meal.id || `meal-${index}-${new Date().getTime()}`,
@@ -145,63 +144,65 @@ export class CalendarComponent {
     this.generateCalendar();
   }
 
-saveEditedMeal(updatedMeal: mealModel): void {
-  this.calendarService
-    .updateMeal(updatedMeal)
-    .then(() => {
-      this.meals.set(
-        this.meals().map((meal) =>
-          meal.id === updatedMeal.id ? updatedMeal : meal
-        )
-      );
-  
-    })
-    .catch((error) => {
-      console.error('Error saving edited meal:', error);
-      alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
-    });
-}
-editMeal(meal: mealModel): void {
-  this.selectedMeal = { ...meal }; // Przekazujesz dane do edytora
-}
+  saveEditedMeal(updatedMeal: mealModel): void {
+    this.TrainingAndMealService.updateMeal(updatedMeal)
+      .then(() => {
+        this.meals.set(
+          this.meals().map((meal) =>
+            meal.id === updatedMeal.id ? updatedMeal : meal
+          )
+        );
+      })
+      .catch((error) => {
+        console.error('Error saving edited meal:', error);
+        alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
+      });
+  }
+  editMeal(meal: mealModel): void {
+    this.selectedMeal = { ...meal };
+  }
 
-closeModal(): void {
-  this.showModal.set(false);
-}
-saveEditedTraining(updatedTraining: TrainingModel): void {
-  this.calendarService
-    .updateTraining(updatedTraining)
-    .then(() => {
-      this.trainings.set(
-        this.trainings().map((training) =>
-          training.id === updatedTraining.id ? updatedTraining : training
-        )
-      );
-  
-    })
-    .catch((error) => {
-      console.error('Error saving edited meal:', error);
-      alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
-    });
-}
-editTraining(training: TrainingModel): void {
-  this.selectedTraining = { ...training }; // Przekazujesz dane do edytora
-}
-deleteMeal(mealId: string): void {
-  this.calendarService.deleteMeal(mealId).then(() => {
-    this.meals.set(this.meals().filter(meal => meal.id !== mealId));
-  }).catch((error) => {
-    console.error('Error deleting meal:', error);
-    alert('Nie udało się usunąć posiłku. Spróbuj ponownie.');
-  });
-}
+  closeModal(): void {
+    this.showModal.set(false);
+  }
+  saveEditedTraining(updatedTraining: TrainingModel): void {
+    this.TrainingAndMealService.updateTraining(updatedTraining)
+      .then(() => {
+        this.trainings.set(
+          this.trainings().map((training) =>
+            training.id === updatedTraining.id ? updatedTraining : training
+          )
+        );
+      })
+      .catch((error) => {
+        console.error('Error saving edited meal:', error);
+        alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
+      });
+  }
+  editTraining(training: TrainingModel): void {
+    this.selectedTraining = { ...training };
+  }
+  deleteMeal(mealId: string): void {
+    this.TrainingAndMealService.deleteMeal(mealId)
+      .then(() => {
+        this.meals.set(this.meals().filter((meal) => meal.id !== mealId));
+      })
+      .catch((error) => {
+        console.error('Error deleting meal:', error);
+        alert('Nie udało się usunąć posiłku. Spróbuj ponownie.');
+      });
+  }
 
-deleteTraining(trainingId: string): void {
-  this.calendarService.deleteTraining(trainingId).then(() => {
-    this.trainings.set(this.trainings().filter(training => training.id !== trainingId));
-  }).catch((error) => {
-    console.error('Error deleting training:', error);
-    alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
-  });
-}
+  deleteTraining(trainingId: string): void {
+    this.TrainingAndMealService.deleteTraining(trainingId)
+      .then(() => {
+        this.trainings.set(
+          this.trainings().filter((training) => training.id !== trainingId)
+        );
+      })
+      .catch((error) => {
+        console.error('Error deleting training:', error);
+        alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
+      });
+  }
 }

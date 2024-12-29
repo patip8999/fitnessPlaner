@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CalendarService } from '../../Services/calendar.service';
+import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { TrainingModel } from '../../Models/training.model';
 
@@ -11,9 +11,11 @@ import { TrainingModel } from '../../Models/training.model';
   styleUrl: './training-modal.component.css',
 })
 export class TrainingModalComponent {
-  private readonly calendarService = inject(CalendarService);
+  private readonly trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
   private training: TrainingModel[] = [];
-traingns: any[] = []
+  traingns: any[] = [];
   model: TrainingModel = {
     name: '',
     burnedKcal: 0,
@@ -22,16 +24,11 @@ traingns: any[] = []
     id: '',
   };
 
- 
   addTraining(training: TrainingModel): void {
-      // Dodanie posiłku do usługi calendarService
-      this.calendarService.addTraining(training);
-  
-      // Dodanie posiłku do lokalnej tablicy meals
-      this.training.push(training);
-  
-      console.log('Meal added:', training);
-    }
+    this.trainingAndMealService.addTraining(training);
+    this.training.push(training);
+    console.log('Meal added:', training);
+  }
   onDateChange(date: string): void {
     this.model.date = new Date(`${date}T00:00:00`);
   }
