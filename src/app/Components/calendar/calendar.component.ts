@@ -187,4 +187,21 @@ saveEditedTraining(updatedTraining: TrainingModel): void {
 editTraining(training: TrainingModel): void {
   this.selectedTraining = { ...training }; // Przekazujesz dane do edytora
 }
+deleteMeal(mealId: string): void {
+  this.calendarService.deleteMeal(mealId).then(() => {
+    this.meals.set(this.meals().filter(meal => meal.id !== mealId));
+  }).catch((error) => {
+    console.error('Error deleting meal:', error);
+    alert('Nie udało się usunąć posiłku. Spróbuj ponownie.');
+  });
+}
+
+deleteTraining(trainingId: string): void {
+  this.calendarService.deleteTraining(trainingId).then(() => {
+    this.trainings.set(this.trainings().filter(training => training.id !== trainingId));
+  }).catch((error) => {
+    console.error('Error deleting training:', error);
+    alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
+  });
+}
 }

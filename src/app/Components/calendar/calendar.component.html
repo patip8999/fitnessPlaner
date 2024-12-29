@@ -42,17 +42,24 @@
           @for (meal of getMealsForDay(day.date); track meal.id) {
           <li>
             {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
-            <button 
-            type="button" 
-            class="btn btn-success" 
-            data-bs-toggle="modal" 
-            data-bs-target="#meal2Modal" 
-       
-            (click)="editMeal(meal)">
-            
-            Edytuj
-          </button>
-        
+            <div class="buttons-container">
+              <button 
+                class="btn btn-link btn-sm"
+                style="font-size: 0.8rem; text-decoration: none"
+                data-bs-toggle="modal" 
+                data-bs-target="#meal2Modal" 
+                (click)="editMeal(meal)"
+              >
+                Edytuj
+              </button>
+              <button 
+                class="btn btn-link btn-sm"
+                style="font-size: 0.8rem; text-decoration: none"
+                (click)="deleteMeal(meal.id)"
+              >
+                Usuń
+              </button>
+            </div>
           </li>
           }
         </ul>
@@ -66,16 +73,24 @@
             {{ training.name }} - {{ training.burnedKcal }} kcal ({{
               training.time
             }})
-              <button 
-              type="button" 
-              class="btn btn-success" 
-              data-bs-toggle="modal" 
-              data-bs-target="#meal3Modal" 
-         
-              (click)="editTraining(training)">
-              
-              Edytuj
-            </button>
+              <div class="buttons-container">
+                <button 
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#meal3Modal" 
+                  (click)="editTraining(training)"
+                >
+                  Edytuj
+                </button>
+                <button 
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  (click)="deleteTraining(training.id)"
+                >
+                  Usuń
+                </button>
+              </div>
           </li>
           }
         </ul>

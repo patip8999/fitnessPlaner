@@ -264,6 +264,39 @@ export class CalendarService {
         .catch(() => observer.next([]));
     });
   }
- 
+  deleteTraining(trainingId: string): Promise<void> {
+    return this.afAuth.currentUser
+      .then((user) => {
+        const uid = user?.uid;
+        if (uid) {
+          return this.client.collection('Training').doc(trainingId).delete()
+            .then(() => console.log('Training deleted successfully'))
+            .catch((err) => console.error('Error deleting training:', err));
+        } else {
+          return Promise.reject('User not authenticated');
+        }
+      })
+      .catch((err) => {
+        console.error('Error getting user:', err);
+        return Promise.reject(err);
+      });
+  }
+  deleteMeal(mealId: string): Promise<void> {
+    return this.afAuth.currentUser
+      .then((user) => {
+        const uid = user?.uid;
+        if (uid) {
+          return this.client.collection('Meal').doc(mealId).delete()
+            .then(() => console.log('Meal deleted successfully'))
+            .catch((err) => console.error('Error deleting meal:', err));
+        } else {
+          return Promise.reject('User not authenticated');
+        }
+      })
+      .catch((err) => {
+        console.error('Error getting user:', err);
+        return Promise.reject(err);
+      });
+  }
 }
 
