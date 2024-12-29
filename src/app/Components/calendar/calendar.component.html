@@ -31,7 +31,7 @@
     <div
       class="day"
       [class.other-month]="day.isOtherMonth"
-      [routerLink]="['/day-details', day.date | date : 'yyyy-MM-dd']"
+
     >
       <h3>{{ day.date.getDate() }}</h3>
 
@@ -42,6 +42,17 @@
           @for (meal of getMealsForDay(day.date); track meal.id) {
           <li>
             {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
+            <button 
+            type="button" 
+            class="btn btn-success" 
+            data-bs-toggle="modal" 
+            data-bs-target="#meal2Modal" 
+       
+            (click)="editMeal(meal)">
+            
+            Edytuj
+          </button>
+        
           </li>
           }
         </ul>
@@ -67,3 +78,9 @@
 
 <app-meal-modal></app-meal-modal>
 <app-training-modal></app-training-modal>
+
+<app-edit
+  [meal]="selectedMeal"
+  (Save)="saveEditedMeal($event)"
+  (close)="closeModal()"
+></app-edit>

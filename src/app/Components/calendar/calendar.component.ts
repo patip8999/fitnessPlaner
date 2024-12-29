@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { TrainingModalComponent } from '../training-modal/training-modal.component';
 import { mealModel } from '../../Models/meal.model';
 import { TrainingModel } from '../../Models/training.model';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-calendar',
@@ -16,6 +17,7 @@ import { TrainingModel } from '../../Models/training.model';
     MealModalComponent,
     RouterModule,
     TrainingModalComponent,
+    EditComponent
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
@@ -31,6 +33,8 @@ export class CalendarComponent {
   readonly currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth();
   currentYear: number = this.currentDate.getFullYear();
+  selectedMeal: mealModel | null = null; 
+  public readonly showModal = signal(false);
   constructor() {
     this.loadData();
     this.generateCalendar();
@@ -40,22 +44,21 @@ export class CalendarComponent {
     this.calendarService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
         ...training,
-        id: training.id || `training-${index}`,
+        id: training.id || `training-${index}-${new Date().getTime()}`,
         date: new Date(training.date),
       }));
       this.trainings.set(parsedTrainings);
     });
-
+  
     this.calendarService.getMeals().subscribe((meals) => {
       const parsedMeals = meals.map((meal, index) => ({
         ...meal,
-        id: meal.id || `meal-${index}`,
+        id: meal.id || `meal-${index}-${new Date().getTime()}`,
         date: new Date(meal.date),
       }));
       this.meals.set(parsedMeals);
     });
   }
-
   getMealsForDay(date: Date): mealModel[] {
     return this.meals().filter((meal) => {
       return (
@@ -138,4 +141,38 @@ export class CalendarComponent {
     }
     this.generateCalendar();
   }
+  openEditMeal(meal: mealModel): void {
+    this.selectedMeal = meal; // Ustawienie wybranego posiłku
+    const modal = document.getElementById('meal2Modal') as HTMLElement;
+    modal.style.display = 'block'; // Otwórz modal
+  }
+closeEditModal(): void {
+  const modal = document.getElementById('meal2Modal') as HTMLElement;
+  modal.style.display = 'none'; // Zamknij modal
+  this.selectedMeal = null; // Reset wybranego posiłku
+}
+saveEditedMeal(updatedMeal: mealModel): void {
+  this.calendarService
+    .updateMeal(updatedMeal)
+    .then(() => {
+      this.meals.set(
+        this.meals().map((meal) =>
+          meal.id === updatedMeal.id ? updatedMeal : meal
+        )
+      );
+      this.closeEditModal();
+    })
+    .catch((error) => {
+      console.error('Error saving edited meal:', error);
+      alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
+    });
+}
+editMeal(meal: mealModel): void {
+  this.selectedMeal = { ...meal }; // Przekazujesz dane do edytora
+}
+
+closeModal(): void {
+  this.showModal.set(false);
+}
+
 }

@@ -4,6 +4,6 @@ export interface mealModel {
   readonly weight: string;
   readonly day: number;
     date: Date;
-  readonly  id: string;
+    id: string;
   }
   

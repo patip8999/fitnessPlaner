@@ -26,26 +26,16 @@ export class MealModalComponent {
     id: '',
   };
 
-  addMeal(
-    day: number,
-    name: string,
-    calories: number,
-    weight: string,
-    date: Date
-  ): void {
-    this.calendarService.addMeal(day, name, calories, weight, date);
+  addMeal(meal: mealModel): void {
+    // Dodanie posiłku do usługi calendarService
+    this.calendarService.addMeal(meal);
 
-    this.meals.push({
-      day,
-      name,
-      calories,
-      weight,
-      date,
-      id: '',
-    });
+    // Dodanie posiłku do lokalnej tablicy meals
+    this.meals.push(meal);
 
-    console.log('Meal added:', { day, name, calories, weight, date });
+    console.log('Meal added:', meal);
   }
+
   onDateChange(date: string): void {
     this.model.date = new Date(date + 'T00:00:00');
   }

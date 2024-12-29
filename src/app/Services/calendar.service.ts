@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { mealModel } from '../Models/meal.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -79,49 +80,36 @@ export class CalendarService {
       .catch((err) => console.error('Error getting user:', err));
   }
 
-  addMeal(
-    day: number,
-    name: string,
-    calories: any,
-    weight: any,
-    date: any
-  ): void {
-    this.afAuth.currentUser
-      .then((user) => {
-        if (!user) {
-          console.error('Brak zalogowanego użytkownika');
-          return;
-        }
-
-        const uid = user.uid;
-
-        let mealDate: Date;
-        if (date instanceof Date) {
-          mealDate = date;
-        } else {
-          mealDate = new Date(date + 'T00:00:00');
-        }
-
-        const mealData = {
-          date: mealDate.toISOString(),
-          name: name.trim(),
-          calories: calories.toString().trim(),
-          weight: weight.toString().trim(),
-          uid: uid,
-          day: day,
-        };
-
-        this.client
-          .collection('Meal')
-          .add(mealData)
-          .then(() => console.log('Meal added successfully:', mealData))
-          .catch((err) =>
-            console.error('Błąd podczas dodawania posiłku:', err)
-          );
-      })
-      .catch((err) => {
-        console.error('Błąd podczas pobierania użytkownika:', err);
-      });
+  addMeal(meal: mealModel): void {
+    if (!meal.id) {
+      meal.id = this.client.createId(); // Tworzymy nowe ID, jeśli nie jest ustawione
+    }
+  
+    this.afAuth.currentUser.then(user => {
+      if (user) {
+        const mealId = meal.id || this.client.createId(); // Jeśli ID nie istnieje, utwórz nowe
+        this.client.collection('Meal').doc(mealId).set({
+          ...meal,
+          uid: user.uid,
+          date: meal.date.toISOString() // Zamieniamy datę na string w odpowiednim formacie
+        })
+        .then(() => console.log('Meal added/updated successfully'))
+        .catch(err => console.error('Error adding/updating meal:', err));
+      }
+    })
+    .catch(err => console.error('Error getting user:', err));
+  }
+  updateMeal(meal: mealModel): Promise<void> {
+    return this.afAuth.currentUser.then((user) => {
+      if (user) {
+        return this.client.collection('Meal').doc(meal.id).update({
+          ...meal,
+          date: meal.date.toISOString(),
+        });
+      } else {
+        return Promise.reject('User not authenticated');
+      }
+    });
   }
   getTrainingsByDate(date: Date): Observable<any[]> {
     console.log('Pobieranie treningów dla daty:', date);
@@ -265,4 +253,6 @@ export class CalendarService {
         .catch(() => observer.next([]));
     });
   }
+ 
 }
+
