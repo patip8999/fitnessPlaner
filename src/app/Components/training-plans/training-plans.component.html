@@ -1,0 +1,12 @@
+
+@for(video of videos; track video) {
+<div >
+    <h3>{{ video.title }}</h3>
+    <iframe 
+      [src]="video.url"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+}
+  

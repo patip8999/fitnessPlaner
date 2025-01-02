@@ -9,3 +9,8 @@ export const environmet ={
         appId: "1:868055861373:web:681f1ad485b72ebc338914"
       },
 }
+
+export const environment = {
+  production: false,
+  youtubeApiKey: 'AIzaSyB_QR7TQnwAvOBj-9lklIuxqgc0R8HQRLw'
+};

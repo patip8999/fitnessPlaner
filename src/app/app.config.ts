@@ -7,11 +7,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environmet } from '../environments/environments';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { DatePipe } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
+    provideHttpClient(),
     importProvidersFrom([
       AngularFirestoreModule,
       AngularFireAuthModule,
