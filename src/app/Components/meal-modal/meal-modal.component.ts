@@ -8,7 +8,7 @@ import { ModalComponent } from '../UI/modal/modal.component';
 @Component({
   selector: 'app-meal-modal',
   standalone: true,
-  imports: [FormsModule, FormComponent, ModalComponent],
+  imports: [FormsModule,  ModalComponent],
   templateUrl: './meal-modal.component.html',
   styleUrl: './meal-modal.component.css',
 })
