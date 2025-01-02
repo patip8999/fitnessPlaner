@@ -13,7 +13,7 @@ import { ModalComponent } from "../UI/modal/modal.component";
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [FormsModule, FormComponent, ModalComponent],
+  imports: [FormsModule,  ModalComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })
