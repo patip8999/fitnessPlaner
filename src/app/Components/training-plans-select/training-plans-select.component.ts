@@ -63,7 +63,7 @@ export class TrainingPlansSelectComponent {
           time: duration, 
           videoLink: day.videoLink, // Tutaj day musi mieć videoLink, więc jest zgodny z typem TrainingPlanDay
         } as TrainingModel); // Upewniamy się, że jest to TrainingModel
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
         console.log(
           `Dodano trening dnia ${trainingDate.toISOString()}: ${day.videoLink}`
         );

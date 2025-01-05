@@ -1,0 +1,11 @@
+<div class="user-details">
+    <h2>User Details</h2>
+    @if (userSignal | async; as user) {
+      <p class="user-info"><strong>Email:</strong> {{ user.email }}</p>
+      <p class="user-info"><strong>UID:</strong> {{ user.uid }}</p>
+      <button class="btn-primary" (click)="authService.logout()">Logout</button>
+    } @else {
+      <p class="user-info">No user is logged in.</p>
+    }
+  </div>
+  

@@ -11,6 +11,7 @@ import { TrainingPlansComponent } from './Components/training-plans/training-pla
 import { TrainingPlansSelectComponent } from './Components/training-plans-select/training-plans-select.component';
 import { TrainingPlanDetailComponent } from './Components/training-plan-detail/training-plan-detail.component';
 import { WelcomeComponent } from './Components/welcome/welcome.component';
+import { UserComponent } from './Components/user/user.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'summary', component: MonthlySummaryComponent,   canActivate: [authGuard]},
     { path: 'trainig-plans', component: TrainingPlansComponent,  canActivate: [authGuard]},
     { path: 'select-plan', component: TrainingPlansSelectComponent,  canActivate: [authGuard]},
-    {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]}
+    {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]},
+    { path: 'user', component: UserComponent,  canActivate: [authGuard]}
 ];

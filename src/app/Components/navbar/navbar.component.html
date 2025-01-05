@@ -9,7 +9,9 @@
   @if (user$ | async; as user) {
   <div class="user-info">
     <p>Witaj, {{ user.email }}</p>
+    <button [routerLink]="'/user'" class="btn btn-secondary">Moje konto</button>
     <button (click)="logout()" class="btn btn-secondary">Wyloguj</button>
+    
   </div>
   } @if (!(user$ | async)) {
   <div class="auth-buttons">

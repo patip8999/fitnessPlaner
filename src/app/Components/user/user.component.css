@@ -1,0 +1,48 @@
+.user-details {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-details h2 {
+    font-size: 24px;
+    color: #254636;
+    margin-bottom: 15px;
+  }
+  
+  .user-info {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .user-info strong {
+    color: #254636;
+  }
+  
+  button.btn-primary {
+    background-color: #254636;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button.btn-primary:hover {
+    background-color: #2f5957;
+  }
+  
+  p.user-info {
+    margin-top: 10px;
+  }
+  
