@@ -1,21 +1,31 @@
+<img src="assets/foto2.jpg" alt="Fitness Plan Image" class="plan-image" />
 <div class="fitness-plan-select">
   <h3>Fitness Plans:</h3>
-  @for(plan of fitnessPlans; track plan) {
-  <div class="plan-card" (click)="selectPlan(plan)">
-    <h4 class="plan-title">{{ plan.name }}</h4>
-    <button [routerLink]="['/plan', plan.id]"   class="btn btn-link btn-sm"
-    style="font-size: 0.8rem; text-decoration: none">
-     See Details
-    </button>
-    <button
-      (click)="deletePlan(plan)"
-      class="btn btn-link btn-sm"
-      style="font-size: 0.8rem; text-decoration: none"
-    >
-      Delete
-    </button>
+  
+  <div class="plan-cards-container">
+    @for(plan of fitnessPlans; track plan) {
+      <div 
+        class="plan-card" 
+        [class.selected]="plan.id === selectedPlan?.id"
+        (click)="selectPlan(plan)"
+      >
+        <h4 class="plan-title">{{ plan.name }}</h4>
+        
+        <div class="button-group">
+          <button [routerLink]="['/plan', plan.id]" class="btn btn-link btn-sm">
+            See Details
+          </button>
+          <button
+            (click)="deletePlan(plan)"
+            class="btn btn-link btn-sm"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    }
   </div>
-  }
+  
   <div class="form-group">
     <label for="startDate">Choose Date </label>
     <input

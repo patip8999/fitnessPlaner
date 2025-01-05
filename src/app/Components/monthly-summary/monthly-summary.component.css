@@ -1,3 +1,5 @@
+
+
 .monthly-summary {
   padding: 30px;
   display: flex;
@@ -75,3 +77,11 @@
 .nav-button span {
   font-size: 16px;
 }
+.plan-image {
+  width: 100%; /* Szerokość dopasowana do szerokości kontenera */
+  height: auto; /* Wysokość zachowuje proporcje */
+  max-height: 200px; /* Maksymalna wysokość obrazka, aby nie był za wysoki */
+  object-fit: cover; /* Zachowanie proporcji, aby obrazek dobrze wyglądał w kontenerze */
+  margin-bottom: 20px; /* Odstęp między obrazkiem a resztą zawartości */
+}
+

@@ -1,9 +1,12 @@
 <div class="plan-form">
+  <div class="image-container">
+    <img src="assets/foto.jpg" alt="Fitness Plan Image" class="plan-image" />
+  </div>
   <input [(ngModel)]="planName" placeholder="Nazwa planu" class="form-control" />
+  
   @for(day of days; track day; let index = $index) {
     <div class="day-card">
       <div class="day-form">
-      
         <input [(ngModel)]="day.videoLink" placeholder="Link do YouTube" class="form-control" />
         <input [(ngModel)]="day.time" placeholder="Czas trwania (min)" type="number" class="form-control" />
         <input [(ngModel)]="day.burnedKcal" placeholder="Spalone kcal" type="number" class="form-control" />
@@ -12,6 +15,7 @@
       </div>
     </div>
   }
+  
   <button (click)="addDay()" class="btn-primary">Dodaj dzień</button>
   <button (click)="savePlan()" class="btn-primary">Zapisz plan</button>
 </div>

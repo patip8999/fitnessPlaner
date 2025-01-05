@@ -10,15 +10,16 @@ import { MonthlySummaryComponent } from './Components/monthly-summary/monthly-su
 import { TrainingPlansComponent } from './Components/training-plans/training-plans.component';
 import { TrainingPlansSelectComponent } from './Components/training-plans-select/training-plans-select.component';
 import { TrainingPlanDetailComponent } from './Components/training-plan-detail/training-plan-detail.component';
+import { WelcomeComponent } from './Components/welcome/welcome.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', component: WelcomeComponent },
     { path: 'home', component: HomeComponent,  canActivate: [authGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    {  path: 'day-details/:day', component: DayDetailsComponent},
-    { path: 'summary', component: MonthlySummaryComponent},
-    { path: 'trainig-plans', component: TrainingPlansComponent},
-    { path: 'select-plan', component: TrainingPlansSelectComponent},
-    {  path: 'plan/:id', component: TrainingPlanDetailComponent}
+    {  path: 'day-details/:day', component: DayDetailsComponent,  canActivate: [authGuard]},
+    { path: 'summary', component: MonthlySummaryComponent,   canActivate: [authGuard]},
+    { path: 'trainig-plans', component: TrainingPlansComponent,  canActivate: [authGuard]},
+    { path: 'select-plan', component: TrainingPlansSelectComponent,  canActivate: [authGuard]},
+    {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]}
 ];
