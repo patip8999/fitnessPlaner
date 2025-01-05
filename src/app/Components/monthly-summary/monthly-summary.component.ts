@@ -65,12 +65,15 @@ export class MonthlySummaryComponent {
   
   totalBurnedCalories(): number {
     const trainings = this.trainings(); 
-    return trainings.reduce(
+  
+    // Filtrujemy tylko te treningi, które są oznaczone jako 'done'
+    const completedTrainings = trainings.filter(training => training.isDone === true); 
+  
+    return completedTrainings.reduce(
       (sum, training) => sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
       0
     );
   }
-  
   totalTrainingTime(): number {
     const trainings = this.trainings(); 
     return trainings.reduce(

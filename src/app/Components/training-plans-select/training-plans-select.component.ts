@@ -49,11 +49,12 @@ export class TrainingPlansSelectComponent {
   
         // Sprawdzamy, czy 'name' istnieje, jeśli nie to ustawiamy domyślną nazwę
         const trainingName = day.name ? `Trening: ${day.name}` : `Trening: Dzień ${index + 1}`;
-  
+        const burnedKcal = day.burnedKcal || 0;
         // Przekazujemy obiekt do addTraining z odpowiednim typem
         this.calendarService.addTraining({
           name: trainingName,
           date: trainingDate,
+          burnedKcal: burnedKcal, 
           videoLink: day.videoLink, // Tutaj day musi mieć videoLink, więc jest zgodny z typem TrainingPlanDay
         } as TrainingModel); // Upewniamy się, że jest to TrainingModel
   
