@@ -24,6 +24,7 @@ export class EditTrainingComponent {
   @Output() close = new EventEmitter<void>();
   model: TrainingModel = {
     name: '',
+    isDone: false,
     burnedKcal: 0,
     time: '',
 videoLink: '',

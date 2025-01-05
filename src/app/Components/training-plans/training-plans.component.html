@@ -1,17 +1,17 @@
 <div class="plan-form">
-  <input [(ngModel)]="planName" placeholder="Nazwa planu" />
+  <input [(ngModel)]="planName" placeholder="Nazwa planu" class="form-control" />
   @for(day of days; track day; let index = $index) {
-  <div >
-    <div class="day-form">
-      <input [(ngModel)]="day.date" placeholder="Data" type="date" />
-      <input [(ngModel)]="day.videoLink" placeholder="Link do YouTube" />
-      <input [(ngModel)]="day.duration" placeholder="Czas trwania (min)" type="number" />
-      <input [(ngModel)]="day.burnedKcal" placeholder="Spalone kcal" type="number" />
-      
-      <button (click)="removeDay(index)">Usuń dzień</button>
+    <div class="day-card">
+      <div class="day-form">
+        <input [(ngModel)]="day.date" placeholder="Data" type="date" class="form-control" />
+        <input [(ngModel)]="day.videoLink" placeholder="Link do YouTube" class="form-control" />
+        <input [(ngModel)]="day.duration" placeholder="Czas trwania (min)" type="number" class="form-control" />
+        <input [(ngModel)]="day.burnedKcal" placeholder="Spalone kcal" type="number" class="form-control" />
+        
+        <button (click)="removeDay(index)" class="btn-danger">Usuń dzień</button>
+      </div>
     </div>
-  </div>
-}
-  <button (click)="addDay()">Dodaj dzień</button>
-  <button (click)="savePlan()">Zapisz plan</button>
+  }
+  <button (click)="addDay()" class="btn-primary">Dodaj dzień</button>
+  <button (click)="savePlan()" class="btn-primary">Zapisz plan</button>
 </div>

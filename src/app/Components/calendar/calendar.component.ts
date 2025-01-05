@@ -182,10 +182,11 @@ export class CalendarComponent {
         );
       })
       .catch((error) => {
-        console.error('Error saving edited meal:', error);
-        alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
+        console.error('Error saving edited training:', error);
+        alert('Nie udało się zapisać treningu. Spróbuj ponownie.');
       });
   }
+
   editTraining(training: TrainingModel): void {
     this.selectedTraining = { ...training };
   }
@@ -212,6 +213,9 @@ export class CalendarComponent {
         alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
       });
   }
- 
+  toggleTrainingDone(training: TrainingModel): void {
+    const updatedTraining = { ...training, isDone: !training.isDone };
+    this.saveEditedTraining(updatedTraining); // Zapisujemy zmieniony stan
+  }
 
 }

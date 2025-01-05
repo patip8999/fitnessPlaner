@@ -1,0 +1,68 @@
+.plan-form {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  input.form-control {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  input.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  .day-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .day-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button.btn-primary {
+    background-color: #254636;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  button.btn-primary:hover {
+    background-color: #2f5957;
+  }
+  
+  button.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  button.btn-danger:hover {
+    background-color: #c82333;
+  }
+  

@@ -24,6 +24,7 @@ throw new Error('Method not implemented.');
   model: TrainingModel = {
     name: '',
     burnedKcal: 0,
+    isDone: false,
     time: '',
     date: new Date(),
     id: '',
