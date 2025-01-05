@@ -14,29 +14,34 @@
     <ul class="meal-list">
       @for (meal of meals(); track meal) {
       <li class="meal-item">
-        <span class="meal-name">{{ meal.name }}</span> -
-        <span class="meal-calories">{{ meal.calories }} kcal</span> ({{
-          meal.weight
-        }}
-        g)
+        <span class="meal-name">{{ meal.name }}</span> - 
+        <span class="meal-calories">{{ meal.calories }} kcal</span> ({{ meal.weight }} g)
       </li>
       }
     </ul>
   </div>
-  } @if (trainings().length > 0) {
+  }
+
+  @if (trainings().length > 0) {
   <div class="trainings">
     <h3>Trainings:</h3>
     <ul class="training-list">
-      @for (training of trainings(); track training) {
+      @for (training of trainings(); track training.id) {
       <li class="training-item">
         <span class="training-name">{{ training.name }}</span> -
-        <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{
-          training.time
-        }}
-        min)
+        <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{ training.time }} min)
       </li>
       }
     </ul>
   </div>
+  }
+
+  @if (videoUrl) {
+    <div class="youtube-video">
+      <h3>Watch the video:</h3>
+      <iframe [src]="videoUrl" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  } @else {
+    <p>No video available for this training.</p> <!-- Dodajemy fallback w przypadku braku wideo -->
   }
 </div>

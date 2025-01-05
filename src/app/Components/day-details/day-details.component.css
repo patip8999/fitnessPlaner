@@ -81,4 +81,9 @@
   .meal-item, .training-item {
     font-size: 1rem;
   }
+  .youtube-video iframe {
+    display: block;
+    margin: 0 auto;
+  }
+  
 }
