@@ -58,5 +58,18 @@ export class FitnessPlanService {
         });
       });
   }
-
+  deleteFitnessPlan(planId: string): void {
+    this.client
+      .collection('FitnessPlans', ref => ref.where('id', '==', planId))
+      .get()
+      .subscribe(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.client
+            .doc(`FitnessPlans/${doc.id}`)
+            .delete()
+            .then(() => console.log('Plan fitness usunięty'))
+            .catch((err) => console.error('Błąd przy usuwaniu planu fitness', err));
+        });
+      });
+  }
 }

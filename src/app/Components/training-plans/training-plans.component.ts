@@ -55,6 +55,6 @@ export class TrainingPlansComponent  {
     };
 
     this.fitnessPlanService.createFitnessPlan(newPlan);
-    this.router.navigate(['/fitness-plans']);
+    this.router.navigate(['/']);
   }
 }

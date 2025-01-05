@@ -63,12 +63,20 @@ export class TrainingPlansSelectComponent {
           time: duration, 
           videoLink: day.videoLink, // Tutaj day musi mieć videoLink, więc jest zgodny z typem TrainingPlanDay
         } as TrainingModel); // Upewniamy się, że jest to TrainingModel
-  
+        this.router.navigate(['/']);
         console.log(
           `Dodano trening dnia ${trainingDate.toISOString()}: ${day.videoLink}`
         );
       });
     }
+  }
+
+  deletePlan(plan: TrainingPlanModel): void {
+    // Usuwanie planu
+    this.fitnessPlanService.deleteFitnessPlan(plan.id);
+    // Opcjonalnie możesz usunąć plan z listy po stronie klienta
+    this.fitnessPlans = this.fitnessPlans.filter(p => p.id !== plan.id);
+    console.log('Plan usunięty', plan);
   }
 }
 

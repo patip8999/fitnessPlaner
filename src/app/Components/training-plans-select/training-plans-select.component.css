@@ -1,80 +1,71 @@
 .fitness-plan-select {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  
-  h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #254636;
-    margin-bottom: 20px;
-  }
-  
-  .plan-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .plan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .plan-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #254636;
-  }
-  
-  .plan-description {
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  input.form-control {
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100%;
-    margin-top: 5px;
-  }
-  
-  input.form-control:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
-  }
-  
-  button.btn-primary {
-    background-color: #254636;
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-    text-align: center;
-  }
-  
-  button.btn-primary:hover {
-    background-color: #2f5957;
-  }
-  
+  padding: 20px;
+  background: linear-gradient(135deg, #e0f7fa, #254636);
+  border-radius: 10px;
+  color: #333;
+}
+
+h3 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.plan-card {
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.plan-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end; /* Ustalamy przyciski po prawej stronie */
+  gap: 10px; /* Odstęp między przyciskami */
+  margin-top: 10px;
+}
+
+.button-group .btn {
+  font-size: 0.8rem;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+
+.form-group {
+  margin-top: 20px;
+}
+
+#startDate {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.btn-primary {
+  margin-top: 20px;
+  background: linear-gradient(135deg, #6e7dff, #3d4bff);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3d4bff, #6e7dff);
+}

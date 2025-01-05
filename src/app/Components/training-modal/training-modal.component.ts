@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TrainingModel } from '../../Models/training.model';
 import { FormComponent } from "../UI/form/form.component";
 import { ModalComponent } from "../UI/modal/modal.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-training-modal',
@@ -19,6 +20,7 @@ throw new Error('Method not implemented.');
   private readonly trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
   );
+  router: Router = inject(Router)
   private training: TrainingModel[] = [];
   traingns: any[] = [];
   model: TrainingModel = {
@@ -35,6 +37,7 @@ throw new Error('Method not implemented.');
     this.trainingAndMealService.addTraining(training);
     this.training.push(training);
     console.log('Meal added:', training);
+    this.router.navigate(['/home']);
   }
   onDateChange(date: string): void {
     this.model.date = new Date(`${date}T00:00:00`);
