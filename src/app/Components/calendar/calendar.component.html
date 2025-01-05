@@ -74,9 +74,9 @@
         <ul>
           @for (training of getTrainingsForDay(day.date); track training.id) {
           <li>
-           {{training.videoLink}} {{ training.name }} - {{ training.burnedKcal }} kcal ({{
+            {{ training.name }} - {{ training.burnedKcal }} kcal {{
               training.time
-            }})
+            }}min
               <div class="buttons-container">
                 <button 
                   class="btn btn-link btn-sm"

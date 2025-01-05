@@ -76,9 +76,14 @@ export class MonthlySummaryComponent {
   }
   totalTrainingTime(): number {
     const trainings = this.trainings(); 
-    return trainings.reduce(
-      (sum, training) => sum + (training.time ? Number(training.time) : 0),
-      0
-    );
+    const completedTrainings = trainings.filter(training => training.isDone === true);
+  
+    console.log('Completed Trainings:', completedTrainings);  // Debugowanie
+  
+    return completedTrainings.reduce((sum, training) => {
+      const time = training.time ? Number(training.time) : 0;
+      console.log('Training Time:', time);  // Debugowanie
+      return sum + (isNaN(time) ? 0 : time);
+    }, 0);
   }
 }

@@ -37,7 +37,7 @@ export class TrainingPlansComponent  {
     this.days.push({
       date: '',
       videoLink: '',
-      duration: 0 ,
+      time: '' ,
       burnedKcal: 0,
     });
   }

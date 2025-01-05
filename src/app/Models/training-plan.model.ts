@@ -9,7 +9,7 @@ export interface TrainingPlanModel {
 export interface TrainingPlanDay {
   date: string;          // Data
   videoLink: string;     // Link do YouTube
-  duration: number;      // Czas trwania w minutach
+  time: string;      // Czas trwania w minutach
   burnedKcal: number;    // Spalone kalorie
   name?: string; 
 }

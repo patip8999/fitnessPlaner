@@ -5,7 +5,7 @@
       <div class="day-form">
         <input [(ngModel)]="day.date" placeholder="Data" type="date" class="form-control" />
         <input [(ngModel)]="day.videoLink" placeholder="Link do YouTube" class="form-control" />
-        <input [(ngModel)]="day.duration" placeholder="Czas trwania (min)" type="number" class="form-control" />
+        <input [(ngModel)]="day.time" placeholder="Czas trwania (min)" type="number" class="form-control" />
         <input [(ngModel)]="day.burnedKcal" placeholder="Spalone kcal" type="number" class="form-control" />
         
         <button (click)="removeDay(index)" class="btn-danger">Usuń dzień</button>
