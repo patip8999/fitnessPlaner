@@ -1,0 +1,11 @@
+<div>{{ fitnessPlans | json }}</div>
+<div class="fitness-plan-select">
+  <h3>Wybierz plan fitness</h3>
+  @for(plan of fitnessPlans; track plan) {
+    <div (click)="selectPlan(plan)">
+      {{ plan.name }}
+    </div>
+  }
+  <input [(ngModel)]="startDate" type="date" />
+  <button (click)="startPlan()">Rozpocznij plan</button>
+</div>

@@ -9,6 +9,13 @@ import { mealModel } from '../../Models/meal.model';
 import { TrainingModel } from '../../Models/training.model';
 import { EditComponent } from '../edit/edit.component';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
+import { TrainingPlanModel } from '../../Models/training-plan.model';
+import { FormsModule } from '@angular/forms';
+interface CalendarDay {
+  date: Date;
+  isOtherMonth: boolean;
+  trainingPlans?: TrainingPlanModel[]; // Dodajemy opcjonalną tablicę dla planów treningowych
+}
 
 @Component({
   selector: 'app-calendar',
@@ -20,7 +27,7 @@ import { EditTrainingComponent } from '../edit-training/edit-training.component'
     TrainingModalComponent,
     EditComponent,
     EditTrainingComponent,
-  ],
+    FormsModule],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
@@ -29,7 +36,7 @@ export class CalendarComponent {
 
   meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
   trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
-  calendarDays: { date: Date; isOtherMonth: boolean }[] = [];
+  calendarDays: CalendarDay[] = [];
 
   readonly currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth();
@@ -205,4 +212,6 @@ export class CalendarComponent {
         alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
       });
   }
+ 
+
 }

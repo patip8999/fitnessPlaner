@@ -3,9 +3,3 @@
 <div class="welcome-container">
   <router-outlet></router-outlet>
 </div>
-
-  <ul>
-    @for (product of products$ | async; track product.id) {
-    <li>{{ product.fitness }}</li>
-    }
-  </ul>

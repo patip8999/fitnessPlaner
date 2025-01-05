@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { mealModel } from '../Models/meal.model';
 import { TrainingModel } from '../Models/training.model';
+import { TrainingPlanModel } from '../Models/training-plan.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -298,5 +300,6 @@ export class TrainingAndMealService {
         return Promise.reject(err);
       });
   }
+  
 }
 

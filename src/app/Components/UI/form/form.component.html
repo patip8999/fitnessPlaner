@@ -41,6 +41,19 @@
         />
       </div>
     }
+    @if(videoLinkLabel){
+    <div class="mb-3">
+      <label for="videoLink" class="form-label">{{ videoLinkLabel }}</label>
+      <input
+        type="string"
+        id="videoLink"
+        class="form-control"
+        [(ngModel)]="model.videoLink"
+        name="videoLink"
+        required
+      />
+    </div>
+  }
     @if(weightLabel){
       <div class="mb-3">
         <label for="weight" class="form-label">{{ weightLabel }}</label>

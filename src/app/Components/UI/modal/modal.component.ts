@@ -16,6 +16,7 @@ export class ModalComponent {
   @Input() burnedCaloriesLabel: string = ''; // Etykieta dla 'Spalone kalorie'
   @Input() weightLabel: string = ''; // Etykieta dla 'Waga'
   @Input() timeLabel: string = ''; // Etykieta dla 'Czas trwania'
+   @Input() videoLinkLabel: string = ''
   @Input() dateLabel: string = ''; // Etykieta dla 'Data'
   @Input() model: any = {}; // Model danych formularza
   @Output() save = new EventEmitter<any>(); // Event do emitowania danych po zapisaniu

@@ -1,12 +1,17 @@
-
-@for(video of videos; track video) {
-<div >
-    <h3>{{ video.title }}</h3>
-    <iframe 
-      [src]="video.url"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
+<div class="plan-form">
+  <input [(ngModel)]="planName" placeholder="Nazwa planu" />
+  @for(day of days; track day; let index = $index) {
+  <div >
+    <div class="day-form">
+      <input [(ngModel)]="day.date" placeholder="Data" type="date" />
+      <input [(ngModel)]="day.videoLink" placeholder="Link do YouTube" />
+      <input [(ngModel)]="day.duration" placeholder="Czas trwania (min)" type="number" />
+      <input [(ngModel)]="day.burnedKcal" placeholder="Spalone kcal" type="number" />
+      
+      <button (click)="removeDay(index)">Usuń dzień</button>
+    </div>
   </div>
 }
-  
+  <button (click)="addDay()">Dodaj dzień</button>
+  <button (click)="savePlan()">Zapisz plan</button>
+</div>

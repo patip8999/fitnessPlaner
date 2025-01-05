@@ -26,7 +26,7 @@ export class EditTrainingComponent {
     name: '',
     burnedKcal: 0,
     time: '',
-
+videoLink: '',
     date: new Date(),
     id: '',
   };

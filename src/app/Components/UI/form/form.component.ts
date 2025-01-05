@@ -13,6 +13,7 @@ export class FormComponent {
   @Input() nameLabel: string = '';
   @Input() caloriesLabel: string = '';
   @Input() weightLabel: string = '';
+  @Input() videoLinkLabel: string = '';
   @Input() burnedCalories: string ='';
   @Input() dateLabel: string = '';
   @Input() timeLabel: string =''

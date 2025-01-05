@@ -27,6 +27,7 @@ throw new Error('Method not implemented.');
     time: '',
     date: new Date(),
     id: '',
+    videoLink: '',
   };
 
   addTraining(training: TrainingModel): void {

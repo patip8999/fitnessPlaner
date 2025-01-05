@@ -5,6 +5,7 @@ export interface TrainingModel {
   time: string;
   date: Date;
   id: string;
+  videoLink: string; 
 }
 
 // Add weight or calories properties separately if needed, but don't add them to TrainingModel unless required.
