@@ -33,8 +33,8 @@ export class TrainingPlanDetailComponent {
 
   savePlanEdits(): void {
     if (this.plan) {
+      this.fitnessPlanService.updateFitnessPlan(this.plan);
       console.log('Zmiany zapisane dla planu:', this.plan);
-      // Logika zapisywania planu
     }
   }
 }

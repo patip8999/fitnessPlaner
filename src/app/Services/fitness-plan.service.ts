@@ -44,13 +44,19 @@ export class FitnessPlanService {
         })
       );
   }
-  // Zaktualizuj plan fitness
-  // Zaktualizuj plan fitness
   updateFitnessPlan(plan: TrainingPlanModel): void {
     this.client
-      .doc(`FitnessPlans/${plan.id}`)
-      .update(plan)
-      .then(() => console.log('Plan fitness zaktualizowany'))
-      .catch((err) => console.error('Błąd przy aktualizacji planu fitness', err));
+      .collection('FitnessPlans', ref => ref.where('id', '==', plan.id))
+      .get()
+      .subscribe(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.client
+            .doc(`FitnessPlans/${doc.id}`)
+            .update(plan)
+            .then(() => console.log('Plan fitness zaktualizowany'))
+            .catch((err) => console.error('Błąd przy aktualizacji planu fitness', err));
+        });
+      });
   }
+
 }
