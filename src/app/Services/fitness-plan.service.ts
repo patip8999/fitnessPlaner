@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { TrainingPlanModel } from '../Models/training-plan.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -25,11 +25,25 @@ export class FitnessPlanService {
   }
 
   
-  // Pobierz plan fitness na podstawie jego ID
   getFitnessPlanById(planId: string): Observable<TrainingPlanModel | undefined> {
-    return this.client.doc<TrainingPlanModel>(`FitnessPlans/${planId}`).valueChanges();
+    return this.client
+      .collection<TrainingPlanModel>('FitnessPlans', ref => ref.where('id', '==', planId))
+      .valueChanges()
+      .pipe(
+        map(plans => plans.length > 0 ? plans[0] : undefined),
+        tap(plan => {
+          console.log('Fetched Plan Data from Firestore:', plan); // Logowanie danych
+        }),
+        map(plan => {
+          if (plan) {
+            return plan;
+          } else {
+            console.log('Brak planu dla podanego ID:', planId);
+            return undefined;
+          }
+        })
+      );
   }
-
   // Zaktualizuj plan fitness
   // Zaktualizuj plan fitness
   updateFitnessPlan(plan: TrainingPlanModel): void {

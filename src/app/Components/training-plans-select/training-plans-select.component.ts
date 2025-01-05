@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { TrainingModel } from '../../Models/training.model';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-training-plans-select',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './training-plans-select.component.html',
   styleUrl: './training-plans-select.component.css'
 })
@@ -19,7 +20,7 @@ export class TrainingPlansSelectComponent {
   fitnessPlans: TrainingPlanModel[] = [];
   selectedPlan: TrainingPlanModel | null = null;
   startDate: Date = new Date();
-
+  private router = inject(Router);
   constructor() {
     this.fitnessPlanService.getAllFitnessPlans().subscribe((plans) => {
       console.log('Plany w komponencie:', plans);
@@ -30,6 +31,9 @@ export class TrainingPlansSelectComponent {
   selectPlan(plan: TrainingPlanModel): void {
     console.log('Wybrano plan:', plan);
     this.selectedPlan = plan;
+  }
+  goToPlanDetails(planId: string): void {
+    this.router.navigate([`/plan/${planId}`]);  // Przekierowanie do szczegółów planu
   }
 
   startPlan(): void {

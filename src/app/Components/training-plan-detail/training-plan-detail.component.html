@@ -1,0 +1,24 @@
+<!-- training-plan-details.component.html -->
+<div class="plan-details">
+    <h4>Szczegóły planu: {{ plan?.name }}</h4>
+  @for(day of plan?.days; track day; let i = $index){
+    <div >
+      <h5>Dzień {{ i + 1 }}</h5>
+      
+      <div class="form-group">
+        <label for="burnedKcal{{i}}">Spalone kalorie</label>
+        <input [(ngModel)]="day.burnedKcal" id="burnedKcal{{i}}" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="duration{{i}}">Czas treningu (w minutach)</label>
+        <input [(ngModel)]="day.time" id="duration{{i}}" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="videoLink{{i}}">Link wideo</label>
+        <input [(ngModel)]="day.videoLink" id="videoLink{{i}}" type="text" class="form-control" />
+      </div>
+    </div>
+}
+    <button (click)="savePlanEdits()" class="btn-primary">Zapisz zmiany</button>
+  </div>
+  

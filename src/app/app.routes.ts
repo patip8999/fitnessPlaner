@@ -9,6 +9,7 @@ import { DayDetailsComponent } from './Components/day-details/day-details.compon
 import { MonthlySummaryComponent } from './Components/monthly-summary/monthly-summary.component';
 import { TrainingPlansComponent } from './Components/training-plans/training-plans.component';
 import { TrainingPlansSelectComponent } from './Components/training-plans-select/training-plans-select.component';
+import { TrainingPlanDetailComponent } from './Components/training-plan-detail/training-plan-detail.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {  path: 'day-details/:day', component: DayDetailsComponent},
     { path: 'summary', component: MonthlySummaryComponent},
     { path: 'trainig-plans', component: TrainingPlansComponent},
-    { path: 'select-plan', component: TrainingPlansSelectComponent}
+    { path: 'select-plan', component: TrainingPlansSelectComponent},
+    {  path: 'plan/:id', component: TrainingPlanDetailComponent}
 ];
