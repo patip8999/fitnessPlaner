@@ -12,6 +12,7 @@ import { TrainingPlansSelectComponent } from './Components/training-plans-select
 import { TrainingPlanDetailComponent } from './Components/training-plan-detail/training-plan-detail.component';
 import { WelcomeComponent } from './Components/welcome/welcome.component';
 import { UserComponent } from './Components/user/user.component';
+import { WeightControlComponent } from './Components/weight-control/weight-control.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -23,5 +24,6 @@ export const routes: Routes = [
     { path: 'trainig-plans', component: TrainingPlansComponent,  canActivate: [authGuard]},
     { path: 'select-plan', component: TrainingPlansSelectComponent,  canActivate: [authGuard]},
     {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]},
-    { path: 'user', component: UserComponent,  canActivate: [authGuard]}
+    { path: 'user', component: UserComponent,  canActivate: [authGuard]},
+    { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] }
 ];

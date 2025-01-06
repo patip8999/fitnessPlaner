@@ -1,0 +1,83 @@
+<div class="measurements-summary">
+  <h3 class="justify-content-center">Zestawienie Pomiarów ciała:</h3>
+  <div class="measurements-content">
+    <div class="measurements-table">
+      <div *ngIf="measurements.length > 1">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Waga (kg)</th>
+              <th>Talia (cm)</th>
+              <th>Biodra (cm)</th>
+              <th>Uda (cm)</th>
+              <th>Pośladki (cm)</th>
+              <th>Ramiona (cm)</th>
+              <th>Klatka piersiowa (cm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(measurement of measurements; track measurement; let i = $index) {
+              <tr>
+                <td>{{ measurement.date }}</td>
+                <td>{{ measurement.weight }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'waist')">{{ measurement.waist }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'hips')">{{ measurement.hips }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'thigh')">{{ measurement.thigh }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'buttocks')">{{ measurement.buttocks }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'arms')">{{ measurement.arms }}</td>
+                <td [ngStyle]="getStyle(measurement, i, 'chest')">{{ measurement.chest }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button class="btn-toggle" (click)="toggleForm()">Dodaj pomiar</button>
+    </div>
+
+    @if(isFormVisible) {
+    <div class="measurement-form-container">
+      <form (ngSubmit)="addMeasurement()" class="measurement-form">
+        <div class="form-group">
+          <label for="date">Data:</label>
+          <input type="date" id="date" [(ngModel)]="newMeasurement.date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="waist">Talia:</label>
+          <input type="number" id="waist" [(ngModel)]="newMeasurement.waist" name="waist" required>
+        </div>
+        <div class="form-group">
+          <label for="hips">Biodra:</label>
+          <input type="number" id="hips" [(ngModel)]="newMeasurement.hips" name="hips" required>
+        </div>
+        <div class="form-group">
+          <label for="buttocks">Pośladki:</label>
+          <input type="number" id="buttocks" [(ngModel)]="newMeasurement.buttocks" name="buttocks" required>
+        </div>
+        <div class="form-group">
+          <label for="thigh">Uda:</label>
+          <input type="number" id="thigh" [(ngModel)]="newMeasurement.thigh" name="thigh" required>
+        </div>
+        <div class="form-group">
+          <label for="arms">Ramiona:</label>
+          <input type="number" id="arms" [(ngModel)]="newMeasurement.arms" name="arms" required>
+        </div>
+        <div class="form-group">
+          <label for="chest">Klatka piersiowa:</label>
+          <input type="number" id="chest" [(ngModel)]="newMeasurement.chest" name="chest" required>
+        </div>
+        <div class="form-group">
+          <label for="weight">Waga:</label>
+          <input type="number" id="weight" [(ngModel)]="newMeasurement.weight" name="weight" required>
+        </div>
+        <div class="form-group ">
+          <button type="submit">Dodaj pomiar</button>
+        </div>
+      </form>
+    </div>
+  }
+  </div>
+</div>
+

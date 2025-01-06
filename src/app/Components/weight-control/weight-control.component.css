@@ -1,0 +1,137 @@
+/* Ogólny styl dla Measurements Summary */
+.measurements-summary {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.measurements-summary .summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tytuł dla Measurements Summary */
+.measurements-summary .summary-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Tabela dla Measurements Summary */
+.measurements-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.measurements-summary table th, .measurements-summary table td {
+  padding: 10px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.measurements-summary table th {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+.measurements-summary table td {
+  background-color: #f9f9f9;
+}
+
+.measurements-summary table td.ng-style-changes {
+  font-weight: bold;
+}
+
+.measurements-summary table td:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+/* Formularz dla Measurements Summary */
+.measurement-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.measurement-form label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.measurement-form input[type="date"], .measurement-form input[type="number"] {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.measurement-form button[type="submit"] {
+  background-color: #254636;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.measurement-form button[type="submit"]:hover {
+  background-color: #2f5957;
+}
+
+@media (max-width: 768px) {
+  .measurement-form {
+    grid-template-columns: 1fr;
+  }
+  .measurement-form label {
+    font-size: 14px;
+  }
+}
+/* Wyśrodkowanie tytułu */
+.justify-content-center {
+  text-align: center;
+  font-size: 24px; /* Możesz dostosować wielkość czcionki */
+  font-weight: bold; /* Możesz ustawić pogrubienie tytułu */
+  color: #333; /* Możesz dostosować kolor czcionki */
+}
+.measurement-form .center-button {
+  text-align: center;
+  width: 100%;
+}
+
+/* Styl dla samego przycisku */
+.measurement-form button[type="submit"] {
+  background-color: #254636;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: auto; /* Zmiana szerokości na auto, aby przycisk nie rozciągał się na całą szerokość */
+  margin: 0 auto; /* Wyśrodkowanie przycisku w kontenerze */
+}
+.btn-toggle {
+  background-color: #254636;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: auto; /* Zmiana szerokości na auto, aby przycisk nie rozciągał się na całą szerokość */
+  margin: 0 auto;
+}
+.measurement-form button[type="submit"]:hover {
+  background-color: #2f5957;
+}

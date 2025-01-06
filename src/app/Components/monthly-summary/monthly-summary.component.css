@@ -1,87 +1,137 @@
-
-
+/* Ogólny styl dla Monthly Summary */
 .monthly-summary {
-  padding: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.monthly-summary .summary {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #e0f7fa, #254636);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  margin: 0 auto;
-  color: white;
 }
 
-.summary-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #ffffff;
+/* Tytuł dla Monthly Summary */
+.monthly-summary .summary-title {
+  font-size: 26px;
+  font-weight: bold;
   text-align: center;
-}
-
-.month-navigation {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+  color: #333;
   margin-bottom: 20px;
-  align-items: center;
 }
 
-.nav-button {
-  padding: 8px 16px;
-  background-color: #00796b;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  border: 2px solid #00796b;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  min-width: 100px;
-  text-align: center;
-}
-
-.nav-button:hover {
-  background-color: white;
-  color: #00796b;
-  border-color: #00796b;
-  transform: translateY(-2px);
-}
-
-.calories-summary {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
+/* Tabela dla Monthly Summary */
+.monthly-summary table {
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.monthly-summary table th, .monthly-summary table td {
+  padding: 10px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.monthly-summary table th {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+.monthly-summary table td {
+  background-color: #f9f9f9;
+}
+
+.monthly-summary table td.ng-style-changes {
+  font-weight: bold;
+}
+
+.monthly-summary table td:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+/* Formularz dla Monthly Summary */
+.monthly-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.monthly-form label {
+  font-size: 16px;
+  font-weight: bold;
   color: #333;
 }
 
-.calories-summary p {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.calories-summary strong {
-  font-weight: 600;
-}
-
-.nav-button:active {
-  transform: translateY(1px);
-}
-
-.nav-button span {
+.monthly-form input[type="date"], .monthly-form input[type="number"] {
   font-size: 16px;
-}
-.plan-image {
-  width: 100%; /* Szerokość dopasowana do szerokości kontenera */
-  height: auto; /* Wysokość zachowuje proporcje */
-  max-height: 200px; /* Maksymalna wysokość obrazka, aby nie był za wysoki */
-  object-fit: cover; /* Zachowanie proporcji, aby obrazek dobrze wyglądał w kontenerze */
-  margin-bottom: 20px; /* Odstęp między obrazkiem a resztą zawartości */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
 }
 
+.monthly-form button[type="submit"] {
+  background-color: #254636;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.monthly-form button[type="submit"]:hover {
+  background-color: #2f5957;
+}
+
+@media (max-width: 768px) {
+  .monthly-form {
+    grid-template-columns: 1fr;
+  }
+  .monthly-form label {
+    font-size: 14px;
+  }
+}
+.monthly-summary .nav-button {
+  background-color: #254636;
+  border: none;
+  color: white;
+  padding: 8px 16px; /* Zmniejszenie paddingu */
+  border-radius: 5px;
+  font-size: 14px; /* Zmniejszenie rozmiaru czcionki */
+  cursor: pointer;
+  width: auto; 
+  margin: 0 auto;
+}
+
+.monthly-summary .nav-button:hover {
+  background-color: #2f5957;
+  transform: scale(1.05);
+}
+
+/* Strzałki w przyciskach */
+.monthly-summary .nav-button span {
+  margin: 0 6px; /* Zmniejszenie marginesu */
+  font-size: 16px; /* Zmniejszenie rozmiaru strzałek */
+}
+
+/* Przycisk nawigacyjny w układzie poziomym (dla responsywności) */
+.monthly-summary .month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.monthly-summary .month-navigation h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin: 0 20px;
+}

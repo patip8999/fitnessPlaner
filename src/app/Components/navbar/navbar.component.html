@@ -1,9 +1,10 @@
 <div class="navbar">
   <div class="nav-links">
-    <button class="btn btn-primary" [routerLink]="['/summary']">Summary</button>
-    <button class="btn btn-primary" [routerLink]="['/home']">Home</button>
-    <button class="btn btn-primary" [routerLink]="['/select-plan']">Fitness Plan</button>
-    <button class="btn btn-primary" [routerLink]="['/trainig-plans']">Create Fitness Plan</button>
+    <button class="btn btn-primary" [routerLink]="['/summary']">Osiągnięcia</button>
+    <button class="btn btn-primary" [routerLink]="['/home']">Kalnedarz</button>
+    <button class="btn btn-primary" [routerLink]="['/select-plan']">Fitness Plany</button>
+    <button class="btn btn-primary" [routerLink]="['/trainig-plans']">Stwórz Fitness Plan</button>
+
   </div>
 
   @if (user$ | async; as user) {

@@ -3,10 +3,11 @@ import {  TrainingAndMealService } from '../../Services/calendar.service';
 import { DatePipe } from '@angular/common';
 import { TrainingModel } from '../../Models/training.model';  
 import { mealModel } from '../../Models/meal.model';
+import { WeightControlComponent } from "../weight-control/weight-control.component";
 @Component({
   selector: 'app-monthly-summary',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, WeightControlComponent],
   templateUrl: './monthly-summary.component.html',
   styleUrls: ['./monthly-summary.component.css'],
 })

@@ -85,14 +85,14 @@
                   data-bs-target="#meal3Modal" 
                   (click)="editTraining(training)"
                 >
-                  Edit
+                  Edytuj
                 </button>
                 <button 
                   class="btn btn-link btn-sm"
                   style="font-size: 0.8rem; text-decoration: none"
                   (click)="deleteTraining(training.id)"
                 >
-                  Delete
+                  Usuń
                 </button>
                 <label class="form-check-label">
                   <input 
@@ -101,7 +101,7 @@
                     [checked]="training.isDone" 
                     (change)="toggleTrainingDone(training)"
                   />
-                  Done
+                  Zrobiony
                 </label>
               </div>
           </li>

@@ -13,13 +13,13 @@
         
         <div class="button-group">
           <button [routerLink]="['/plan', plan.id]" class="btn btn-link btn-sm">
-            See Details
+            Więcej
           </button>
           <button
             (click)="deletePlan(plan)"
             class="btn btn-link btn-sm"
           >
-            Delete
+            Usuń
           </button>
         </div>
       </div>
@@ -27,7 +27,7 @@
   </div>
   
   <div class="form-group">
-    <label for="startDate">Choose Date </label>
+    <label for="startDate">Wybierz datę rozpoczęcia </label>
     <input
       [(ngModel)]="startDate"
       id="startDate"
@@ -35,5 +35,5 @@
       class="form-control"
     />
   </div>
-  <button (click)="startPlan()" class="btn-primary">Start Plan</button>
+  <button (click)="startPlan()" class="btn-primary">Rozpocznij Plan</button>
 </div>
