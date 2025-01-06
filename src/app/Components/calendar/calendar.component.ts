@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 interface CalendarDay {
   date: Date;
   isOtherMonth: boolean;
-  trainingPlans?: TrainingPlanModel[]; // Dodajemy opcjonalną tablicę dla planów treningowych
+  trainingPlans?: TrainingPlanModel[];
 }
 
 @Component({
@@ -27,7 +27,8 @@ interface CalendarDay {
     TrainingModalComponent,
     EditComponent,
     EditTrainingComponent,
-    FormsModule],
+    FormsModule,
+  ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
@@ -215,7 +216,6 @@ export class CalendarComponent {
   }
   toggleTrainingDone(training: TrainingModel): void {
     const updatedTraining = { ...training, isDone: !training.isDone };
-    this.saveEditedTraining(updatedTraining); // Zapisujemy zmieniony stan
+    this.saveEditedTraining(updatedTraining);
   }
-
 }

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { AuthFormComponent } from '../UI/auth-form/auth-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,19 +14,39 @@ import { AuthFormComponent } from '../UI/auth-form/auth-form.component';
 export class RegisterComponent {
   email = '';
   password = '';
+  confirmPassword = '';
+  username = '';
   private authService = inject(AuthService);
-
-  register({ email, password }: { email: string; password: string }) {
-    if (email && password) {
-      this.authService.register(email, password)
-        .then(() => {
-          console.log('Zarejestrowano pomyślnie');
-        })
-        .catch((error) => {
-          console.error('Błąd rejestracji:', error.message);
-        });
-    } else {
-      console.log('Proszę podać e-mail i hasło.');
+  private readonly router = inject(Router);
+  register({ email, password, confirmPassword, username }: { 
+    email: string; 
+    password: string; 
+    confirmPassword?: string; 
+    username?: string 
+  }) {
+    // Sprawdzanie, czy dane są dostępne
+    if (!email || !password || !username) {
+      console.log('Proszę podać e-mail, nazwę użytkownika i hasło.');
+      return;
     }
+  
+    if (password !== confirmPassword) {
+      console.error('Hasła nie są zgodne.');
+      return;
+    }
+  
+    // Jeśli dane są poprawne, wykonaj rejestrację
+    this.authService.register(email, password)
+      .then(() => {
+
+        this.router.navigate(['/home']);
+        console.log(`Zarejestrowano pomyślnie użytkownika: ${username}`);
+      })
+      .catch((error) => {
+        console.error('Błąd rejestracji:', error.message);
+      });
   }
+  
+
+
 }

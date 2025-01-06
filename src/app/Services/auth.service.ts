@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { GoogleAuthProvider } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -33,5 +33,6 @@ export class AuthService {
   getCurrentUser(): Observable<any> {
     return this.currentUserSubject.asObservable();
   }
-  
+
+
 }
