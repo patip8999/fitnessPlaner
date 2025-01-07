@@ -87,15 +87,15 @@ export class WeightControlComponent {
       const change = currentValue - previousValue;
   
       if (change > 0) {
-        return { 'color': 'red' }; // Zwiększenie wartości - czerwony
+        return { 'color': 'red' }; 
       } else if (change < 0) {
-        return { 'color': 'green' }; // Zmniejszenie wartości - zielony
+        return { 'color': 'green' };
       } else {
-        return { 'color': 'black' }; // Brak zmiany - czarny
+        return { 'color': 'black' }; 
       }
     }
   
-    // Jeśli wartości nie są liczbami, zwracamy domyślny styl
+ 
     return {};
   }
   toggleForm() {
