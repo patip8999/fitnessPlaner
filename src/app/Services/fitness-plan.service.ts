@@ -14,7 +14,7 @@ export class FitnessPlanService {
       return this.client.collection<TrainingPlanModel>('FitnessPlans').valueChanges();
     }
   
-  // Stwórz nowy plan fitness
+
   createFitnessPlan(plan: TrainingPlanModel): void {
     const newPlan = { ...plan }; // Nie przypisujemy UID na tym etapie
     this.client
@@ -32,7 +32,7 @@ export class FitnessPlanService {
       .pipe(
         map(plans => plans.length > 0 ? plans[0] : undefined),
         tap(plan => {
-          console.log('Fetched Plan Data from Firestore:', plan); // Logowanie danych
+          console.log('Fetched Plan Data from Firestore:', plan); 
         }),
         map(plan => {
           if (plan) {
