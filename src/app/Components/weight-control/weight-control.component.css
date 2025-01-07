@@ -1,4 +1,4 @@
-/* Ogólny styl dla Measurements Summary */
+
 .measurements-summary {
   padding: 20px;
   border-radius: 10px;
@@ -97,12 +97,12 @@
     font-size: 14px;
   }
 }
-/* Wyśrodkowanie tytułu */
+
 .justify-content-center {
   text-align: center;
-  font-size: 24px; /* Możesz dostosować wielkość czcionki */
-  font-weight: bold; /* Możesz ustawić pogrubienie tytułu */
-  color: #333; /* Możesz dostosować kolor czcionki */
+  font-size: 24px; 
+  font-weight: bold;
+  color: #333;
 }
 .measurement-form .center-button {
   text-align: center;
@@ -118,8 +118,8 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: auto; /* Zmiana szerokości na auto, aby przycisk nie rozciągał się na całą szerokość */
-  margin: 0 auto; /* Wyśrodkowanie przycisku w kontenerze */
+  width: auto;
+  margin: 0 auto;
 }
 .btn-toggle {
   background-color: #254636;
@@ -129,7 +129,7 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: auto; /* Zmiana szerokości na auto, aby przycisk nie rozciągał się na całą szerokość */
+  width: auto; 
   margin: 0 auto;
 }
 .measurement-form button[type="submit"]:hover {

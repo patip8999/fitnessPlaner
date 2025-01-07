@@ -35,7 +35,7 @@ export class WeightControlComponent {
   constructor(private measurementsService: MeasurementsService) {}
 
   ngOnInit(): void {
-    this.loadMeasurements(); // Ładowanie danych po inicjalizacji komponentu
+    this.loadMeasurements();
   }
 
   // Załaduj wszystkie pomiary
@@ -48,10 +48,10 @@ export class WeightControlComponent {
   // Dodawanie nowego pomiaru
   addMeasurement(): void {
     this.measurementsService.addMeasurement(this.newMeasurement).then(() => {
-      this.loadMeasurements(); // Ponowne załadowanie danych po dodaniu nowego pomiaru
+      this.loadMeasurements(); 
     });
 
-    // Resetowanie formularza po dodaniu
+  
     this.newMeasurement = {
       id: '',
       date: new Date().toISOString().split('T')[0],
@@ -65,18 +65,18 @@ export class WeightControlComponent {
     };
   }
 
-  // Obliczanie zmiany wagi
+ 
   calculateChange(measurement: MeasurementModel, index: number): string {
-    if (index === 0) return '-'; // Brak zmiany w przypadku pierwszego pomiaru
+    if (index === 0) return '-'; 
     
     const prevMeasurement = this.measurements[index - 1];
     const change = measurement.weight - prevMeasurement.weight;
-    return change.toFixed(2); // Formatowanie zmiany wagi na 2 miejsca po przecinku
+    return change.toFixed(2); 
   }
 
-  // Stylizowanie komórek w tabeli na podstawie zmian
+  
   getStyle(measurement: MeasurementModel, index: number, key: keyof MeasurementModel): any {
-    if (index === 0) return {}; // Brak porównania w przypadku pierwszego pomiaru
+    if (index === 0) return {}; 
   
     const prevMeasurement = this.measurements[index - 1];
     const currentValue = measurement[key];
@@ -87,15 +87,15 @@ export class WeightControlComponent {
       const change = currentValue - previousValue;
   
       if (change > 0) {
-        return { 'color': 'red' }; // Zwiększenie wartości - czerwony
+        return { 'color': 'red' }; 
       } else if (change < 0) {
-        return { 'color': 'green' }; // Zmniejszenie wartości - zielony
+        return { 'color': 'green' };
       } else {
-        return { 'color': 'black' }; // Brak zmiany - czarny
+        return { 'color': 'black' }; 
       }
     }
   
-    // Jeśli wartości nie są liczbami, zwracamy domyślny styl
+ 
     return {};
   }
   toggleForm() {

@@ -14,11 +14,10 @@ export class MeasurementsService {
  private client = inject(AngularFirestore);
   private afAuth = inject(AngularFireAuth);
 
-// measurements.service.ts
+
 addMeasurement(measurement: MeasurementModel): Promise<void> {
   return new Promise((resolve, reject) => {
-    // Zakładając, że używasz Firebase
-    this.afAuth.currentUser.then(user => {
+this.afAuth.currentUser.then(user => {
       const uid = user?.uid;
       if (uid) {
         this.client
@@ -30,11 +29,11 @@ addMeasurement(measurement: MeasurementModel): Promise<void> {
           })
           .then(() => {
             console.log('Measurement added successfully');
-            resolve(); // Powiadomienie, że dodawanie zakończyło się sukcesem
+            resolve(); 
           })
           .catch((err) => {
             console.error('Error adding measurement:', err);
-            reject(err); // Powiadomienie o błędzie
+            reject(err); 
           });
       } else {
         reject(new Error('No user found'));

@@ -33,7 +33,7 @@ export class TrainingPlansSelectComponent {
     this.selectedPlan = plan;
   }
   goToPlanDetails(planId: string): void {
-    this.router.navigate([`/plan/${planId}`]);  // Przekierowanie do szczegółów planu
+    this.router.navigate([`/plan/${planId}`]);  
   }
 
   startPlan(): void {
@@ -44,25 +44,25 @@ export class TrainingPlansSelectComponent {
   
       // Upewniamy się, że startDate to obiekt Date
       if (!(startDate instanceof Date)) {
-        startDate = new Date(startDate); // Przekształcamy w Date, jeśli to nie jest obiekt Date
+        startDate = new Date(startDate); 
       }
   
       this.selectedPlan.days.forEach((day, index) => {
         const trainingDate = new Date(startDate);
         trainingDate.setDate(startDate.getDate() + index);
   
-        // Sprawdzamy, czy 'name' istnieje, jeśli nie to ustawiamy domyślną nazwę
+      
         const trainingName = day.name ? `Trening: ${day.name}` : `Trening: Dzień ${index + 1}`;
         const burnedKcal = day.burnedKcal || 0;
         const duration = day.time || 0; 
-        // Przekazujemy obiekt do addTraining z odpowiednim typem
+      
         this.calendarService.addTraining({
           name: trainingName,
           date: trainingDate,
           burnedKcal: burnedKcal, 
           time: duration, 
-          videoLink: day.videoLink, // Tutaj day musi mieć videoLink, więc jest zgodny z typem TrainingPlanDay
-        } as TrainingModel); // Upewniamy się, że jest to TrainingModel
+          videoLink: day.videoLink, 
+        } as TrainingModel); 
         this.router.navigate(['/home']);
         console.log(
           `Dodano trening dnia ${trainingDate.toISOString()}: ${day.videoLink}`

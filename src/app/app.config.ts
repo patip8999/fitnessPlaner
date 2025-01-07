@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
       AngularFireAuthModule,
       AngularFireModule.initializeApp(environmet.firebaseConfig),
     ]),
-    DatePipe, // Dodanie DatePipe bezpośrednio w sekcji providers
+    DatePipe, 
   ],
 };

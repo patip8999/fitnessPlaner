@@ -1,22 +1,22 @@
-/* Ustawienia dla całej strony */
+
 html, body {
   height: 100%;
   margin: 0;
-  overflow: hidden; /* Zapobiega przewijaniu strony */
+  overflow: hidden;
 }
 
-/* Pełnoekranowy układ */
+
 .welcome-container {
-  min-height: 100vh; /* Ustawienie minimalnej wysokości na 100% widoku */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: url('/assets/background.jpg');
-  background-size: cover; /* Tło rozciąga się na całą powierzchnię */
+  background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
-  width: 100%; /* Tło rozciąga się na całą szerokość ekranu */
+  width: 100%; 
   color: white;
   text-align: center;
   position: relative;
@@ -24,7 +24,7 @@ html, body {
   padding: 20px;
 }
 
-/* Tytuł */
+
 .welcome-title {
   font-size: 3rem;
   font-weight: 700;
@@ -32,7 +32,7 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* Podtytuł */
+
 .welcome-subtitle {
   font-size: 1.5rem;
   margin: 20px 0;
@@ -40,7 +40,7 @@ html, body {
   animation: fadeIn 2s 1s forwards;
 }
 
-/* Opis */
+
 .welcome-description p {
   font-size: 1.2rem;
   margin: 15px 0;
@@ -48,7 +48,7 @@ html, body {
   animation: fadeIn 3s 1.5s forwards;
 }
 
-/* Animacja fadeIn */
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -58,7 +58,7 @@ html, body {
   }
 }
 
-/* Animacja fadeInUp */
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -70,7 +70,7 @@ html, body {
   }
 }
 
-/* Przyciski */
+
 .btn-primary {
   background: linear-gradient(135deg, #6e7dff, #3d4bff);
   border: none;
