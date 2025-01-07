@@ -42,16 +42,16 @@ export class TrainingPlanDetailComponent {
     if (url) {
       const videoId = this.extractVideoId(url);
       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl); // Bezpieczne osadzenie URL
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
     }
     return '';
   }
-  // Extracts video ID from YouTube URL
+
   private extractVideoId(url: string): string | null {
     // Regex to handle different YouTube URL formats
     const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
-    console.log('Extracted video ID:', match ? match[1] : null); // Log the extracted video ID
+    console.log('Extracted video ID:', match ? match[1] : null); 
     return match ? match[1] : null;
   }
 
