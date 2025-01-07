@@ -14,28 +14,18 @@ h3 {
 
 .plan-cards-container {
   display: flex;
-<<<<<<< HEAD
   flex-wrap: wrap; /* Karty będą przechodzić do nowego wiersza */
   gap: 15px; /* Odstęp między kartami */
   justify-content: center; /* Wyśrodkowanie kart w wierszu */
   max-width: 780px; /* 3 karty o szerokości 250px + odstępy */
   margin: 0 auto; /* Wycentrowanie całego kontenera */
-=======
-  flex-wrap: wrap; 
-  gap: 15px; 
-  justify-content: flex-start;
->>>>>>> df169bdb9b84beecfcc25e58a2ec9d811049cb3d
 }
 
 .plan-card {
   background: #f0f0f0;
   border-radius: 8px;
   padding: 20px;
-<<<<<<< HEAD
   width: 250px; /* Stała szerokość karty */
-=======
-  width: 250px;
->>>>>>> df169bdb9b84beecfcc25e58a2ec9d811049cb3d
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -59,7 +49,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   width: 100%;
-
+}
 .button-group .btn {
   font-size: 0.8rem;
   text-decoration: none;
