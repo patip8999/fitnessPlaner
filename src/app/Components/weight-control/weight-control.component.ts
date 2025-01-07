@@ -35,7 +35,7 @@ export class WeightControlComponent {
   constructor(private measurementsService: MeasurementsService) {}
 
   ngOnInit(): void {
-    this.loadMeasurements(); // Ładowanie danych po inicjalizacji komponentu
+    this.loadMeasurements();
   }
 
   // Załaduj wszystkie pomiary
