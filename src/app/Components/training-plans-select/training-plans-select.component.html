@@ -10,7 +10,7 @@
         (click)="selectPlan(plan)"
       >
         <h4 class="plan-title">{{ plan.name }}</h4>
-        
+        <p>{{plan.description}}</p>
         <div class="button-group">
           <button [routerLink]="['/plan', plan.id]" class="btn btn-link btn-sm">
             Więcej

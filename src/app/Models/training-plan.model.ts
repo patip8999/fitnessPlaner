@@ -1,4 +1,5 @@
 export interface TrainingPlanModel {
+  description: string;
   id: string;            // ID planu
   name: string;          // Nazwa planu
   days: TrainingPlanDay[]; // Lista dni w planie

@@ -3,7 +3,7 @@
     <img src="assets/foto.jpg" alt="Fitness Plan Image" class="plan-image" />
   </div>
   <input [(ngModel)]="planName" placeholder="Nazwa planu" class="form-control" />
-  
+  <input [(ngModel)]="planDescription" placeholder="Opis planu" class="form-control" />
   @for(day of days; track day; let index = $index) {
     <div class="day-card">
       <div class="day-form">

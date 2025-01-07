@@ -14,16 +14,18 @@ h3 {
 
 .plan-cards-container {
   display: flex;
-  flex-wrap: wrap; /* Karty będą przechodzić do nowego wiersza, gdy nie ma miejsca */
+  flex-wrap: wrap; /* Karty będą przechodzić do nowego wiersza */
   gap: 15px; /* Odstęp między kartami */
-  justify-content: flex-start; /* Ustalamy karty do lewej strony */
+  justify-content: center; /* Wyśrodkowanie kart w wierszu */
+  max-width: 780px; /* 3 karty o szerokości 250px + odstępy */
+  margin: 0 auto; /* Wycentrowanie całego kontenera */
 }
 
 .plan-card {
   background: #f0f0f0;
   border-radius: 8px;
   padding: 20px;
-  width: 250px; /* Określamy szerokość karty */
+  width: 250px; /* Stała szerokość karty */
   display: flex;
   flex-direction: column;
   align-items: flex-start;

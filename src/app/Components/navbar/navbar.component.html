@@ -1,27 +1,25 @@
 <div class="navbar">
-  <div class="nav-links">
-    <button class="btn btn-primary" [routerLink]="['/summary']">Osiągnięcia</button>
-    <button class="btn btn-primary" [routerLink]="['/home']">Kalnedarz</button>
-    <button class="btn btn-primary" [routerLink]="['/select-plan']">Fitness Plany</button>
-    <button class="btn btn-primary" [routerLink]="['/trainig-plans']">Stwórz Fitness Plan</button>
-
-  </div>
-
+  <!-- Menu nawigacyjne - widoczne tylko dla zalogowanych użytkowników -->
   @if (user$ | async; as user) {
-  <div class="user-info">
-    <p>Witaj, {{ user.email }}</p>
-    <button [routerLink]="'/user'" class="btn btn-secondary">Moje konto</button>
-    <button (click)="logout()" class="btn btn-secondary">Wyloguj</button>
-    
-  </div>
+    <div class="nav-links">
+      <button class="btn btn-primary" [routerLink]="['/summary']">Osiągnięcia</button>
+      <button class="btn btn-primary" [routerLink]="['/home']">Kalnedarz</button>
+      <button class="btn btn-primary" [routerLink]="['/select-plan']">Fitness Plany</button>
+      <button class="btn btn-primary" [routerLink]="['/trainig-plans']">Stwórz Fitness Plan</button>
+    </div>
   } @if (!(user$ | async)) {
-  <div class="auth-buttons">
-    <button (click)="navigateToLogin()" class="btn btn-light">
-      Zaloguj się
-    </button>
-    <button (click)="navigateToRegister()" class="btn btn-light">
-      Zarejestruj się
-    </button>
-  </div>
+    <div class="auth-buttons">
+      <button (click)="navigateToLogin()" class="btn btn-light">Zaloguj się</button>
+      <button (click)="navigateToRegister()" class="btn btn-light">Zarejestruj się</button>
+    </div>
+  }
+
+  <!-- Sekcja użytkownika - widoczna tylko dla zalogowanych -->
+  @if (user$ | async; as user) {
+    <div class="user-info">
+      <p>Witaj, {{ user.email }}</p>
+      <button [routerLink]="'/user'" class="btn btn-secondary">Moje konto</button>
+      <button (click)="logout()" class="btn btn-secondary">Wyloguj</button>
+    </div>
   }
 </div>

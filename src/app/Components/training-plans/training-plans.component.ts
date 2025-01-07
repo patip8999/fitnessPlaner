@@ -21,7 +21,7 @@ export class TrainingPlansComponent  {
   plans: TrainingPlanModel[] = []; // Lista wszystkich planów
   planName: string = '';
   days: TrainingPlanDay[] = [];
-
+  planDescription: string = '';
   constructor() {
     this.loadAllPlans();
   }
@@ -50,6 +50,7 @@ export class TrainingPlansComponent  {
     const newPlan: TrainingPlanModel = {
       id: this.fitnessPlanService.client.createId(),
       name: this.planName,
+      description: this.planDescription,
       days: this.days,
       uid: '', // UID nie jest przypisywane tutaj
     };
