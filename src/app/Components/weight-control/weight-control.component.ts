@@ -48,10 +48,10 @@ export class WeightControlComponent {
   // Dodawanie nowego pomiaru
   addMeasurement(): void {
     this.measurementsService.addMeasurement(this.newMeasurement).then(() => {
-      this.loadMeasurements(); // Ponowne załadowanie danych po dodaniu nowego pomiaru
+      this.loadMeasurements(); 
     });
 
-    // Resetowanie formularza po dodaniu
+  
     this.newMeasurement = {
       id: '',
       date: new Date().toISOString().split('T')[0],
@@ -65,18 +65,18 @@ export class WeightControlComponent {
     };
   }
 
-  // Obliczanie zmiany wagi
+ 
   calculateChange(measurement: MeasurementModel, index: number): string {
-    if (index === 0) return '-'; // Brak zmiany w przypadku pierwszego pomiaru
+    if (index === 0) return '-'; 
     
     const prevMeasurement = this.measurements[index - 1];
     const change = measurement.weight - prevMeasurement.weight;
-    return change.toFixed(2); // Formatowanie zmiany wagi na 2 miejsca po przecinku
+    return change.toFixed(2); 
   }
 
-  // Stylizowanie komórek w tabeli na podstawie zmian
+  
   getStyle(measurement: MeasurementModel, index: number, key: keyof MeasurementModel): any {
-    if (index === 0) return {}; // Brak porównania w przypadku pierwszego pomiaru
+    if (index === 0) return {}; 
   
     const prevMeasurement = this.measurements[index - 1];
     const currentValue = measurement[key];
