@@ -39,7 +39,7 @@ export class DayDetailsComponent {
   }
 
   private loadDetails(day: Date): void {
-    // Pobranie posiłków
+
     this.trainingAndMealService.getMealsByDate(day).subscribe((meals) => {
       console.log('Pobrane posiłki:', meals);
       this.meals.set(meals);
@@ -47,13 +47,13 @@ export class DayDetailsComponent {
   
     // Pobranie treningów
     this.trainingAndMealService.getTrainingsByDate(day).subscribe((trainings) => {
-      console.log('Pobrane treningi:', trainings); // Sprawdzamy, czy są linki wideo
+      console.log('Pobrane treningi:', trainings); 
       this.trainings.set(trainings);
-      this.checkForVideo(trainings); // Sprawdzamy, czy trening ma wideo
+      this.checkForVideo(trainings); 
     });
   }
 
-  // Sprawdzenie, czy któryś z treningów zawiera link do wideo
+
   private checkForVideo(trainings: any[]): void {
     const videoTraining = trainings.find(training => training.videoLink); 
     if (videoTraining) {
@@ -73,12 +73,12 @@ export class DayDetailsComponent {
     }
   }
 
-  // Wyciąganie ID wideo z linku YouTube
+
   private extractVideoId(url: string): string | null {
     // Regex to handle different YouTube URL formats
     const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
-    console.log('Extracted video ID:', match ? match[1] : null); // Log the extracted video ID
+    console.log('Extracted video ID:', match ? match[1] : null); 
     return match ? match[1] : null;
   }
 
