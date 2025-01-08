@@ -16,7 +16,7 @@ import { WeightControlComponent } from './Components/weight-control/weight-contr
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
-    { path: 'home', component: HomeComponent,  canActivate: [authGuard] },
+    { path: 'home', component: CalendarComponent,  canActivate: [authGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {  path: 'day-details/:day', component: DayDetailsComponent,  canActivate: [authGuard]},
