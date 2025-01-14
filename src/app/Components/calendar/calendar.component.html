@@ -54,7 +54,9 @@
     <div class="week-days">
       @for (day of currentWeek; track day) {
         <div class="day-details">
-          <h4>{{ day.date | date: 'EEEE, d MMMM' }}</h4>
+          <h4 [routerLink]="['/day-details', day.date | date: 'yyyy-MM-dd']">
+            {{ day.date | date: 'EEEE, d MMMM' }}
+          </h4>
           <div>
             <h4>Treningi</h4>
             @for (training of getTrainingsForDay(day.date); track training) {

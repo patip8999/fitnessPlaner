@@ -5,6 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { MeasurementsService } from '../../Services/measurements.service';
 import { MeasurementModel } from '../../Models/measurements.model';
 import { CommonModule } from '@angular/common';
+import { CalorieCalculatorComponent } from '../calorie-calculator/calorie-calculator.component';
 
 
 
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-weight-control',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CalorieCalculatorComponent],
   templateUrl: './weight-control.component.html',
   styleUrl: './weight-control.component.css'
 })

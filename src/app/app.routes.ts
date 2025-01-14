@@ -13,6 +13,7 @@ import { TrainingPlanDetailComponent } from './Components/training-plan-detail/t
 import { WelcomeComponent } from './Components/welcome/welcome.component';
 import { UserComponent } from './Components/user/user.component';
 import { WeightControlComponent } from './Components/weight-control/weight-control.component';
+import { CalorieCalculatorComponent } from './Components/calorie-calculator/calorie-calculator.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -25,5 +26,6 @@ export const routes: Routes = [
     { path: 'select-plan', component: TrainingPlansSelectComponent,  canActivate: [authGuard]},
     {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]},
     { path: 'user', component: UserComponent,  canActivate: [authGuard]},
-    { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] }
+    { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] },
+    { path: 'calorie', component: CalorieCalculatorComponent,canActivate: [authGuard] }
 ];
