@@ -27,5 +27,5 @@ export const routes: Routes = [
     {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]},
     { path: 'user', component: UserComponent,  canActivate: [authGuard]},
     { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] },
-    { path: 'calorie', component: CalorieCalculatorComponent,canActivate: [authGuard] }
+    { path: 'calories-calculator', component: CalorieCalculatorComponent,canActivate: [authGuard] }
 ];
