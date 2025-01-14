@@ -1,13 +1,21 @@
 <div class="day-details">
   <h2 class="day-title">Details for {{ day() | date : "fullDate" }}</h2>
 
-  <div class="calories-balance">
-    <h3>Calories balance:</h3>
+ 
+@if( tdee ) {
+  <div class="calories-balance" >
+    <h3>Balans kaloryczny:</h3>
     <p class="balance-value">
-      {{ meals() | caloriesBalance : trainings() }} kcal
+      {{ meals() | caloriesBalance : trainings() : tdee  | number:'1.0-0' }} kcal
     </p>
+    @if ((meals() | caloriesBalance : trainings() : tdee) > 0) {
+      <p>Nie przekroczyłeś zapotrzebowania kalorycznego</p>
+    }
+    @else {
+      <p class="text-danger">Przekroczyłeś zapotrzebowanie kaloryczne</p>
+    }
   </div>
-
+}
   @if (meals().length > 0) {
   <div class="meals">
     <h3>Meals:</h3>

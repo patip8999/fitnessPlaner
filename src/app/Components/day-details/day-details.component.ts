@@ -1,15 +1,16 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingAndMealService } from '../../Services/calendar.service';
-import { DatePipe } from '@angular/common';
-import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
+import { CommonModule, DatePipe } from '@angular/common';
 import { YoutubeService, YouTubeVideoResponse } from '../../Services/youtube.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CalorieService } from '../../Services/calorie.service';
+import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
 
 @Component({
   selector: 'app-day-details',
   standalone: true,
-  imports: [DatePipe, CaloriesBalancePipe],
+  imports: [DatePipe, CaloriesBalancePipe, CommonModule],
   templateUrl: './day-details.component.html',
   styleUrls: ['./day-details.component.css'],
 })
@@ -17,14 +18,19 @@ export class DayDetailsComponent {
   readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
   readonly meals: WritableSignal<any[]> = signal<any[]>([]);
   readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
+  tdee: number = 0; // Przechowujemy TDEE
+  calorieService: CalorieService = inject(CalorieService);
   youtubeService: YoutubeService = inject(YoutubeService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly trainingAndMealService: TrainingAndMealService = inject(TrainingAndMealService);
-  videoDetails: any = null; // Przechowuje szczegóły wideo z YouTube
-  videoId: string | null = null; // ID wideo
-  sanitizer: DomSanitizer = inject(DomSanitizer)
-  videoUrl: SafeResourceUrl | null = null; // URL wideo po sanityzacji
-  
+  videoDetails: any = null;
+  videoId: string | null = null;
+  sanitizer: DomSanitizer = inject(DomSanitizer);
+  videoUrl: SafeResourceUrl | null = null;
+  calorieData = {
+    tdee: 0, // Inicjujemy zmienną calorieData z TDEE
+  };
+
   constructor() {
     this.route.paramMap.subscribe((params) => {
       const dayParam = params.get('day');
@@ -36,16 +42,16 @@ export class DayDetailsComponent {
         this.loadDetails(day);
       }
     });
+
+    this.loadTdeeFromFirebase();  // Ładowanie TDEE z Firebase na początku
   }
 
   private loadDetails(day: Date): void {
-
     this.trainingAndMealService.getMealsByDate(day).subscribe((meals) => {
       console.log('Pobrane posiłki:', meals);
       this.meals.set(meals);
     });
-  
-    // Pobranie treningów
+
     this.trainingAndMealService.getTrainingsByDate(day).subscribe((trainings) => {
       console.log('Pobrane treningi:', trainings); 
       this.trainings.set(trainings);
@@ -53,6 +59,23 @@ export class DayDetailsComponent {
     });
   }
 
+
+
+  private loadTdeeFromFirebase(): void {
+    this.calorieService.loadTdee().subscribe(
+      (data) => {
+        if (data) {
+          this.tdee = data.tdee;
+          console.log('Pobrano TDEE z Firebase:', this.tdee);
+        } else {
+          console.log('Brak danych o TDEE w Firebase');
+        }
+      },
+      (err) => {
+        console.error('Błąd ładowania TDEE:', err);
+      }
+    );
+  }
 
   private checkForVideo(trainings: any[]): void {
     const videoTraining = trainings.find(training => training.videoLink); 
@@ -73,9 +96,7 @@ export class DayDetailsComponent {
     }
   }
 
-
   private extractVideoId(url: string): string | null {
-    // Regex to handle different YouTube URL formats
     const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
     console.log('Extracted video ID:', match ? match[1] : null); 
