@@ -89,7 +89,7 @@ export class WeightControlComponent {
   
       if (change > 0) {
         return { 'color': 'red' }; 
-      } else  (change < 0) {
+      } else if (change < 0) {
         return { 'color': 'green' };
       } else {
         return { 'color': 'black' }; 
