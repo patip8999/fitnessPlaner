@@ -1,7 +1,7 @@
 .calorie-form-container {
   max-width: 600px;
   margin: 30px auto;
-  background: linear-gradient(135deg, #e0f7fa, #254636);
+  background: var(--background-gradient);
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -41,7 +41,7 @@
 }
 
 button {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   color: white;
   border: none;
   padding: 10px;

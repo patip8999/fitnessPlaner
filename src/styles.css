@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #254636;  /* Domyślny zielony kolor */
+    --secondary-color:#87CEFA; /* Drugi zielony odcień */
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --background-gradient: linear-gradient(135deg, #e0f7fa, #254636); 
+    --button-background: #254636;/* Możesz dodać więcej zmiennych kolorów, takich jak kolor przycisków, tła, nagłówków itp. */
+  }

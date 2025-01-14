@@ -23,7 +23,7 @@
   }
   
   button[type="submit"] {
-    background-color: #254636;
+    background-color: var(--button-background, #254636);
     border: none;
     color: white;
     padding: 12px 25px;

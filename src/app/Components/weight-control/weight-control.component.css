@@ -75,7 +75,7 @@
 }
 
 .measurement-form button[type="submit"] {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 12px 25px;
@@ -86,7 +86,7 @@
 }
 
 .measurement-form button[type="submit"]:hover {
-  background-color: #2f5957;
+  background-color: var(--button-background, #254636);
 }
 
 @media (max-width: 768px) {
@@ -111,7 +111,7 @@
 
 /* Styl dla samego przycisku */
 .measurement-form button[type="submit"] {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 12px 25px;
@@ -122,7 +122,7 @@
   margin: 0 auto;
 }
 .btn-toggle {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 12px 25px;
@@ -133,5 +133,5 @@
   margin: 0 auto;
 }
 .measurement-form button[type="submit"]:hover {
-  background-color: #2f5957;
+  background-color: var(--button-background, #254636);
 }

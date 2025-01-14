@@ -1,6 +1,6 @@
 .fitness-plan-select {
   padding: 20px;
-  background: linear-gradient(135deg, #e0f7fa, #254636);
+  background: var(--background-gradient);
   border-radius: 10px;
   color: #333;
 }
@@ -70,7 +70,7 @@ h3 {
 
 .btn-primary {
   margin-top: 20px;
-  background: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 12px 20px;

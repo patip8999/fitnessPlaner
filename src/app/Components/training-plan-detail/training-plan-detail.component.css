@@ -14,7 +14,7 @@
   
   .card {
     width: 30%;
-    background: linear-gradient(135deg, #e0f7fa, #254636); /* Zmieniony kolor tła */
+    background: var(--background-gradient); /* Zmieniony kolor tła */
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Podobny cień jak w modal */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -57,7 +57,7 @@
   }
   
   .btn-primary {
-    background: linear-gradient(135deg, #6e7dff, #3d4bff);
+    background-color: var(--button-background, #254636);
     border: none;
     color: white;
     padding: 12px 20px;

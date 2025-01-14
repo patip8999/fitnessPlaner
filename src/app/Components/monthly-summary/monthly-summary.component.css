@@ -75,7 +75,7 @@
 }
 
 .monthly-form button[type="submit"] {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 12px 25px;
@@ -86,7 +86,7 @@
 }
 
 .monthly-form button[type="submit"]:hover {
-  background-color: #2f5957;
+  background-color: var(--button-background, #254636);
 }
 
 @media (max-width: 768px) {
@@ -98,7 +98,7 @@
   }
 }
 .monthly-summary .nav-button {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   border: none;
   color: white;
   padding: 8px 16px; /* Zmniejszenie paddingu */
@@ -110,7 +110,7 @@
 }
 
 .monthly-summary .nav-button:hover {
-  background-color: #2f5957;
+  background-color: var(--button-background, #254636);
   transform: scale(1.05);
 }
 

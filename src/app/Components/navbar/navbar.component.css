@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: linear-gradient(135deg, #e0f7fa, #254636);
+  background: var(--background-gradient);
   color: white;
   border-radius: 10px;
 }
@@ -17,7 +17,7 @@
 }
 
 .navbar .btn-primary {
-  background-color: #254636;
+  background-color: var(--button-background, #254636);
   color: white;
 }
 

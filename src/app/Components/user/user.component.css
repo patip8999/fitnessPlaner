@@ -25,7 +25,7 @@
   }
   
   button.btn-primary {
-    background-color: #254636;
+    background-color: var(--button-background, #254636);
     border: none;
     color: white;
     padding: 12px 25px;
@@ -39,7 +39,7 @@
   }
   
   button.btn-primary:hover {
-    background-color: #2f5957;
+    background-color: var(--button-background, #254636);
   }
   
   p.user-info {

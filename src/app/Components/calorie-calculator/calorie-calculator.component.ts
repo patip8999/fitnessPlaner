@@ -5,6 +5,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormsModule } from '@angular/forms';
 import { CalorieCalculation } from '../../Models/calorie-calculation.model';
 import { CalorieService } from '../../Services/calorie.service';
+import { ThemeService } from '../../Services/theme.service';
+
 
 @Component({
   selector: 'app-calorie-calculator',
@@ -74,5 +76,9 @@ export class CalorieCalculatorComponent {
         console.error('Błąd ładowania TDEE:', err);
       }
     );
+  }
+  themeService: ThemeService = inject(ThemeService);
+  changeGradient(color: string) {
+    this.themeService.setGradient(color);
   }
 }
