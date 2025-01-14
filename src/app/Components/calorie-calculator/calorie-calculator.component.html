@@ -1,41 +1,39 @@
 <div class="calorie-form-container">
-    <h3>Kalkulator zapotrzebowania kalorycznego</h3>
-    <form (ngSubmit)="calculateCalories()">
-      <div class="form-group">
-        <label for="gender">Płeć:</label>
-        <select id="gender" [(ngModel)]="calorieData.gender" name="gender">
-          <option value="male">Mężczyzna</option>
-          <option value="female">Kobieta</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="age">Wiek:</label>
-        <input type="number" id="age" [(ngModel)]="calorieData.age" name="age" required />
-      </div>
-      <div class="form-group">
-        <label for="height">Wzrost (cm):</label>
-        <input type="number" id="height" [(ngModel)]="calorieData.height" name="height" required />
-      </div>
-      <div class="form-group">
-        <label for="weight">Waga (kg):</label>
-        <input type="number" id="weight" [(ngModel)]="calorieData.weight" name="weight" required />
-      </div>
-      <div class="form-group">
-        <label for="activity">Poziom aktywności:</label>
-        <select id="activity" [(ngModel)]="calorieData.activityLevel" name="activity">
-          <option value="1.2">Siedzący tryb życia</option>
-          <option value="1.375">Lekka aktywność</option>
-          <option value="1.55">Średnia aktywność</option>
-          <option value="1.725">Duża aktywność</option>
-          <option value="1.9">Bardzo duża aktywność</option>
-        </select>
-      </div>
-      <button type="submit">Oblicz</button>
-    </form>
- 
-    <div >
-      <h4>Twoje dzienne zapotrzebowanie kaloryczne (TDEE): {{ calorieData.tdee | number:'1.0-0' }} kcal</h4>
+  <h3>Kalkulator zapotrzebowania kalorycznego</h3>
+  <form (ngSubmit)="calculateCalories()">
+    <div class="form-group">
+      <label for="gender">Płeć:</label>
+      <select id="gender" [(ngModel)]="calorieData.gender" name="gender">
+        <option value="male">Mężczyzna</option>
+        <option value="female">Kobieta</option>
+      </select>
     </div>
+    <div class="form-group">
+      <label for="age">Wiek:</label>
+      <input type="number" id="age" [(ngModel)]="calorieData.age" name="age" required />
+    </div>
+    <div class="form-group">
+      <label for="height">Wzrost (cm):</label>
+      <input type="number" id="height" [(ngModel)]="calorieData.height" name="height" required />
+    </div>
+    <div class="form-group">
+      <label for="weight">Waga (kg):</label>
+      <input type="number" id="weight" [(ngModel)]="calorieData.weight" name="weight" required />
+    </div>
+    <div class="form-group">
+      <label for="activity">Poziom aktywności:</label>
+      <select id="activity" [(ngModel)]="calorieData.activityLevel" name="activity">
+        <option value="1.2">Siedzący tryb życia</option>
+        <option value="1.375">Lekka aktywność</option>
+        <option value="1.55">Średnia aktywność</option>
+        <option value="1.725">Duża aktywność</option>
+        <option value="1.9">Bardzo duża aktywność</option>
+      </select>
+    </div>
+    <button type="submit">Oblicz</button>
+  </form>
 
+  <div>
+    <h4>Twoje dzienne zapotrzebowanie kaloryczne (TDEE): {{ calorieData.tdee | number:'1.0-0' }} kcal</h4>
   </div>
-  
+</div>

@@ -39,7 +39,7 @@
 }
 
 .calendar-navigation button {
-  background: linear-gradient(135deg, #6e7dff, #3d4bff);
+  background: #254636;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -50,7 +50,7 @@
 }
 
 .calendar-navigation button:hover {
-  background: linear-gradient(135deg, #3d4bff, #6e7dff);
+  background: #254636;
 }
 .day-names,
 .calendar-days {
@@ -110,7 +110,7 @@
 }
 
 .week-header button {
-  background: linear-gradient(135deg, #6e7dff, #3d4bff);
+  background: #254636;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -121,7 +121,7 @@
 }
 
 .week-header button:hover {
-  background: linear-gradient(135deg, #3d4bff, #6e7dff);
+  background: #254636;
 }
 
 .week-days {
