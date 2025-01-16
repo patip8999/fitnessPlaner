@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { ThemeService } from './theme.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,10 +11,13 @@ export class AuthService {
   }
   private afAuth = inject(AngularFireAuth);
   private currentUserSubject = new BehaviorSubject<any>(null);
-
+  private themeService: ThemeService = inject(ThemeService);
   constructor() {
     this.afAuth.authState.subscribe((user) => {
       this.currentUserSubject.next(user);
+      if (user) {
+        this.themeService.loadUserTheme(user.uid);
+      }
     });
   }
 
@@ -33,6 +36,4 @@ export class AuthService {
   getCurrentUser(): Observable<any> {
     return this.currentUserSubject.asObservable();
   }
-
-
 }
