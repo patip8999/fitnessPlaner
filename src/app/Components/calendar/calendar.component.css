@@ -183,3 +183,15 @@
 .calendar-days div.has-events:hover {
   background-color: #b0d0d0; /* Przyciemnienie przy najechaniu */
 }
+.btn-link {
+  color: black; /* Zmienia kolor tekstu przycisku na czarny */
+}
+
+.form-check-input {
+  background-color: black; /* Zmienia tło checkboxa na czarne */
+  border-color: black; /* Zmienia kolor obramowania checkboxa na czarny */
+}
+
+.form-check-label {
+  color: black; /* Zmienia kolor tekstu obok checkboxa na czarny */
+}
