@@ -36,4 +36,11 @@ export class LoginComponent {
       console.log('Proszę podać e-mail i hasło.');
     }
   }
+  loginWithGoogle() {
+    this.authService.loginWithGoogle().then(() => {
+      console.log('Zalogowano za pomocą Google');
+    }).catch((error) => {
+      console.error('Błąd logowania przez Google: ', error);
+    });
+  }
 }
