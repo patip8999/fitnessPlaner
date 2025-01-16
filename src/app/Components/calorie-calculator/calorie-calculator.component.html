@@ -10,19 +10,41 @@
     </div>
     <div class="form-group">
       <label for="age">Wiek:</label>
-      <input type="number" id="age" [(ngModel)]="calorieData.age" name="age" required />
+      <input
+        type="number"
+        id="age"
+        [(ngModel)]="calorieData.age"
+        name="age"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="height">Wzrost (cm):</label>
-      <input type="number" id="height" [(ngModel)]="calorieData.height" name="height" required />
+      <input
+        type="number"
+        id="height"
+        [(ngModel)]="calorieData.height"
+        name="height"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="weight">Waga (kg):</label>
-      <input type="number" id="weight" [(ngModel)]="calorieData.weight" name="weight" required />
+      <input
+        type="number"
+        id="weight"
+        [(ngModel)]="calorieData.weight"
+        name="weight"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="activity">Poziom aktywności:</label>
-      <select id="activity" [(ngModel)]="calorieData.activityLevel" name="activity">
+      <select
+        id="activity"
+        [(ngModel)]="calorieData.activityLevel"
+        name="activity"
+      >
         <option value="1.2">Siedzący tryb życia</option>
         <option value="1.375">Lekka aktywność</option>
         <option value="1.55">Średnia aktywność</option>
@@ -34,12 +56,9 @@
   </form>
 
   <div>
-    <h4>Twoje dzienne zapotrzebowanie kaloryczne (TDEE): {{ calorieData.tdee | number:'1.0-0' }} kcal</h4>
+    <h4>
+      Twoje dzienne zapotrzebowanie kaloryczne (TDEE):
+      {{ calorieData.tdee | number : "1.0-0" }} kcal
+    </h4>
   </div>
-</div>
-<div>
-  <button (click)="changeGradient('blue')">Niebieski Gradient</button>
-  <button (click)="changeGradient('green')">Zielony Gradient</button>
-  <button (click)="changeGradient('purple')">Lawendowy Gradient</button> <!-- Nowy przycisk -->
-  <!-- Możesz dodać więcej przycisków -->
 </div>

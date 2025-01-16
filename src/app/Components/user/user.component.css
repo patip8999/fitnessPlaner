@@ -45,4 +45,32 @@
   p.user-info {
     margin-top: 10px;
   }
+  .color-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Dynamiczna siatka */
+    gap: 15px; /* Odstępy między przyciskami */
+    margin: 20px 0; /* Odstęp od reszty sekcji */
+  }
+  
+  .color-buttons button {
+    background: linear-gradient(135deg, #ffffff, #e0e0e0); /* Subtelne tło gradientowe */
+    border: 1px solid #ccc; /* Delikatna ramka */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    padding: 10px 15px; /* Wewnętrzne marginesy */
+    font-size: 14px; /* Rozmiar tekstu */
+    color: #333; /* Kolor tekstu */
+    cursor: pointer; /* Wskaźnik myszy */
+    transition: all 0.3s ease; /* Płynna animacja */
+  }
+  
+  .color-buttons button:hover {
+    background: linear-gradient(135deg, #f0f0f0, #d0d0d0); /* Zmiana tła przy najechaniu */
+    border-color: #999; /* Zmiana koloru ramki */
+    transform: translateY(-2px); /* Efekt "podniesienia" przycisku */
+  }
+  
+  .color-buttons button:active {
+    transform: translateY(0); /* Powrót przy naciśnięciu */
+    background: linear-gradient(135deg, #e0e0e0, #c0c0c0); /* Minimalne przyciemnienie */
+  }
   

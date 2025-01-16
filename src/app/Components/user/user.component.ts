@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../Services/theme.service';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +12,9 @@ import { CommonModule } from '@angular/common';
 })
 export class UserComponent {
   authService: AuthService = inject(AuthService);
-
+  themeService: ThemeService = inject(ThemeService);
   userSignal = this.authService.getCurrentUser();
+  changeGradient(color: string) {
+    this.themeService.setGradient(color);
+  }
 }

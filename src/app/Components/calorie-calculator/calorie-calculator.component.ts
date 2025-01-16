@@ -77,8 +77,6 @@ export class CalorieCalculatorComponent {
       }
     );
   }
-  themeService: ThemeService = inject(ThemeService);
-  changeGradient(color: string) {
-    this.themeService.setGradient(color);
-  }
+
+ 
 }
