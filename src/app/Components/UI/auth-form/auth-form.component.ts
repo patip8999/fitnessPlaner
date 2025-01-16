@@ -70,5 +70,7 @@ export class AuthFormComponent {
       }
     }
   }
-
+  onGoogleLogin() {
+    this.googleLogin.emit();
+  }
 }

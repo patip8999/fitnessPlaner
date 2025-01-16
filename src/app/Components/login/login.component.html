@@ -4,5 +4,5 @@
   [(email)]="email"
   [(password)]="password"
   (formSubmit)="login($event)"
+  (googleLogin)="loginWithGoogle()"
 ></app-auth-form>
-<button (click)="loginWithGoogle()">Zaloguj przez Google</button>
