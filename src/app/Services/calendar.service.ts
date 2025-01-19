@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { mealModel } from '../Models/meal.model';
 import { TrainingModel } from '../Models/training.model';
-import { TrainingPlanModel } from '../Models/training-plan.model';
 
 @Injectable({
   providedIn: 'root',
@@ -59,23 +58,25 @@ export class TrainingAndMealService {
 
   addTraining(training: TrainingModel): void {
     if (!training.id) {
-      training.id = this.client.createId(); // Generowanie nowego ID, jeśli nie zostało przekazane
+      training.id = this.client.createId();
     }
-  
+
     this.afAuth.currentUser
       .then((user) => {
         const uid = user?.uid;
         if (uid) {
           this.client
             .collection('Training')
-            .doc(training.id)  // Użycie wygenerowanego ID do zapisania treningu
+            .doc(training.id)
             .set({
               ...training,
               uid,
-              date: training.date.toISOString(), // Konwersja daty na odpowiedni format
+              date: training.date.toISOString(),
             })
             .then(() => console.log('Training added/updated successfully'))
-            .catch((err) => console.error('Error adding/updating training:', err));
+            .catch((err) =>
+              console.error('Error adding/updating training:', err)
+            );
         }
       })
       .catch((err) => console.error('Error getting user:', err));
@@ -83,30 +84,37 @@ export class TrainingAndMealService {
 
   addMeal(meal: mealModel): void {
     if (!meal.id) {
-      meal.id = this.client.createId(); 
+      meal.id = this.client.createId();
     }
-  
-    this.afAuth.currentUser.then(user => {
-      if (user) {
-        const mealId = meal.id || this.client.createId(); 
-        this.client.collection('Meal').doc(mealId).set({
-          ...meal,
-          uid: user.uid,
-          date: meal.date.toISOString() 
-        })
-        .then(() => console.log('Meal added/updated successfully'))
-        .catch(err => console.error('Error adding/updating meal:', err));
-      }
-    })
-    .catch(err => console.error('Error getting user:', err));
+
+    this.afAuth.currentUser
+      .then((user) => {
+        if (user) {
+          const mealId = meal.id || this.client.createId();
+          this.client
+            .collection('Meal')
+            .doc(mealId)
+            .set({
+              ...meal,
+              uid: user.uid,
+              date: meal.date.toISOString(),
+            })
+            .then(() => console.log('Meal added/updated successfully'))
+            .catch((err) => console.error('Error adding/updating meal:', err));
+        }
+      })
+      .catch((err) => console.error('Error getting user:', err));
   }
   updateMeal(meal: mealModel): Promise<void> {
     return this.afAuth.currentUser.then((user) => {
       if (user) {
-        return this.client.collection('Meal').doc(meal.id).update({
-          ...meal,
-          date: meal.date.toISOString(),
-        });
+        return this.client
+          .collection('Meal')
+          .doc(meal.id)
+          .update({
+            ...meal,
+            date: meal.date.toISOString(),
+          });
       } else {
         return Promise.reject('User not authenticated');
       }
@@ -115,10 +123,13 @@ export class TrainingAndMealService {
   updateTraining(training: TrainingModel): Promise<void> {
     return this.afAuth.currentUser.then((user) => {
       if (user) {
-        return this.client.collection('Training').doc(training.id).update({
-          ...training,
-          date: training.date.toISOString(),
-        });
+        return this.client
+          .collection('Training')
+          .doc(training.id)
+          .update({
+            ...training,
+            date: training.date.toISOString(),
+          });
       } else {
         return Promise.reject('User not authenticated');
       }
@@ -271,7 +282,10 @@ export class TrainingAndMealService {
       .then((user) => {
         const uid = user?.uid;
         if (uid) {
-          return this.client.collection('Training').doc(trainingId).delete()
+          return this.client
+            .collection('Training')
+            .doc(trainingId)
+            .delete()
             .then(() => console.log('Training deleted successfully'))
             .catch((err) => console.error('Error deleting training:', err));
         } else {
@@ -288,7 +302,10 @@ export class TrainingAndMealService {
       .then((user) => {
         const uid = user?.uid;
         if (uid) {
-          return this.client.collection('Meal').doc(mealId).delete()
+          return this.client
+            .collection('Meal')
+            .doc(mealId)
+            .delete()
             .then(() => console.log('Meal deleted successfully'))
             .catch((err) => console.error('Error deleting meal:', err));
         } else {
@@ -300,6 +317,4 @@ export class TrainingAndMealService {
         return Promise.reject(err);
       });
   }
-  
 }
-

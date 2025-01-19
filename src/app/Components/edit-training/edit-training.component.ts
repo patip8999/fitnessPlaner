@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 import { TrainingModel } from '../../Models/training.model';
 import { FormsModule } from '@angular/forms';
-import { FormComponent } from "../UI/form/form.component";
-import { ModalComponent } from "../UI/modal/modal.component";
+import { ModalComponent } from '../UI/modal/modal.component';
 
 @Component({
   selector: 'app-edit-training',
   standalone: true,
-  imports: [FormsModule,  ModalComponent],
+  imports: [FormsModule, ModalComponent],
   templateUrl: './edit-training.component.html',
   styleUrl: './edit-training.component.css',
 })
@@ -27,11 +26,11 @@ export class EditTrainingComponent {
     isDone: false,
     burnedKcal: 0,
     time: '',
-videoLink: '',
+    videoLink: '',
     date: new Date(),
     id: '',
   };
-dateLabel: any;
+  dateLabel: any;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['training'] && this.training) {
       this.model = {

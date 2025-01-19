@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
-import {  TrainingAndMealService } from '../../Services/calendar.service';
+import { TrainingAndMealService } from '../../Services/calendar.service';
 import { DatePipe } from '@angular/common';
-import { TrainingModel } from '../../Models/training.model';  
+import { TrainingModel } from '../../Models/training.model';
 import { mealModel } from '../../Models/meal.model';
-import { WeightControlComponent } from "../weight-control/weight-control.component";
+import { WeightControlComponent } from '../weight-control/weight-control.component';
 @Component({
   selector: 'app-monthly-summary',
   standalone: true,
@@ -16,7 +16,9 @@ export class MonthlySummaryComponent {
   trainings = signal<TrainingModel[]>([]);
   currentMonth: Date = new Date();
 
-  trainingAndMealService: TrainingAndMealService = inject(TrainingAndMealService);
+  trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   constructor() {
@@ -57,33 +59,37 @@ export class MonthlySummaryComponent {
   }
 
   totalCalories(): number {
-    const meals = this.meals(); 
+    const meals = this.meals();
     return meals.reduce(
       (sum, meal) => sum + (meal.calories ? Number(meal.calories) : 0),
       0
     );
   }
-  
+
   totalBurnedCalories(): number {
-    const trainings = this.trainings(); 
-  
-    // Filtrujemy tylko te treningi, które są oznaczone jako 'done'
-    const completedTrainings = trainings.filter(training => training.isDone === true); 
-  
+    const trainings = this.trainings();
+
+    const completedTrainings = trainings.filter(
+      (training) => training.isDone === true
+    );
+
     return completedTrainings.reduce(
-      (sum, training) => sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
+      (sum, training) =>
+        sum + (training.burnedKcal ? Number(training.burnedKcal) : 0),
       0
     );
   }
   totalTrainingTime(): number {
-    const trainings = this.trainings(); 
-    const completedTrainings = trainings.filter(training => training.isDone === true);
-  
-    console.log('Completed Trainings:', completedTrainings);  // Debugowanie
-  
+    const trainings = this.trainings();
+    const completedTrainings = trainings.filter(
+      (training) => training.isDone === true
+    );
+
+    console.log('Completed Trainings:', completedTrainings);
+
     return completedTrainings.reduce((sum, training) => {
       const time = training.time ? Number(training.time) : 0;
-      console.log('Training Time:', time);  // Debugowanie
+      console.log('Training Time:', time);
       return sum + (isNaN(time) ? 0 : time);
     }, 0);
   }

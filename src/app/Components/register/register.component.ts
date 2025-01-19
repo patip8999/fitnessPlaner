@@ -18,27 +18,30 @@ export class RegisterComponent {
   username = '';
   private authService = inject(AuthService);
   private readonly router = inject(Router);
-  register({ email, password, confirmPassword, username }: { 
-    email: string; 
-    password: string; 
-    confirmPassword?: string; 
-    username?: string 
+  register({
+    email,
+    password,
+    confirmPassword,
+    username,
+  }: {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+    username?: string;
   }) {
-    // Sprawdzanie, czy dane są dostępne
     if (!email || !password || !username) {
       console.log('Proszę podać e-mail, nazwę użytkownika i hasło.');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       console.error('Hasła nie są zgodne.');
       return;
     }
-  
-    // Jeśli dane są poprawne, wykonaj rejestrację
-    this.authService.register(email, password)
-      .then(() => {
 
+    this.authService
+      .register(email, password)
+      .then(() => {
         this.router.navigate(['/home']);
         console.log(`Zarejestrowano pomyślnie użytkownika: ${username}`);
       })
@@ -46,7 +49,4 @@ export class RegisterComponent {
         console.error('Błąd rejestracji:', error.message);
       });
   }
-  
-
-
 }

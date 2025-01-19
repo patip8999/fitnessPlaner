@@ -1,16 +1,16 @@
 export interface TrainingPlanModel {
-  description: string;
-  id: string;            // ID planu
-  name: string;          // Nazwa planu
-  days: TrainingPlanDay[]; // Lista dni w planie
-  uid: string;           // UID użytkownika, który stworzył plan
+  readonly description: string;
+  readonly id: string;           
+  readonly name: string;          
+  readonly  days: TrainingPlanDay[];
+  readonly uid: string;         
   
 }
 
 export interface TrainingPlanDay {
-  date: string;        
-  videoLink: string;     
-  time: string;      
-  burnedKcal: number;    
-  name?: string; 
+  readonly date: string;        
+  readonly  videoLink: string;     
+  readonly time: string;      
+  readonly burnedKcal: number;    
+  readonly name?: string; 
 }

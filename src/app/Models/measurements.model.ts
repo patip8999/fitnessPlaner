@@ -1,13 +1,11 @@
-
-
 export interface MeasurementModel {
-  id?: string;
-  date: string | Date;
-  waist: number;
-  hips: number;
-  buttocks: number;
-  thigh: number;
-  arms: number;
-  chest: number;
-  weight: number;
+  readonly id?: string;
+  readonly date: string | Date;
+  readonly waist: number;
+  readonly hips: number;
+  readonly  buttocks: number;
+  readonly  thigh: number;
+  readonly arms: number;
+  readonly chest: number;
+  readonly weight: number;
 }

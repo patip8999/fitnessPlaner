@@ -25,7 +25,7 @@ export class AuthFormComponent {
     password: string;
     confirmPassword?: string;
     username?: string;
-  }>()
+  }>();
 
   onEmailChange() {
     this.emailChange.emit(this.email);
@@ -42,28 +42,30 @@ export class AuthFormComponent {
     this.usernameChange.emit(this.username);
   }
 
-
   onSubmit() {
     if (this.isLogin) {
-      // Walidacja logowania
       if (this.email && this.password) {
         this.formSubmit.emit({
           email: this.email,
-          username: this.username,  // Dodajemy username, nawet jeśli nie jest wymagane w logowaniu
+          username: this.username,
           password: this.password,
-          confirmPassword: this.confirmPassword
+          confirmPassword: this.confirmPassword,
         });
       } else {
         console.log('Proszę podać e-mail i hasło.');
       }
     } else {
-      // Walidacja rejestracji
-      if (this.email && this.username && this.password && this.password === this.confirmPassword) {
-        this.formSubmit.emit({ 
-          email: this.email, 
-          username: this.username, 
-          password: this.password, 
-          confirmPassword: this.confirmPassword 
+      if (
+        this.email &&
+        this.username &&
+        this.password &&
+        this.password === this.confirmPassword
+      ) {
+        this.formSubmit.emit({
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          confirmPassword: this.confirmPassword,
         });
       } else {
         console.log('Proszę podać e-mail, nazwę użytkownika i hasło.');

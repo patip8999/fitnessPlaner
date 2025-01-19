@@ -5,18 +5,19 @@ import { TrainingPlanModel } from '../Models/training-plan.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FitnessPlanService {
-   client = inject(AngularFirestore);
-    private afAuth = inject(AngularFireAuth);
-    getAllFitnessPlans(): Observable<TrainingPlanModel[]> {
-      return this.client.collection<TrainingPlanModel>('FitnessPlans').valueChanges();
-    }
-  
+  client = inject(AngularFirestore);
+  private afAuth = inject(AngularFireAuth);
+  getAllFitnessPlans(): Observable<TrainingPlanModel[]> {
+    return this.client
+      .collection<TrainingPlanModel>('FitnessPlans')
+      .valueChanges();
+  }
 
   createFitnessPlan(plan: TrainingPlanModel): void {
-    const newPlan = { ...plan }; // Nie przypisujemy UID na tym etapie
+    const newPlan = { ...plan };
     this.client
       .collection('FitnessPlans')
       .add(newPlan)
@@ -24,17 +25,20 @@ export class FitnessPlanService {
       .catch((err) => console.error('Błąd przy dodawaniu planu fitness', err));
   }
 
-  
-  getFitnessPlanById(planId: string): Observable<TrainingPlanModel | undefined> {
+  getFitnessPlanById(
+    planId: string
+  ): Observable<TrainingPlanModel | undefined> {
     return this.client
-      .collection<TrainingPlanModel>('FitnessPlans', ref => ref.where('id', '==', planId))
+      .collection<TrainingPlanModel>('FitnessPlans', (ref) =>
+        ref.where('id', '==', planId)
+      )
       .valueChanges()
       .pipe(
-        map(plans => plans.length > 0 ? plans[0] : undefined),
-        tap(plan => {
-          console.log('Fetched Plan Data from Firestore:', plan); 
+        map((plans) => (plans.length > 0 ? plans[0] : undefined)),
+        tap((plan) => {
+          console.log('Fetched Plan Data from Firestore:', plan);
         }),
-        map(plan => {
+        map((plan) => {
           if (plan) {
             return plan;
           } else {
@@ -46,29 +50,33 @@ export class FitnessPlanService {
   }
   updateFitnessPlan(plan: TrainingPlanModel): void {
     this.client
-      .collection('FitnessPlans', ref => ref.where('id', '==', plan.id))
+      .collection('FitnessPlans', (ref) => ref.where('id', '==', plan.id))
       .get()
-      .subscribe(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           this.client
             .doc(`FitnessPlans/${doc.id}`)
             .update(plan)
             .then(() => console.log('Plan fitness zaktualizowany'))
-            .catch((err) => console.error('Błąd przy aktualizacji planu fitness', err));
+            .catch((err) =>
+              console.error('Błąd przy aktualizacji planu fitness', err)
+            );
         });
       });
   }
   deleteFitnessPlan(planId: string): void {
     this.client
-      .collection('FitnessPlans', ref => ref.where('id', '==', planId))
+      .collection('FitnessPlans', (ref) => ref.where('id', '==', planId))
       .get()
-      .subscribe(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           this.client
             .doc(`FitnessPlans/${doc.id}`)
             .delete()
             .then(() => console.log('Plan fitness usunięty'))
-            .catch((err) => console.error('Błąd przy usuwaniu planu fitness', err));
+            .catch((err) =>
+              console.error('Błąd przy usuwaniu planu fitness', err)
+            );
         });
       });
   }

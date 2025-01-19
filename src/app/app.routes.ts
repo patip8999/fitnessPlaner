@@ -1,10 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './Components/home/home.component';
 import { CalendarComponent } from './Components/calendar/calendar.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { authGuard } from './guards/auth.guard';
-import { MealModalComponent } from './Components/meal-modal/meal-modal.component';
 import { DayDetailsComponent } from './Components/day-details/day-details.component';
 import { MonthlySummaryComponent } from './Components/monthly-summary/monthly-summary.component';
 import { TrainingPlansComponent } from './Components/training-plans/training-plans.component';

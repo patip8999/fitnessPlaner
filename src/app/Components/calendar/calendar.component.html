@@ -17,7 +17,6 @@
   </button>
 </div>
 <div class="layout-container">
-  <!-- Kalendarz miesięczny -->
   <div class="monthly-calendar">
     <div class="calendar-navigation">
       <button (click)="prevMonth()">Poprzedni</button>
@@ -26,23 +25,22 @@
     </div>
     <div class="day-names">
       @for (day of dayNames; track day) {
-        <span>{{ day }}</span>
+      <span>{{ day }}</span>
       }
     </div>
     <div class="calendar-days">
       @for (day of calendarDays; track day) {
-        <div
-          [class.other-month]="day.isOtherMonth"
-          [class.has-events]="hasEventsForDay(day.date)"
-          (click)="selectDay(day.date)"
-        >
-          {{ day.date.getDate() }}
-        </div>
+      <div
+        [class.other-month]="day.isOtherMonth"
+        [class.has-events]="hasEventsForDay(day.date)"
+        (click)="selectDay(day.date)"
+      >
+        {{ day.date.getDate() }}
+      </div>
       }
     </div>
   </div>
 
-  <!-- Widok tygodniowy -->
   <div class="weekly-view">
     <div class="week-header">
       <button (click)="prevWeek()">Poprzedni tydzień</button>
@@ -53,71 +51,73 @@
     </div>
     <div class="week-days">
       @for (day of currentWeek; track day) {
-        <div class="day-details">
-          <h4 [routerLink]="['/day-details', day.date | date: 'yyyy-MM-dd']">
-            {{ day.date | date: 'EEEE, d MMMM' }}
-          </h4>
+      <div class="day-details">
+        <h4 [routerLink]="['/day-details', day.date | date : 'yyyy-MM-dd']">
+          {{ day.date | date : "EEEE, d MMMM" }}
+        </h4>
+        <div>
+          <h4>Treningi</h4>
+          @for (training of getTrainingsForDay(day.date); track training) {
           <div>
-            <h4>Treningi</h4>
-            @for (training of getTrainingsForDay(day.date); track training) {
-              <div> {{ training.name }} - {{ training.burnedKcal }} kcal {{
-                training.time
-              }}min</div>
-              <div class="buttons-container">
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  data-bs-toggle="modal" 
-                  data-bs-target="#meal3Modal" 
-                  (click)="editTraining(training)"
-                >
-                  Edytuj
-                </button>
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  (click)="deleteTraining(training.id)"
-                >
-                  Usuń
-                </button>
-                <label class="form-check-label">
-                  <input 
-                    type="checkbox" 
-                    class="form-check-input" 
-                    [checked]="training.isDone" 
-                    (change)="toggleTrainingDone(training)"
-                  />
-                  Zrobiony
-                </label>
-              </div>
-            }
+            {{ training.name }} - {{ training.burnedKcal }} kcal
+            {{ training.time }}min
           </div>
-          <div>
-            <h4>Posiłki</h4>
-            @for (meal of getMealsForDay(day.date); track meal) {
-              <div>            {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)</div>
-              <div class="buttons-container">
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  data-bs-toggle="modal" 
-                  data-bs-target="#meal2Modal" 
-                  (click)="editMeal(meal)"
-                >
-                  Edytuj
-                </button>
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  (click)="deleteMeal(meal.id)"
-                >
-                  Usuń
-                </button>
-              </div>
-            }
-            
+          <div class="buttons-container">
+            <button
+              class="btn btn-link btn-sm"
+              style="font-size: 0.8rem; text-decoration: none"
+              data-bs-toggle="modal"
+              data-bs-target="#meal3Modal"
+              (click)="editTraining(training)"
+            >
+              Edytuj
+            </button>
+            <button
+              class="btn btn-link btn-sm"
+              style="font-size: 0.8rem; text-decoration: none"
+              (click)="deleteTraining(training.id)"
+            >
+              Usuń
+            </button>
+            <label class="form-check-label">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [checked]="training.isDone"
+                (change)="toggleTrainingDone(training)"
+              />
+              Zrobiony
+            </label>
           </div>
+          }
         </div>
+        <div>
+          <h4>Posiłki</h4>
+          @for (meal of getMealsForDay(day.date); track meal) {
+          <div>
+            {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
+          </div>
+          <div class="buttons-container">
+            <button
+              class="btn btn-link btn-sm"
+              style="font-size: 0.8rem; text-decoration: none"
+              data-bs-toggle="modal"
+              data-bs-target="#meal2Modal"
+              (click)="editMeal(meal)"
+            >
+              Edytuj
+            </button>
+            <button
+              class="btn btn-link btn-sm"
+              style="font-size: 0.8rem; text-decoration: none"
+              (click)="deleteMeal(meal.id)"
+            >
+              Usuń
+            </button>
+          </div>
+          }
+        </div>
+      </div>
       }
     </div>
   </div>
@@ -134,135 +134,6 @@
 <app-edit-training
   [training]="selectedTraining"
   (Save)="saveEditedTraining($event)"
-  (close)="closeModal()">
+  (close)="closeModal()"
+>
 </app-edit-training>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="button-container">
-  <button
-    type="button"
-    class="btn btn-success"
-    data-bs-toggle="modal"
-    data-bs-target="#mealModal"
-  >
-    Dodaj Posiłek
-  </button>
-  <button
-    type="button"
-    class="btn btn-success"
-    data-bs-toggle="modal"
-    data-bs-target="#trainingModal"
-  >
-    Dodaj Trening
-  </button>
-</div>
-
-<div class="calendar-container">
-  <div class="calendar-header">
-    <button class="btn btn-primary" (click)="prevMonth()">← Poprzedni</button>
-    <h2>{{ months[currentMonth] }} {{ currentYear }}</h2>
-    <button class="btn btn-primary" (click)="nextMonth()">Następny →</button>
-  </div>
-
-  <div class="calendar-days">
-    @for (dayName of dayNames; track dayName) {
-    <div class="day-name">{{ dayName }}</div>
-    } @for (day of calendarDays; track day.date) {
-    <div
-      class="day"
-      [class.other-month]="day.isOtherMonth"
-
-    >
-    <h3 class="day-number">
-      <a [routerLink]="['/day-details', day.date.toISOString()]">
-        {{ day.date.getDate() }}
-      </a>
-    </h3>
-
-      @if (getMealsForDay(day.date).length > 0) {
-      <div>
-        <h4>Posiłki:</h4>
-        <ul>
-          @for (meal of getMealsForDay(day.date); track meal.id) {
-          <li>
-            {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
-            <div class="buttons-container">
-              <button 
-                class="btn btn-link btn-sm"
-                style="font-size: 0.8rem; text-decoration: none"
-                data-bs-toggle="modal" 
-                data-bs-target="#meal2Modal" 
-                (click)="editMeal(meal)"
-              >
-                Edytuj
-              </button>
-              <button 
-                class="btn btn-link btn-sm"
-                style="font-size: 0.8rem; text-decoration: none"
-                (click)="deleteMeal(meal.id)"
-              >
-                Usuń
-              </button>
-            </div>
-          </li>
-          }
-        </ul>
-      </div>
-      } @if (getTrainingsForDay(day.date).length > 0) {
-      <div>
-        <h4>Treningi:</h4>
-        <ul>
-          @for (training of getTrainingsForDay(day.date); track training.id) {
-          <li>
-            {{ training.name }} - {{ training.burnedKcal }} kcal {{
-              training.time
-            }}min
-              <div class="buttons-container">
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  data-bs-toggle="modal" 
-                  data-bs-target="#meal3Modal" 
-                  (click)="editTraining(training)"
-                >
-                  Edytuj
-                </button>
-                <button 
-                  class="btn btn-link btn-sm"
-                  style="font-size: 0.8rem; text-decoration: none"
-                  (click)="deleteTraining(training.id)"
-                >
-                  Usuń
-                </button>
-                <label class="form-check-label">
-                  <input 
-                    type="checkbox" 
-                    class="form-check-input" 
-                    [checked]="training.isDone" 
-                    (change)="toggleTrainingDone(training)"
-                  />
-                  Zrobiony
-                </label>
-              </div>
-          </li>
-          }
-        </ul>
-      </div>
-      }
-    </div>
-    }
-  </div>
-</div> -->
-

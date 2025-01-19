@@ -14,9 +14,9 @@
   
   .card {
     width: 30%;
-    background: var(--background-gradient); /* Zmieniony kolor tła */
+    background: var(--background-gradient);
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Podobny cień jak w modal */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
     color: #333;

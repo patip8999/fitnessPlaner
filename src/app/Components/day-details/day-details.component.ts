@@ -2,7 +2,10 @@ import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { YoutubeService, YouTubeVideoResponse } from '../../Services/youtube.service';
+import {
+  YoutubeService,
+  YouTubeVideoResponse,
+} from '../../Services/youtube.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CalorieService } from '../../Services/calorie.service';
 import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
@@ -18,17 +21,19 @@ export class DayDetailsComponent {
   readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
   readonly meals: WritableSignal<any[]> = signal<any[]>([]);
   readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
-  tdee: number = 0; // Przechowujemy TDEE
+  tdee: number = 0;
   calorieService: CalorieService = inject(CalorieService);
   youtubeService: YoutubeService = inject(YoutubeService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly trainingAndMealService: TrainingAndMealService = inject(TrainingAndMealService);
+  private readonly trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
   videoDetails: any = null;
   videoId: string | null = null;
   sanitizer: DomSanitizer = inject(DomSanitizer);
   videoUrl: SafeResourceUrl | null = null;
   calorieData = {
-    tdee: 0, // Inicjujemy zmienną calorieData z TDEE
+    tdee: 0,
   };
 
   constructor() {
@@ -43,7 +48,7 @@ export class DayDetailsComponent {
       }
     });
 
-    this.loadTdeeFromFirebase();  // Ładowanie TDEE z Firebase na początku
+    this.loadTdeeFromFirebase();
   }
 
   private loadDetails(day: Date): void {
@@ -52,14 +57,14 @@ export class DayDetailsComponent {
       this.meals.set(meals);
     });
 
-    this.trainingAndMealService.getTrainingsByDate(day).subscribe((trainings) => {
-      console.log('Pobrane treningi:', trainings); 
-      this.trainings.set(trainings);
-      this.checkForVideo(trainings); 
-    });
+    this.trainingAndMealService
+      .getTrainingsByDate(day)
+      .subscribe((trainings) => {
+        console.log('Pobrane treningi:', trainings);
+        this.trainings.set(trainings);
+        this.checkForVideo(trainings);
+      });
   }
-
-
 
   private loadTdeeFromFirebase(): void {
     this.calorieService.loadTdee().subscribe(
@@ -78,7 +83,7 @@ export class DayDetailsComponent {
   }
 
   private checkForVideo(trainings: any[]): void {
-    const videoTraining = trainings.find(training => training.videoLink); 
+    const videoTraining = trainings.find((training) => training.videoLink);
     if (videoTraining) {
       console.log('Training with video link found:', videoTraining);
       this.videoId = this.extractVideoId(videoTraining.videoLink);
@@ -97,9 +102,10 @@ export class DayDetailsComponent {
   }
 
   private extractVideoId(url: string): string | null {
-    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
+    const regex =
+      /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
-    console.log('Extracted video ID:', match ? match[1] : null); 
+    console.log('Extracted video ID:', match ? match[1] : null);
     return match ? match[1] : null;
   }
 
@@ -110,7 +116,9 @@ export class DayDetailsComponent {
           console.log('Odpowiedź z YouTube:', response);
           if (response.items && response.items.length > 0) {
             this.videoDetails = response.items[0];
-            this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
+            this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+              `https://www.youtube.com/embed/${videoId}`
+            );
           } else {
             console.error('Brak wyników dla wideo');
             this.videoDetails = null;

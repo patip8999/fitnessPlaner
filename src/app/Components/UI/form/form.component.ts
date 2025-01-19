@@ -17,7 +17,7 @@ export class FormComponent {
   @Input() burnedCalories: string ='';
   @Input() dateLabel: string = '';
   @Input() timeLabel: string =''
-  @Input() model: any = {}; // model danych formularza
+  @Input() model: any = {}; 
   @Output() save = new EventEmitter<any>();
 
   onSubmit() {

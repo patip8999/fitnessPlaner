@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { mealModel } from '../../Models/meal.model';
-import { FormComponent } from "../UI/form/form.component";
 import { ModalComponent } from '../UI/modal/modal.component';
 
 @Component({

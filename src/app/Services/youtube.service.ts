@@ -29,7 +29,7 @@ export class YoutubeService {
 
   getVideoDetails(videoId: string): Observable<YouTubeVideoResponse> {
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails,statistics&key=${environment.youtubeApiKey}`;
-    return this.http.get<YouTubeVideoResponse>(url); // Określamy typ odpowiedzi
+    return this.http.get<YouTubeVideoResponse>(url);
   }
 
   searchVideos(query: string, maxResults: number = 10) {

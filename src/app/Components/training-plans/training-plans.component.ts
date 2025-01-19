@@ -1,7 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { YoutubeService } from '../../Services/youtube.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { TrainingPlanDay, TrainingPlanModel } from '../../Models/training-plan.model';
+import {
+  TrainingPlanDay,
+  TrainingPlanModel,
+} from '../../Models/training-plan.model';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { FitnessPlanService } from '../../Services/fitness-plan.service';
@@ -12,13 +15,13 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './training-plans.component.html',
-  styleUrl: './training-plans.component.css'
+  styleUrl: './training-plans.component.css',
 })
-export class TrainingPlansComponent  {
+export class TrainingPlansComponent {
   private fitnessPlanService = inject(FitnessPlanService);
   private router = inject(Router);
 
-  plans: TrainingPlanModel[] = []; // Lista wszystkich planów
+  plans: TrainingPlanModel[] = [];
   planName: string = '';
   days: TrainingPlanDay[] = [];
   planDescription: string = '';
@@ -37,7 +40,7 @@ export class TrainingPlansComponent  {
     this.days.push({
       date: '',
       videoLink: '',
-      time: '' ,
+      time: '',
       burnedKcal: 0,
     });
   }
@@ -52,7 +55,7 @@ export class TrainingPlansComponent  {
       name: this.planName,
       description: this.planDescription,
       days: this.days,
-      uid: '', // UID nie jest przypisywane tutaj
+      uid: '',
     };
 
     this.fitnessPlanService.createFitnessPlan(newPlan);

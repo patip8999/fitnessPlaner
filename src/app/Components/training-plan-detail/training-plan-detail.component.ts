@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FitnessPlanService } from '../../Services/fitness-plan.service';
 import { TrainingPlanModel } from '../../Models/training-plan.model';
-import {  ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -10,7 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './training-plan-detail.component.html',
-  styleUrl: './training-plan-detail.component.css'
+  styleUrl: './training-plan-detail.component.css',
 })
 export class TrainingPlanDetailComponent {
   private fitnessPlanService = inject(FitnessPlanService);
@@ -20,9 +20,9 @@ export class TrainingPlanDetailComponent {
   sanitizer: DomSanitizer = inject(DomSanitizer);
   ngOnInit(): void {
     const planId = this.route.snapshot.paramMap.get('id');
-    console.log('Fetched Plan ID:', planId); // Dodaj to logowanie
+    console.log('Fetched Plan ID:', planId);
     if (planId) {
-      this.fitnessPlanService.getFitnessPlanById(planId).subscribe(plan => {
+      this.fitnessPlanService.getFitnessPlanById(planId).subscribe((plan) => {
         if (plan) {
           this.plan = plan;
         } else {
@@ -48,11 +48,10 @@ export class TrainingPlanDetailComponent {
   }
 
   private extractVideoId(url: string): string | null {
-    // Regex to handle different YouTube URL formats
-    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
+    const regex =
+      /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
-    console.log('Extracted video ID:', match ? match[1] : null); 
+    console.log('Extracted video ID:', match ? match[1] : null);
     return match ? match[1] : null;
   }
-
 }

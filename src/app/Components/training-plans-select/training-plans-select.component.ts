@@ -12,7 +12,7 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './training-plans-select.component.html',
-  styleUrl: './training-plans-select.component.css'
+  styleUrl: './training-plans-select.component.css',
 })
 export class TrainingPlansSelectComponent {
   private fitnessPlanService = inject(FitnessPlanService);
@@ -33,36 +33,36 @@ export class TrainingPlansSelectComponent {
     this.selectedPlan = plan;
   }
   goToPlanDetails(planId: string): void {
-    this.router.navigate([`/plan/${planId}`]);  
+    this.router.navigate([`/plan/${planId}`]);
   }
 
   startPlan(): void {
     console.log('Rozpoczynanie planu:', this.selectedPlan);
-  
+
     if (this.selectedPlan) {
       let startDate = this.startDate;
-  
-      // Upewniamy się, że startDate to obiekt Date
+
       if (!(startDate instanceof Date)) {
-        startDate = new Date(startDate); 
+        startDate = new Date(startDate);
       }
-  
+
       this.selectedPlan.days.forEach((day, index) => {
         const trainingDate = new Date(startDate);
         trainingDate.setDate(startDate.getDate() + index);
-  
-      
-        const trainingName = day.name ? `Trening: ${day.name}` : `Trening: Dzień ${index + 1}`;
+
+        const trainingName = day.name
+          ? `Trening: ${day.name}`
+          : `Trening: Dzień ${index + 1}`;
         const burnedKcal = day.burnedKcal || 0;
-        const duration = day.time || 0; 
-      
+        const duration = day.time || 0;
+
         this.calendarService.addTraining({
           name: trainingName,
           date: trainingDate,
-          burnedKcal: burnedKcal, 
-          time: duration, 
-          videoLink: day.videoLink, 
-        } as TrainingModel); 
+          burnedKcal: burnedKcal,
+          time: duration,
+          videoLink: day.videoLink,
+        } as TrainingModel);
         this.router.navigate(['/home']);
         console.log(
           `Dodano trening dnia ${trainingDate.toISOString()}: ${day.videoLink}`
@@ -72,11 +72,9 @@ export class TrainingPlansSelectComponent {
   }
 
   deletePlan(plan: TrainingPlanModel): void {
-    // Usuwanie planu
     this.fitnessPlanService.deleteFitnessPlan(plan.id);
-    // Opcjonalnie możesz usunąć plan z listy po stronie klienta
-    this.fitnessPlans = this.fitnessPlans.filter(p => p.id !== plan.id);
+
+    this.fitnessPlans = this.fitnessPlans.filter((p) => p.id !== plan.id);
     console.log('Plan usunięty', plan);
   }
 }
-

@@ -1,36 +1,35 @@
 <div class="auth-form-container">
   <h2>{{ isLogin ? "Logowanie" : "Rejestracja" }}</h2>
   <form (ngSubmit)="onSubmit()" #authForm="ngForm">
-  
     @if (!isLogin) {
-      <div class="input-container">
-        <label for="username">Nazwa użytkownika</label>
-        <input
-          id="username"
-          type="text"
-          [(ngModel)]="username"
-          name="username"
-          #usernameField="ngModel"
-          required
-          pattern="^[a-z][a-z0-9]*$"
-          placeholder="Wpisz nazwę użytkownika"
-        />
-       
-        @if (usernameField?.touched && usernameField?.invalid) {
-          <div class="text-danger mt-2">
-            @if (usernameField.errors?.['required']) {
-              <p>Nazwa użytkownika jest wymagana.</p>
-            }
-            @if (usernameField.errors?.['pattern']) {
-              <p>Nazwa użytkownika może zawierać tylko małe litery i cyfry oraz musi zaczynać się od litery.</p>
-            }
-          </div>
+    <div class="input-container">
+      <label for="username">Nazwa użytkownika</label>
+      <input
+        id="username"
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        #usernameField="ngModel"
+        required
+        pattern="^[a-z][a-z0-9]*$"
+        placeholder="Wpisz nazwę użytkownika"
+      />
+
+      @if (usernameField?.touched && usernameField?.invalid) {
+      <div class="text-danger mt-2">
+        @if (usernameField.errors?.['required']) {
+        <p>Nazwa użytkownika jest wymagana.</p>
+        } @if (usernameField.errors?.['pattern']) {
+        <p>
+          Nazwa użytkownika może zawierać tylko małe litery i cyfry oraz musi
+          zaczynać się od litery.
+        </p>
         }
       </div>
       }
-    
+    </div>
+    }
 
-  
     <div class="input-container">
       <label for="email">E-mail</label>
       <input
@@ -44,14 +43,13 @@
       />
 
       @if (emailField.touched && emailField.invalid) {
-        <div class="text-danger mt-2">
-          @if (emailField.errors?.['required']) {
-            <p>E-mail jest wymagany.</p>
-          }
-        </div>
+      <div class="text-danger mt-2">
+        @if (emailField.errors?.['required']) {
+        <p>E-mail jest wymagany.</p>
+        }
+      </div>
       }
     </div>
-
 
     <div class="input-container">
       <label for="password">Hasło</label>
@@ -65,52 +63,54 @@
         placeholder="Wpisz hasło"
         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-]).{6,}$"
       />
- 
+
       @if (passwordField.touched && passwordField.invalid) {
-        <div class="text-danger mt-2">
-          @if (passwordField.errors?.['required']) {
-            <p>Hasło jest wymagane.</p>
-          }
-          @if (passwordField.errors?.['pattern']) {
-            <p>Hasło musi zawierać co najmniej jedną małą literę, jedną wielką literę, jedną cyfrę, jeden znak specjalny i musi mieć co najmniej 6 znaków długości.</p>
-          }
-        </div>
+      <div class="text-danger mt-2">
+        @if (passwordField.errors?.['required']) {
+        <p>Hasło jest wymagane.</p>
+        } @if (passwordField.errors?.['pattern']) {
+        <p>
+          Hasło musi zawierać co najmniej jedną małą literę, jedną wielką
+          literę, jedną cyfrę, jeden znak specjalny i musi mieć co najmniej 6
+          znaków długości.
+        </p>
+        }
+      </div>
       }
     </div>
 
-   
     @if (!isLogin) {
-      <div class="input-container">
-        <label for="confirmPassword">Potwierdź hasło</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-          #confirmPasswordField="ngModel"
-          required
-          placeholder="Potwierdź hasło"
-        />
-     
-        @if (confirmPasswordField.touched && confirmPasswordField.invalid) {
-          <div class="text-danger mt-2">
-            @if (confirmPasswordField.errors?.['required']) {
-              <p>Potwierdzenie hasła jest wymagane.</p>
-            }
-          </div>
-        }
-        @if (password !== confirmPassword && confirmPasswordField.touched) {
-          <div class="text-danger mt-2">
-            <p>Hasła nie są zgodne.</p>
-          </div>
+    <div class="input-container">
+      <label for="confirmPassword">Potwierdź hasło</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        #confirmPasswordField="ngModel"
+        required
+        placeholder="Potwierdź hasło"
+      />
+
+      @if (confirmPasswordField.touched && confirmPasswordField.invalid) {
+      <div class="text-danger mt-2">
+        @if (confirmPasswordField.errors?.['required']) {
+        <p>Potwierdzenie hasła jest wymagane.</p>
         }
       </div>
+      } @if (password !== confirmPassword && confirmPasswordField.touched) {
+      <div class="text-danger mt-2">
+        <p>Hasła nie są zgodne.</p>
+      </div>
+      }
+    </div>
     }
 
-
-
-  
-    <button type="submit" class="btn" [disabled]="authForm.invalid">{{ buttonText }}</button>
-   <button type="button" class="btn google-login" (click)="onGoogleLogin()">Zaloguj przez Google</button>
+    <button type="submit" class="btn" [disabled]="authForm.invalid">
+      {{ buttonText }}
+    </button>
+    <button type="button" class="btn google-login" (click)="onGoogleLogin()">
+      Zaloguj przez Google
+    </button>
   </form>
 </div>

@@ -1,7 +1,13 @@
-import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
-import { Component, inject, LOCALE_ID, signal, WritableSignal } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import {
+  Component,
+  inject,
+  LOCALE_ID,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
-import localePl from '@angular/common/locales/pl'; 
+import localePl from '@angular/common/locales/pl';
 import { MealModalComponent } from '../meal-modal/meal-modal.component';
 import { RouterModule } from '@angular/router';
 import { TrainingModalComponent } from '../training-modal/training-modal.component';
@@ -31,7 +37,7 @@ registerLocaleData(localePl);
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
-  providers: [{ provide: LOCALE_ID, useValue: 'pl' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'pl' }],
 })
 export class CalendarComponent {
   private TrainingAndMealService = inject(TrainingAndMealService);
@@ -49,14 +55,14 @@ export class CalendarComponent {
   constructor() {
     this.loadData();
     this.generateCalendar();
-    this.generateWeek(new Date()); 
+    this.generateWeek(new Date());
   }
   private generateWeek(startDate: Date): void {
     const startOfWeek = new Date(
       startDate.setDate(startDate.getDate() - startDate.getDay() + 1)
-    ); // Ustawia na poniedziałek
+    );
     this.currentWeek = [];
-  
+
     for (let i = 0; i < 7; i++) {
       const date = new Date(startOfWeek);
       date.setDate(startOfWeek.getDate() + i);
@@ -65,29 +71,33 @@ export class CalendarComponent {
   }
   prevWeek(): void {
     const firstDayOfWeek = this.currentWeek[0].date;
-    const newStartDate = new Date(firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 7));
+    const newStartDate = new Date(
+      firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 7)
+    );
     this.generateWeek(newStartDate);
   }
-  
+
   nextWeek(): void {
     const lastDayOfWeek = this.currentWeek[6].date;
-    const newStartDate = new Date(lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 1));
+    const newStartDate = new Date(
+      lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 1)
+    );
     this.generateWeek(newStartDate);
   }
-  
+
   getWeekRange(): string {
     const firstDay = this.currentWeek[0].date;
     const lastDay = this.currentWeek[6].date;
     return `${firstDay.toLocaleDateString()} - ${lastDay.toLocaleDateString()}`;
   }
-  selectedDay: Date | null = null; // Przechowuje wybrany dzień
+  selectedDay: Date | null = null;
 
-selectDay(date: Date): void {
-  this.selectedDay = date;
-  console.log('Wybrano dzień:', this.selectedDay);
-  // Tutaj możesz dodać logikę, np. aktualizację widoku tygodniowego
-  this.generateWeek(date);
-}
+  selectDay(date: Date): void {
+    this.selectedDay = date;
+    console.log('Wybrano dzień:', this.selectedDay);
+
+    this.generateWeek(date);
+  }
   private loadData(): void {
     this.TrainingAndMealService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
@@ -257,7 +267,9 @@ selectDay(date: Date): void {
     this.saveEditedTraining(updatedTraining);
   }
   hasEventsForDay(date: Date): boolean {
-    // Sprawdzamy, czy dla danego dnia istnieją posiłki lub treningi
-    return this.getMealsForDay(date).length > 0 || this.getTrainingsForDay(date).length > 0;
+    return (
+      this.getMealsForDay(date).length > 0 ||
+      this.getTrainingsForDay(date).length > 0
+    );
   }
 }

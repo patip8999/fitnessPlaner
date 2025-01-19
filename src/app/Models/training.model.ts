@@ -1,12 +1,9 @@
-
 export interface TrainingModel {
-  name: string;
-  burnedKcal: number;
-  time: string;
+  readonly name: string;
+  readonly burnedKcal: number;
+  readonly time: string;
   date: Date;
   id: string;
-  videoLink: string; 
-  isDone: boolean;
+  readonly videoLink: string;
+  readonly isDone: boolean;
 }
-
-

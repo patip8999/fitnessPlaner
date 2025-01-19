@@ -1,8 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
-
 import { Observable } from 'rxjs';
-
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { UserModel } from '../../Models/User.model';

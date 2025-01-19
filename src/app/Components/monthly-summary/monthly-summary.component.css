@@ -1,4 +1,3 @@
-/* Ogólny styl dla Monthly Summary */
 .monthly-summary {
   padding: 20px;
   border-radius: 10px;
@@ -14,7 +13,6 @@
   align-items: center;
 }
 
-/* Tytuł dla Monthly Summary */
 .monthly-summary .summary-title {
   font-size: 26px;
   font-weight: bold;
@@ -23,14 +21,14 @@
   margin-bottom: 20px;
 }
 
-/* Tabela dla Monthly Summary */
 .monthly-summary table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.monthly-summary table th, .monthly-summary table td {
+.monthly-summary table th,
+.monthly-summary table td {
   padding: 10px 15px;
   text-align: left;
   border: 1px solid #ddd;
@@ -53,7 +51,6 @@
   background-color: #f0f0f0;
 }
 
-/* Formularz dla Monthly Summary */
 .monthly-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -66,7 +63,8 @@
   color: #333;
 }
 
-.monthly-form input[type="date"], .monthly-form input[type="number"] {
+.monthly-form input[type="date"],
+.monthly-form input[type="number"] {
   font-size: 16px;
   padding: 10px;
   border-radius: 5px;
@@ -101,11 +99,11 @@
   background-color: var(--button-background, #254636);
   border: none;
   color: white;
-  padding: 8px 16px; /* Zmniejszenie paddingu */
+  padding: 8px 16px;
   border-radius: 5px;
-  font-size: 14px; /* Zmniejszenie rozmiaru czcionki */
+  font-size: 14px;
   cursor: pointer;
-  width: auto; 
+  width: auto;
   margin: 0 auto;
 }
 
@@ -114,13 +112,11 @@
   transform: scale(1.05);
 }
 
-/* Strzałki w przyciskach */
 .monthly-summary .nav-button span {
-  margin: 0 6px; /* Zmniejszenie marginesu */
-  font-size: 16px; /* Zmniejszenie rozmiaru strzałek */
+  margin: 0 6px;
+  font-size: 16px;
 }
 
-/* Przycisk nawigacyjny w układzie poziomym (dla responsywności) */
 .monthly-summary .month-navigation {
   display: flex;
   justify-content: space-between;
