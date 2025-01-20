@@ -18,12 +18,15 @@ import { EditTrainingComponent } from '../edit-training/edit-training.component'
 import { TrainingPlanModel } from '../../Models/training-plan.model';
 import { FormsModule } from '@angular/forms';
 import { QuoteModel, QuotesService } from '../../Services/quotes.service';
+
 interface CalendarDay {
   date: Date;
   isOtherMonth: boolean;
   trainingPlans?: TrainingPlanModel[];
 }
+
 registerLocaleData(localePl);
+
 @Component({
   selector: 'app-calendar',
   standalone: true,
@@ -41,76 +44,49 @@ registerLocaleData(localePl);
   providers: [{ provide: LOCALE_ID, useValue: 'pl' }],
 })
 export class CalendarComponent {
-  private TrainingAndMealService = inject(TrainingAndMealService);
-  private quotesService: QuotesService=  inject(QuotesService);
-meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
-  trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
-  calendarDays: CalendarDay[] = [];
-  currentWeek: CalendarDay[] = [];
-  readonly currentDate: Date = new Date();
-  currentMonth: number = this.currentDate.getMonth();
-  currentYear: number = this.currentDate.getFullYear();
-  selectedMeal: mealModel | null = null;
-  selectedTraining: TrainingModel | null = null;
-  quotes: QuoteModel[] = [];
-  currentQuote: QuoteModel | undefined;
-  currentIndex = 0;
+  private readonly TrainingAndMealService = inject(TrainingAndMealService);
+  private readonly quotesService = inject(QuotesService);
+
+ 
+  public readonly meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
+  public readonly trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
+
+
+  public calendarDays: CalendarDay[] = [];
+  public currentWeek: CalendarDay[] = [];
+  public readonly currentDate: Date = new Date();
+  public currentMonth: number = this.currentDate.getMonth();
+  public currentYear: number = this.currentDate.getFullYear();
+
+
+  public selectedMeal: mealModel | null = null;
+  public selectedTraining: TrainingModel | null = null;
+
+
+  public quotes: QuoteModel[] = [];
+  public currentQuote: QuoteModel | undefined;
+  private currentIndex = 0;
+
+
   public readonly showModal = signal(false);
+
+
+  public selectedDay: Date | null = null;
+
+ 
+  public readonly dayNames: string[] = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
+  public readonly months: string[] = [
+    'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 
+    'Wrzesień', 'Październik', 'Listopad', 'Grudzień'
+  ];
+
   constructor() {
     this.loadData();
     this.generateCalendar();
     this.generateWeek(new Date());
   }
 
-  private rotateQuotes(): void {
-    setInterval(() => {
-      if (this.quotes.length > 0) {
-        this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
-        this.currentQuote = this.quotes[this.currentIndex];
-      }
-    }, 10000); 
-  }
-  private generateWeek(startDate: Date): void {
-    const startOfWeek = new Date(
-      startDate.setDate(startDate.getDate() - startDate.getDay() + 1)
-    );
-    this.currentWeek = [];
 
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(startOfWeek);
-      date.setDate(startOfWeek.getDate() + i);
-      this.currentWeek.push({ date, isOtherMonth: false });
-    }
-  }
-  prevWeek(): void {
-    const firstDayOfWeek = this.currentWeek[0].date;
-    const newStartDate = new Date(
-      firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 7)
-    );
-    this.generateWeek(newStartDate);
-  }
-
-  nextWeek(): void {
-    const lastDayOfWeek = this.currentWeek[6].date;
-    const newStartDate = new Date(
-      lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 1)
-    );
-    this.generateWeek(newStartDate);
-  }
-
-  getWeekRange(): string {
-    const firstDay = this.currentWeek[0].date;
-    const lastDay = this.currentWeek[6].date;
-    return `${firstDay.toLocaleDateString()} - ${lastDay.toLocaleDateString()}`;
-  }
-  selectedDay: Date | null = null;
-
-  selectDay(date: Date): void {
-    this.selectedDay = date;
-    console.log('Wybrano dzień:', this.selectedDay);
-
-    this.generateWeek(date);
-  }
   private loadData(): void {
     this.TrainingAndMealService.getTrainings().subscribe((trainings) => {
       const parsedTrainings = trainings.map((training, index) => ({
@@ -119,13 +95,14 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
         date: new Date(training.date),
       }));
       this.trainings.set(parsedTrainings);
+
       this.quotesService.getQuotes().subscribe((quotes) => {
         this.quotes = quotes;
-    if(this.quotes.length > 0){
-      this.currentQuote = this.quotes[0];
-      }
-      this.rotateQuotes();
-      })
+        if (this.quotes.length > 0) {
+          this.currentQuote = this.quotes[0];
+        }
+        this.rotateQuotes();
+      });
     });
 
     this.TrainingAndMealService.getMeals().subscribe((meals) => {
@@ -137,41 +114,26 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
       this.meals.set(parsedMeals);
     });
   }
-  getMealsForDay(date: Date): mealModel[] {
-    return this.meals().filter((meal) => {
-      return (
-        meal.date.getDate() === date.getDate() &&
-        meal.date.getMonth() === date.getMonth() &&
-        meal.date.getFullYear() === date.getFullYear()
-      );
-    });
+
+  private rotateQuotes(): void {
+    setInterval(() => {
+      if (this.quotes.length > 0) {
+        this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
+        this.currentQuote = this.quotes[this.currentIndex];
+      }
+    }, 10000);
   }
 
-  getTrainingsForDay(date: Date): TrainingModel[] {
-    return this.trainings().filter((training) => {
-      return (
-        training.date.getDate() === date.getDate() &&
-        training.date.getMonth() === date.getMonth() &&
-        training.date.getFullYear() === date.getFullYear()
-      );
-    });
-  }
+  private generateWeek(startDate: Date): void {
+    const startOfWeek = new Date(startDate.setDate(startDate.getDate() - startDate.getDay() + 1));
+    this.currentWeek = [];
 
-  readonly dayNames: string[] = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
-  readonly months: string[] = [
-    'Styczeń',
-    'Luty',
-    'Marzec',
-    'Kwiecień',
-    'Maj',
-    'Czerwiec',
-    'Lipiec',
-    'Sierpień',
-    'Wrzesień',
-    'Październik',
-    'Listopad',
-    'Grudzień',
-  ];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      this.currentWeek.push({ date, isOtherMonth: false });
+    }
+  }
 
   private generateCalendar(): void {
     const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
@@ -202,7 +164,32 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
     }
   }
 
-  prevMonth(): void {
+
+  public prevWeek(): void {
+    const firstDayOfWeek = this.currentWeek[0].date;
+    const newStartDate = new Date(firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 7));
+    this.generateWeek(newStartDate);
+  }
+
+  public nextWeek(): void {
+    const lastDayOfWeek = this.currentWeek[6].date;
+    const newStartDate = new Date(lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 1));
+    this.generateWeek(newStartDate);
+  }
+
+  public getWeekRange(): string {
+    const firstDay = this.currentWeek[0].date;
+    const lastDay = this.currentWeek[6].date;
+    return `${firstDay.toLocaleDateString()} - ${lastDay.toLocaleDateString()}`;
+  }
+
+  public selectDay(date: Date): void {
+    this.selectedDay = date;
+    console.log('Wybrano dzień:', this.selectedDay);
+    this.generateWeek(date);
+  }
+
+  public prevMonth(): void {
     this.currentMonth--;
     if (this.currentMonth < 0) {
       this.currentMonth = 11;
@@ -211,7 +198,7 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
     this.generateCalendar();
   }
 
-  nextMonth(): void {
+  public nextMonth(): void {
     this.currentMonth++;
     if (this.currentMonth > 11) {
       this.currentMonth = 0;
@@ -220,7 +207,43 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
     this.generateCalendar();
   }
 
-  saveEditedMeal(updatedMeal: mealModel): void {
+  public getMealsForDay(date: Date): mealModel[] {
+    return this.meals().filter((meal) => {
+      return (
+        meal.date.getDate() === date.getDate() &&
+        meal.date.getMonth() === date.getMonth() &&
+        meal.date.getFullYear() === date.getFullYear()
+      );
+    });
+  }
+
+  public getTrainingsForDay(date: Date): TrainingModel[] {
+    return this.trainings().filter((training) => {
+      return (
+        training.date.getDate() === date.getDate() &&
+        training.date.getMonth() === date.getMonth() &&
+        training.date.getFullYear() === date.getFullYear()
+      );
+    });
+  }
+
+  public hasEventsForDay(date: Date): boolean {
+    return (
+      this.getMealsForDay(date).length > 0 ||
+      this.getTrainingsForDay(date).length > 0
+    );
+  }
+public  closeModal(): void {
+  this.showModal.set(false);
+}
+  public editMeal(meal: mealModel): void {
+    this.selectedMeal = { ...meal };
+  }
+public  toggleTrainingDone(training: TrainingModel): void {
+  const updatedTraining = { ...training, isDone: !training.isDone };
+  this.saveEditedTraining(updatedTraining);
+}
+  public saveEditedMeal(updatedMeal: mealModel): void {
     this.TrainingAndMealService.updateMeal(updatedMeal)
       .then(() => {
         this.meals.set(
@@ -234,14 +257,23 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
         alert('Nie udało się zapisać posiłku. Spróbuj ponownie.');
       });
   }
-  editMeal(meal: mealModel): void {
-    this.selectedMeal = { ...meal };
+
+  public deleteMeal(mealId: string): void {
+    this.TrainingAndMealService.deleteMeal(mealId)
+      .then(() => {
+        this.meals.set(this.meals().filter((meal) => meal.id !== mealId));
+      })
+      .catch((error) => {
+        console.error('Error deleting meal:', error);
+        alert('Nie udało się usunąć posiłku. Spróbuj ponownie.');
+      });
   }
 
-  closeModal(): void {
-    this.showModal.set(false);
+  public editTraining(training: TrainingModel): void {
+    this.selectedTraining = { ...training };
   }
-  saveEditedTraining(updatedTraining: TrainingModel): void {
+
+  public saveEditedTraining(updatedTraining: TrainingModel): void {
     this.TrainingAndMealService.updateTraining(updatedTraining)
       .then(() => {
         this.trainings.set(
@@ -256,21 +288,7 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
       });
   }
 
-  editTraining(training: TrainingModel): void {
-    this.selectedTraining = { ...training };
-  }
-  deleteMeal(mealId: string): void {
-    this.TrainingAndMealService.deleteMeal(mealId)
-      .then(() => {
-        this.meals.set(this.meals().filter((meal) => meal.id !== mealId));
-      })
-      .catch((error) => {
-        console.error('Error deleting meal:', error);
-        alert('Nie udało się usunąć posiłku. Spróbuj ponownie.');
-      });
-  }
-
-  deleteTraining(trainingId: string): void {
+  public deleteTraining(trainingId: string): void {
     this.TrainingAndMealService.deleteTraining(trainingId)
       .then(() => {
         this.trainings.set(
@@ -281,15 +299,5 @@ meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
         console.error('Error deleting training:', error);
         alert('Nie udało się usunąć treningu. Spróbuj ponownie.');
       });
-  }
-  toggleTrainingDone(training: TrainingModel): void {
-    const updatedTraining = { ...training, isDone: !training.isDone };
-    this.saveEditedTraining(updatedTraining);
-  }
-  hasEventsForDay(date: Date): boolean {
-    return (
-      this.getMealsForDay(date).length > 0 ||
-      this.getTrainingsForDay(date).length > 0
-    );
   }
 }

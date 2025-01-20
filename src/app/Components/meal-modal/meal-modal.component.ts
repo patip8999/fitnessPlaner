@@ -31,9 +31,21 @@ export class MealModalComponent {
     this.trainingAndMealService.addMeal(meal);
     this.meals.push(meal);
     console.log('Meal added:', meal);
+  this.resetForm()
   }
 
   onDateChange(date: string): void {
     this.model.date = new Date(date + 'T00:00:00');
+  }
+
+  resetForm(): void {
+    this.model = {
+      name: '',
+      calories: 0,
+      weight: '',
+      day: 0,
+      date: new Date(),
+      id: '',
+    };
   }
 }

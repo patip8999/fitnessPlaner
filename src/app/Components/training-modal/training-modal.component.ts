@@ -37,8 +37,20 @@ export class TrainingModalComponent {
     this.training.push(training);
     console.log('Meal added:', training);
     this.router.navigate(['/home']);
+    this.resetForm();
   }
   onDateChange(date: string): void {
     this.model.date = new Date(`${date}T00:00:00`);
+  }
+  resetForm(): void {
+    this.model = {
+      name: '',
+      burnedKcal: 0,
+      isDone: false,
+      time: '',
+      date: new Date(),
+      id: '',
+      videoLink: '',
+    };
   }
 }
