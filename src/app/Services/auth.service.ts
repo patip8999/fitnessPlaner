@@ -37,9 +37,12 @@ export class AuthService {
 
   login(email: string, password: string) {
     const auth = getAuth();
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password)
+      .catch((error) => {
+        console.error('Błąd logowania:', error.code, error.message);
+        throw error;
+      });
   }
-
   loginWithGoogle() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();

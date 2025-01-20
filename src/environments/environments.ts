@@ -1,6 +1,6 @@
 export const environmet ={
     production: false,
-  youtubeApiKey: 'AIzaSyB_QR7TQnwAvOBj-9lklIuxqgc0R8HQRLw',
+  youtubeApiKey: 'AIzaSyA27S8WmqVrZFFO9epniU6KwbjmzmEAt44',
   firebaseConfig: {
     apiKey: "AIzaSyA27S8WmqVrZFFO9epniU6KwbjmzmEAt44",
     authDomain: "fitness-7d0de.firebaseapp.com",

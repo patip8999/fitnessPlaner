@@ -183,3 +183,8 @@
 .form-check-label {
   color: black;
 }
+.quote-container {
+  font-family: 'Dancing Script', cursive;
+  margin: 20px 0;
+  text-align: center;
+}

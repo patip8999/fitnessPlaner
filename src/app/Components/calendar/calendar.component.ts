@@ -17,6 +17,7 @@ import { EditComponent } from '../edit/edit.component';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
 import { TrainingPlanModel } from '../../Models/training-plan.model';
 import { FormsModule } from '@angular/forms';
+import { QuoteModel, QuotesService } from '../../Services/quotes.service';
 interface CalendarDay {
   date: Date;
   isOtherMonth: boolean;
@@ -41,8 +42,8 @@ registerLocaleData(localePl);
 })
 export class CalendarComponent {
   private TrainingAndMealService = inject(TrainingAndMealService);
-
-  meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
+  private quotesService: QuotesService=  inject(QuotesService);
+meals: WritableSignal<mealModel[]> = signal<mealModel[]>([]);
   trainings: WritableSignal<TrainingModel[]> = signal<TrainingModel[]>([]);
   calendarDays: CalendarDay[] = [];
   currentWeek: CalendarDay[] = [];
@@ -51,11 +52,23 @@ export class CalendarComponent {
   currentYear: number = this.currentDate.getFullYear();
   selectedMeal: mealModel | null = null;
   selectedTraining: TrainingModel | null = null;
+  quotes: QuoteModel[] = [];
+  currentQuote: QuoteModel | undefined;
+  currentIndex = 0;
   public readonly showModal = signal(false);
   constructor() {
     this.loadData();
     this.generateCalendar();
     this.generateWeek(new Date());
+  }
+
+  private rotateQuotes(): void {
+    setInterval(() => {
+      if (this.quotes.length > 0) {
+        this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
+        this.currentQuote = this.quotes[this.currentIndex];
+      }
+    }, 10000); 
   }
   private generateWeek(startDate: Date): void {
     const startOfWeek = new Date(
@@ -106,6 +119,13 @@ export class CalendarComponent {
         date: new Date(training.date),
       }));
       this.trainings.set(parsedTrainings);
+      this.quotesService.getQuotes().subscribe((quotes) => {
+        this.quotes = quotes;
+    if(this.quotes.length > 0){
+      this.currentQuote = this.quotes[0];
+      }
+      this.rotateQuotes();
+      })
     });
 
     this.TrainingAndMealService.getMeals().subscribe((meals) => {
