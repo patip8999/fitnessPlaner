@@ -12,6 +12,7 @@ import { WelcomeComponent } from './Components/welcome/welcome.component';
 import { UserComponent } from './Components/user/user.component';
 import { WeightControlComponent } from './Components/weight-control/weight-control.component';
 import { CalorieCalculatorComponent } from './Components/calorie-calculator/calorie-calculator.component';
+import { ForumComponent } from './Components/forum/forum.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -25,5 +26,6 @@ export const routes: Routes = [
     {  path: 'plan/:id', component: TrainingPlanDetailComponent,  canActivate: [authGuard]},
     { path: 'user', component: UserComponent,  canActivate: [authGuard]},
     { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] },
-    { path: 'calories-calculator', component: CalorieCalculatorComponent,canActivate: [authGuard] }
+    { path: 'calories-calculator', component: CalorieCalculatorComponent,canActivate: [authGuard] },
+    { path: 'forum', component: ForumComponent,  canActivate: [authGuard] },
 ];

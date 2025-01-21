@@ -1,76 +1,115 @@
 .user-details {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-details h2 {
-    font-size: 24px;
-    color: #254636;
-    margin-bottom: 15px;
-  }
-  
-  .user-info {
-    font-size: 16px;
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .user-info strong {
-    color: #254636;
-  }
-  
-  button.btn-primary {
-    background-color: var(--button-background, #254636);
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  button.btn-primary:hover {
-    background-color: var(--button-background, #254636);
-  }
-  
-  p.user-info {
-    margin-top: 10px;
-  }
-  .color-buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    gap: 15px; 
-    margin: 20px 0; 
-  }
-  
-  .color-buttons button {
-    background: linear-gradient(135deg, #ffffff, #e0e0e0); 
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 14px; 
-    color: #333; 
-    cursor: pointer; 
-    transition: all 0.3s ease; 
-  }
-  
-  .color-buttons button:hover {
-    background: linear-gradient(135deg, #f0f0f0, #d0d0d0); 
-    border-color: #999;
-    transform: translateY(-2px); 
-  }
-  
-  .color-buttons button:active {
-    transform: translateY(0); 
-    background: linear-gradient(135deg, #e0e0e0, #c0c0c0); 
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 20px auto; /* Wyśrodkowanie kontenera */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* Ograniczenie szerokości kontenera */
+}
+
+.user-details h2 {
+  font-size: 24px;
+  color: #254636;
+  margin-bottom: 15px;
+  text-align: center; /* Wyśrodkowanie nagłówka */
+}
+
+.user-info {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.user-info strong {
+  color: #254636;
+}
+
+.user-avatar {
+  margin-bottom: 15px;
+  text-align: center; /* Wyśrodkowanie obrazu */
+}
+
+.user-avatar img.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #254636;
+}
+
+button.btn-primary {
+  background-color: var(--button-background, #254636);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+button.btn-primary:hover {
+  background-color: var(--button-background, #254636);
+}
+
+p.user-info {
+  margin-top: 10px;
+}
+
+/* Kontener z przyciskami */
+.color-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Karta zawierająca przyciski */
+.color-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 kolumny */
+  gap: 15px; /* Mniejsze odstępy między przyciskami */
+  margin: 0;
+  width: 100%;
+  max-width: 1000px; /* Maksymalna szerokość, aby przyciski były blisko siebie */
+  background-color: #ffffff; /* Tło karty */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Lekki cień wokół karty */
+}
+
+/* Styl przycisków w kolorze */
+.color-buttons button {
+  background: linear-gradient(135deg, #ffffff, #e0e0e0);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 20px; /* Dostosowanie paddingu */
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* Przyciski na 100% szerokości komórki */
+  max-width: 160px; /* Maksymalna szerokość przycisków */
+  text-align: center; /* Wyśrodkowanie tekstu w przycisku */
+}
+
+.color-buttons button:hover {
+  background: linear-gradient(135deg, #f0f0f0, #d0d0d0);
+  border-color: #999;
+  transform: translateY(-2px);
+}
+
+.color-buttons button:active {
+  transform: translateY(0);
+  background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+}
+h1 {
+  text-align: center;  /* Wyśrodkowanie tekstu */
+  font-size: 28px;
+  color: #254636;
+  margin: 20px 0; /* Dodanie marginesu do nagłówka */
+}

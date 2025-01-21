@@ -13,7 +13,11 @@
   padding: 20px;
   border-radius: 10px;
   color: #333;
+  width: 80%; /* lub np. 1200px, w zależności od potrzeb */
+  justify-content: center; /* Wyśrodkowanie elementów w poziomie */
+  margin: 0 auto; /* Wyśrodkowanie całego kontenera */
 }
+
 
 .monthly-calendar {
   flex: 0 1 350px;

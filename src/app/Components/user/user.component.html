@@ -1,32 +1,44 @@
 <div class="user-details">
-    <h2>User Details</h2>
-    @if (userSignal | async; as user) {
+  <h2>User Details</h2>
+
+  <!-- Pokazywanie szczegółów użytkownika -->
+  @if (userSignal | async; as user) {
+    <div class="user-info">
+      <div class="user-avatar">
+        <img [src]="user.photoURL" alt="User Avatar" class="avatar">
+      </div>
       <p class="user-info"><strong>Email:</strong> {{ user.email }}</p>
-      <p class="user-info"><strong>UID:</strong> {{ user.uid }}</p>
+      <p class="user-info"><strong>nick:</strong> {{ user.displayName }}</p>
       <button class="btn-primary" (click)="authService.logout()">Wyloguj</button>
-    } @else {
-      <p class="user-info">No user is logged in.</p>
-    }
-  </div>
-  <h1>Wybierz kolor swojej aplikacji </h1>
+    </div>
+  } @else {
+    <p class="user-info">No user is logged in.</p>
+  }
+</div>
+
+<h1>Wybierz kolor swojej aplikacji</h1>
+
+<!-- Kontener z przyciskami -->
+<div class="color-container">
   <div class="color-buttons">
+    <!-- Przyciski do zmiany gradientu -->
     <button (click)="changeGradient('green')">Zielony Gradient</button>
-    <button (click)="changeGradient('pastel-lavender')">pastel-lavender</button>
-    <button (click)="changeGradient('powder-blue')">powder-blue</button>
-    <button (click)="changeGradient('cloud')">cloud</button>
-    <button (click)="changeGradient('dusty-rose')">dusty-rose</button>
-    <button (click)="changeGradient('powder-mint')">powder-mint</button>
-    <button (click)="changeGradient('navy-ivory')">navy-ivory</button>
-    <button (click)="changeGradient('cashmere-graphite')">cashmere-graphite</button>
-    <button (click)="changeGradient('pearl-ink')">pearl-ink</button>
-    <button (click)="changeGradient('beige-espresso')">beige-espresso</button>
-    <button (click)="changeGradient('graphite-rose')">graphite-rose</button>
-    <button (click)="changeGradient('turquoise-alabaster')">turquoise-alabaster</button>
-    <button (click)="changeGradient('burgundy-cream')">burgundy-cream</button>
-    <button (click)="changeGradient('platinum-coal')">platinum-coal</button>
-    <button (click)="changeGradient('pearl-pink-anthracite')">pearl-pink-anthracite</button>
-    <button (click)="changeGradient('opal-blue')">opal-blue</button>
-    <button (click)="changeGradient('mustard-caramel')">mustard-caramel</button>
-    <button (click)="changeGradient('emerald-gold')">emerald-gold</button>
+    <button (click)="changeGradient('pastel-lavender')">Pastel Lavender</button>
+    <button (click)="changeGradient('powder-blue')">Powder Blue</button>
+    <button (click)="changeGradient('cloud')">Cloud</button>
+    <button (click)="changeGradient('dusty-rose')">Dusty Rose</button>
+    <button (click)="changeGradient('powder-mint')">Powder Mint</button>
+    <button (click)="changeGradient('navy-ivory')">Navy Ivory</button>
+    <button (click)="changeGradient('cashmere-graphite')">Cashmere Graphite</button>
+    <button (click)="changeGradient('pearl-ink')">Pearl Ink</button>
+    <button (click)="changeGradient('beige-espresso')">Beige Espresso</button>
+    <button (click)="changeGradient('graphite-rose')">Graphite Rose</button>
+    <button (click)="changeGradient('turquoise-alabaster')">Turquoise Alabaster</button>
+    <button (click)="changeGradient('burgundy-cream')">Burgundy Cream</button>
+    <button (click)="changeGradient('platinum-coal')">Platinum Coal</button>
+    <button (click)="changeGradient('pearl-pink-anthracite')">Pearl Pink Anthracite</button>
+    <button (click)="changeGradient('opal-blue')">Opal Blue</button>
+    <button (click)="changeGradient('mustard-caramel')">Mustard Caramel</button>
+    <button (click)="changeGradient('emerald-gold')">Emerald Gold</button>
   </div>
-  
+</div>

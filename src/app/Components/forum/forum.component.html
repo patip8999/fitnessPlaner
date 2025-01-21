@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <header class="forum-header">
+    <h1>Forum Dyskusyjne</h1>
+  </header>
+
+  <div class="forum-container">
+    <h2>Dodaj nowy wątek</h2>
+    <form (ngSubmit)="addThread()">
+      <label for="title">Tytuł</label>
+      <input 
+        type="text" 
+        id="title" 
+        [(ngModel)]="model.title" 
+        name="title" 
+        required 
+        class="form-control" />
+
+      <label for="content">Treść</label>
+      <textarea 
+        id="content" 
+        [(ngModel)]="model.content" 
+        name="content" 
+        required 
+        class="form-control">
+      </textarea>
+
+      <button type="submit" class="btn btn-primary">Dodaj wątek</button>
+    </form>
+
+    <div class="threads-list">
+      <h2>Wątki</h2>
+
+      <!-- Użycie @for jak w Twoim zapytaniu -->
+      @for (thread of threads; track thread.id) {
+        <div class="thread-card">
+          <h3>{{ thread.title }}</h3>
+          <p>{{ thread.content }}</p>
+
+          <button 
+            class="btn btn-secondary add-comment-btn" 
+            (click)="toggleComments(thread.id)">
+            {{ thread.showComments ? 'Ukryj komentarze' : 'Pokaż komentarze' }}
+          </button>
+
+          <!-- Rozwijanie komentarzy -->
+          @if (thread.showComments) {
+            <div class="comments">
+              <h4>Komentarze:</h4>
+
+              <!-- Komentarze -->
+              @if (thread.comments && thread.comments.length > 0) {
+                @for (comment of thread.comments; track comment.id) {
+                  <div class="comment">
+                    <small>
+                      {{ comment.createdAt | date:'short' }} - Autor: 
+                      <span>{{ comment.authorEmail || 'Nieznany autor' }}</span>
+                    </small>
+                    <p>{{ comment.content }}</p>
+                  </div>
+                }
+              } @else {
+                <p>Brak komentarzy</p>
+              }
+
+              <!-- Formularz dodawania komentarza -->
+              <div class="comment-form">
+                <textarea 
+                  [(ngModel)]="thread.newComment" 
+                  placeholder="Wpisz komentarz" 
+                  class="form-control">
+                </textarea>
+                <button 
+                  class="btn btn-primary add-comment-btn" 
+                  (click)="addComment(thread.id)">
+                  Dodaj komentarz
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -11,10 +11,12 @@ import { ThemeService } from '../../Services/theme.service';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  userPhotoURL: string = '' 
   authService: AuthService = inject(AuthService);
   themeService: ThemeService = inject(ThemeService);
   userSignal = this.authService.getCurrentUser();
   changeGradient(color: string) {
     this.themeService.setGradient(color);
   }
+  
 }
