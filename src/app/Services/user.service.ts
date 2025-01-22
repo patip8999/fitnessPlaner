@@ -20,16 +20,52 @@ export class UserService {
             .get()
             .subscribe({
               next: (userData) => {
-                observer.next(userData.data()); // Zwraca dane użytkownika
+                if (userData.exists) {
+                  observer.next(userData.data()); 
+                } else {
+                  observer.next(null); 
+                }
               },
               error: (error) => {
-                observer.error(error); // Obsługuje błędy
+                observer.error(error); 
               },
             });
         } else {
-          observer.next(null); // Obsługuje brak zalogowanego użytkownika
+          observer.next(null); 
         }
       });
     });
   }
+  updateAvatarInFirestore(avatarURL: string, userId: string): void {
+    // Upewniamy się, że zapisujemy dane w kolekcji 'users' dla konkretnego użytkownika
+    this.client
+      .collection('users')
+      .doc(userId)
+      .update({
+        photoURL: avatarURL, // Zapisujemy URL awatara w Firestore
+      })
+      .then(() => {
+        console.log('Avatar updated successfully');
+      })
+      .catch((error) => {
+        console.error('Error updating avatar:', error);
+      });
+  }
+  updateUserData(userId: string, displayName: string): Observable<void> {
+    return new Observable((observer) => {
+      this.client
+        .collection('users')
+        .doc(userId)
+        .update({
+          displayName: displayName, // Zapisanie nowego nicku
+        })
+        .then(() => {
+          observer.next(); // Zakończenie operacji
+        })
+        .catch((error) => {
+          observer.error(error); // Obsługuje błędy
+        });
+    });
+  }
+
 }

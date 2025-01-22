@@ -3,23 +3,23 @@
   <form (ngSubmit)="onSubmit()" #authForm="ngForm">
     @if (!isLogin) {
     <div class="input-container">
-      <label for="username">Nazwa użytkownika</label>
+      <label for="displayName">Nazwa użytkownika</label>
       <input
-        id="username"
+        id="displayName"
         type="text"
-        [(ngModel)]="username"
-        name="username"
-        #usernameField="ngModel"
+        [(ngModel)]="displayName"
+        name="displayName"
+        #displayNameField="ngModel"
         required
         pattern="^[a-z][a-z0-9]*$"
         placeholder="Wpisz nazwę użytkownika"
       />
 
-      @if (usernameField?.touched && usernameField?.invalid) {
+      @if (displayNameField?.touched && displayNameField?.invalid) {
       <div class="text-danger mt-2">
-        @if (usernameField.errors?.['required']) {
+        @if (displayNameField.errors?.['required']) {
         <p>Nazwa użytkownika jest wymagana.</p>
-        } @if (usernameField.errors?.['pattern']) {
+        } @if (displayNameField.errors?.['pattern']) {
         <p>
           Nazwa użytkownika może zawierać tylko małe litery i cyfry oraz musi
           zaczynać się od litery.

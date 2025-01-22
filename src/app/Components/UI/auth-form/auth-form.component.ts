@@ -14,8 +14,10 @@ export class AuthFormComponent {
   @Input() email: string = '';
   @Input() password: string = '';
   @Input() confirmPassword: string = '';
-  @Input() username: string = '';
+  @Input() displayName: string = '';
   @Output() emailChange = new EventEmitter<string>();
+  @Output() displayNameChange = new EventEmitter<string>();
+
   @Output() passwordChange = new EventEmitter<string>();
   @Output() confirmPasswordChange = new EventEmitter<string>();
   @Output() usernameChange = new EventEmitter<string>();
@@ -24,7 +26,7 @@ export class AuthFormComponent {
     email: string;
     password: string;
     confirmPassword?: string;
-    username?: string;
+    displayName?: string;
   }>();
 
   onEmailChange() {
@@ -39,7 +41,7 @@ export class AuthFormComponent {
   }
 
   onUsernameChange() {
-    this.usernameChange.emit(this.username);
+    this.usernameChange.emit(this.displayName);
   }
 
   onSubmit() {
@@ -47,7 +49,7 @@ export class AuthFormComponent {
       if (this.email && this.password) {
         this.formSubmit.emit({
           email: this.email,
-          username: this.username,
+          displayName: this.displayName,
           password: this.password,
           confirmPassword: this.confirmPassword,
         });
@@ -57,13 +59,13 @@ export class AuthFormComponent {
     } else {
       if (
         this.email &&
-        this.username &&
+        this.displayName &&
         this.password &&
         this.password === this.confirmPassword
       ) {
         this.formSubmit.emit({
           email: this.email,
-          username: this.username,
+          displayName: this.displayName,
           password: this.password,
           confirmPassword: this.confirmPassword,
         });

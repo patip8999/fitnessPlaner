@@ -15,21 +15,22 @@ export class RegisterComponent {
   email = '';
   password = '';
   confirmPassword = '';
-  username = '';
+ 
+  displayName = '';
   private authService = inject(AuthService);
   private readonly router = inject(Router);
   register({
     email,
     password,
     confirmPassword,
-    username,
+    displayName,
   }: {
     email: string;
     password: string;
     confirmPassword?: string;
-    username?: string;
+    displayName?: string;
   }) {
-    if (!email || !password || !username) {
+    if (!email || !password || !displayName) {
       console.log('Proszę podać e-mail, nazwę użytkownika i hasło.');
       return;
     }
@@ -40,10 +41,10 @@ export class RegisterComponent {
     }
 
     this.authService
-      .register(email, password)
+      .register(email, password, displayName)
       .then(() => {
         this.router.navigate(['/home']);
-        console.log(`Zarejestrowano pomyślnie użytkownika: ${username}`);
+        console.log(`Zarejestrowano pomyślnie użytkownika: ${displayName}`);
       })
       .catch((error) => {
         console.error('Błąd rejestracji:', error.message);

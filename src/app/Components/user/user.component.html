@@ -1,27 +1,37 @@
 <div class="user-details">
   <h2>User Details</h2>
 
-  <!-- Pokazywanie szczegółów użytkownika -->
-  @if (userPhotoURL && displayName && email) {
-    <div class="user-info">
-      <div class="user-avatar">
-        <img [src]="userPhotoURL" alt="User Avatar" class="avatar">
-      </div>
-      <p class="user-info"><strong>Email:</strong> {{ email }}</p>
-      <p class="user-info"><strong>nick:</strong> {{ displayName }}</p>
-      <button class="btn-primary" (click)="authService.logout()">Wyloguj</button>
+  @if ( displayName && email) {
+  <div class="user-info">
+    <div class="user-avatar">
+      @if (userPhotoURL) {
+      <img [src]="userPhotoURL" alt="User Avatar" class="avatar" />
+      } @else {
+      <img src="assets/default-avatar.png" alt="User Avatar" class="avatar" />
+      }
     </div>
+    <p class="user-info"><strong>Email:</strong> {{ email }}</p>
+    <p class="user-info"><strong>nick:</strong> {{ displayName }}</p>
+    <input
+      type="text"
+      [(ngModel)]="newAvatarURL"
+      placeholder="Wprowadź URL awatara"
+    />
+
+    <button class="btn-primary" (click)="saveAvatar(newAvatarURL)">
+      Zaktualizuj Awatar
+    </button>
+    <button class="btn-primary" (click)="authService.logout()">Wyloguj</button>
+  </div>
   } @else {
-    <p class="user-info">No user is logged in.</p>
+  <p class="user-info">No user is logged in.</p>
   }
 </div>
 
 <h1>Wybierz kolor swojej aplikacji</h1>
 
-<!-- Kontener z przyciskami -->
 <div class="color-container">
   <div class="color-buttons">
-    <!-- Przyciski do zmiany gradientu -->
     <button (click)="changeGradient('green')">Zielony Gradient</button>
     <button (click)="changeGradient('pastel-lavender')">Pastel Lavender</button>
     <button (click)="changeGradient('powder-blue')">Powder Blue</button>
@@ -29,14 +39,20 @@
     <button (click)="changeGradient('dusty-rose')">Dusty Rose</button>
     <button (click)="changeGradient('powder-mint')">Powder Mint</button>
     <button (click)="changeGradient('navy-ivory')">Navy Ivory</button>
-    <button (click)="changeGradient('cashmere-graphite')">Cashmere Graphite</button>
+    <button (click)="changeGradient('cashmere-graphite')">
+      Cashmere Graphite
+    </button>
     <button (click)="changeGradient('pearl-ink')">Pearl Ink</button>
     <button (click)="changeGradient('beige-espresso')">Beige Espresso</button>
     <button (click)="changeGradient('graphite-rose')">Graphite Rose</button>
-    <button (click)="changeGradient('turquoise-alabaster')">Turquoise Alabaster</button>
+    <button (click)="changeGradient('turquoise-alabaster')">
+      Turquoise Alabaster
+    </button>
     <button (click)="changeGradient('burgundy-cream')">Burgundy Cream</button>
     <button (click)="changeGradient('platinum-coal')">Platinum Coal</button>
-    <button (click)="changeGradient('pearl-pink-anthracite')">Pearl Pink Anthracite</button>
+    <button (click)="changeGradient('pearl-pink-anthracite')">
+      Pearl Pink Anthracite
+    </button>
     <button (click)="changeGradient('opal-blue')">Opal Blue</button>
     <button (click)="changeGradient('mustard-caramel')">Mustard Caramel</button>
     <button (click)="changeGradient('emerald-gold')">Emerald Gold</button>
