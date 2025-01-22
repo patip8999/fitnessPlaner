@@ -70,4 +70,38 @@
   .btn-primary:hover {
     background: linear-gradient(135deg, #3d4bff, #6e7dff);
   }
+  @media (max-width: 768px) {
+    .card-container {
+      flex-direction: column; /* Ustawienie kart w kolumnach na małych ekranach */
+      gap: 15px;
+    }
+  
+    .card {
+      width: 100%; /* Karty będą miały szerokość 100% na urządzeniach mobilnych */
+      margin: 0 auto; /* Wyrównanie kart na środku */
+      padding: 15px; /* Mniejsze paddingi na małych ekranach */
+    }
+  
+    .card-title {
+      font-size: 16px; /* Mniejszy rozmiar czcionki dla tytułów kart */
+    }
+  
+    .form-group {
+      margin-bottom: 10px; /* Mniejsze marginesy w formularzu */
+    }
+  
+    .form-group input {
+      padding: 8px; /* Zmniejszenie paddingu w inputach */
+    }
+  
+    iframe {
+      width: 100%; /* Szerokość iframe na 100% */
+      height: auto; /* Automatyczna wysokość */
+    }
+  
+    .btn-primary {
+      padding: 10px 15px; /* Mniejsze paddingi przycisków */
+      font-size: 14px; /* Zmniejszenie czcionki przycisków */
+    }
+  }
   

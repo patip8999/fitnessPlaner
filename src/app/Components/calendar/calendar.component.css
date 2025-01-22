@@ -1,11 +1,17 @@
-.calendar-container {
-  display: flex;
-  gap: 20px;
-  background: var(--background-gradient);
-  padding: 20px;
-  border-radius: 10px;
-  color: #333;
+/* Podstawowy styl */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
 .layout-container {
   display: flex;
   gap: 20px;
@@ -18,6 +24,14 @@
   margin: 0 auto; /* Wyśrodkowanie całego kontenera */
 }
 
+.calendar-container {
+  display: flex;
+  gap: 20px;
+  background: var(--background-gradient);
+  padding: 20px;
+  border-radius: 10px;
+  color: #333;
+}
 
 .monthly-calendar {
   flex: 0 1 350px;
@@ -54,12 +68,14 @@
 .calendar-navigation button:hover {
   background-color: var(--button-background, #254636);
 }
+
 .day-names,
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
 }
+
 .day-names span,
 .calendar-days div {
   text-align: center;
@@ -133,6 +149,7 @@
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
+
 .day-details h3 {
   margin-bottom: 10px;
 }
@@ -169,12 +186,15 @@
 .btn-success:hover {
   background-color: var(--button-background, #254636);
 }
+
 .calendar-days div.has-events {
   background-color: #d0e6e6;
 }
+
 .calendar-days div.has-events:hover {
   background-color: #b0d0d0;
 }
+
 .btn-link {
   color: black;
 }
@@ -187,8 +207,112 @@
 .form-check-label {
   color: black;
 }
+
 .quote-container {
   font-family: 'Dancing Script', cursive;
   margin: 20px 0;
   text-align: center;
+}
+
+/* Media queries - dla urządzeń mobilnych i tabletów */
+
+/* Dla ekranów o szerokości do 768px */
+@media screen and (max-width: 768px) {
+  .layout-container {
+    flex-direction: column; /* Ułożenie elementów w kolumnie */
+    width: 100%; /* Cała szerokość ekranu */
+  }
+
+  .monthly-calendar,
+  .weekly-view {
+    flex: 1 1 100%; /* Przekształcenie kart w pełną szerokość */
+    max-width: 100%;
+    margin-bottom: 20px; /* Przestrzeń między komponentami */
+  }
+
+  .calendar-container {
+    flex-direction: column; /* Ułożenie elementów w kolumnie */
+    padding: 15px; /* Mniejsze paddingi */
+  }
+
+  .calendar-navigation button {
+    padding: 8px 12px; /* Mniejsze przyciski na mniejszych ekranach */
+    font-size: 12px;
+  }
+
+  .week-header button {
+    padding: 8px 12px; /* Mniejsze przyciski na mniejszych ekranach */
+    font-size: 12px;
+  }
+
+  .week-days {
+    flex-direction: column; /* Ułożenie dni tygodnia w kolumnie */
+    gap: 10px;
+  }
+
+  .day-details {
+    padding: 8px;
+    font-size: 14px; /* Zmniejszenie czcionki w szczegółach dnia */
+  }
+
+  .buttons-container {
+    flex-direction: column; /* Przyciski w kolumnie */
+    align-items: stretch;
+  }
+
+  .calendar-days div {
+    padding: 10px; /* Większe przestrzenie w kalendarzu */
+  }
+
+  .calendar-days div.selected {
+    font-size: 14px; /* Mniejsze fonty na mobile */
+  }
+
+  .quote-container {
+    font-size: 18px; /* Mniejsza czcionka w cytatach */
+    margin: 15px 0;
+  }
+}
+
+/* Dla ekranów o szerokości do 480px (telefony) */
+@media screen and (max-width: 480px) {
+  .calendar-container {
+    padding: 10px; /* Mniejsze paddingi */
+  }
+
+  .calendar-navigation button,
+  .week-header button {
+    padding: 6px 10px;
+    font-size: 10px; /* Zmniejszenie przycisków */
+  }
+
+  .calendar-days div {
+    padding: 8px; /* Mniejsze przyciski */
+  }
+
+  .monthly-calendar,
+  .weekly-view {
+    flex: 1 1 100%; /* Cała szerokość ekranu */
+    margin-bottom: 15px;
+  }
+
+  .buttons-container {
+    gap: 5px; /* Mniejsze odstępy między przyciskami */
+  }
+
+  .calendar-days div:hover {
+    transform: none; /* Usuń efekt hover na małych ekranach */
+  }
+
+  .day-details h3 {
+    font-size: 18px; /* Mniejsza czcionka tytułów */
+  }
+
+  .btn-success {
+    padding: 8px 16px; /* Zmniejszenie rozmiaru przycisków */
+  }
+
+  .quote-container {
+    font-size: 16px; /* Zmniejszenie czcionki cytatu */
+  }
 }

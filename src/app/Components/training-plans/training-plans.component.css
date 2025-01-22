@@ -90,3 +90,39 @@ button.btn-danger:hover {
   height: auto;
   border-radius: 10px;
 }
+@media (max-width: 768px) {
+  .plan-form {
+    width: 100%; /* Zapewnienie, że formularz zajmuje pełną szerokość na mniejszych ekranach */
+    padding: 15px; /* Zmniejszenie paddingu na mniejszych ekranach */
+  }
+
+  .input-container {
+    width: 100%; /* Kontener formularza na pełnej szerokości */
+  }
+
+  input.form-control {
+    width: 100%; /* Zmiana szerokości inputów na 100% dla małych ekranów */
+    font-size: 14px; /* Zmniejszenie rozmiaru czcionki dla inputów */
+  }
+
+  .day-card {
+    width: 100%; /* Karty dni na pełnej szerokości */
+    padding: 10px; /* Zmniejszenie paddingu kart */
+  }
+
+  button.btn-primary,
+  button.btn-danger {
+    width: 100%; /* Przycisk zajmuje pełną szerokość formularza */
+    font-size: 14px; /* Zmniejszenie rozmiaru czcionki przycisków */
+    padding: 10px; /* Mniejsze paddingi przycisków */
+  }
+
+  .image-container {
+    width: 100%; /* Kontener na obrazek na pełnej szerokości */
+  }
+
+  .plan-image {
+    max-width: 100%; /* Obrazek wypełnia całą szerokość kontenera */
+    height: auto;
+  }
+}

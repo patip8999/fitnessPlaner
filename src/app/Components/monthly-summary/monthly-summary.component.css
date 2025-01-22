@@ -131,3 +131,32 @@
   color: #333;
   margin: 0 20px;
 }
+@media (max-width: 768px) {
+  /* Dostosowanie układu formularza */
+  .monthly-form {
+    grid-template-columns: 1fr;
+  }
+
+  .monthly-form label {
+    font-size: 14px;
+  }
+
+  .monthly-summary .summary-title {
+    font-size: 22px; /* Dostosowanie rozmiaru nagłówka na urządzeniach mobilnych */
+  }
+
+  .monthly-summary table th,
+  .monthly-summary table td {
+    padding: 8px 10px; /* Zmniejszenie odstępów w tabeli na urządzeniach mobilnych */
+  }
+
+  .monthly-summary .nav-button {
+    padding: 10px 18px; /* Zwiększenie klikowalnego obszaru przycisku */
+    font-size: 16px; /* Zwiększenie rozmiaru tekstu przycisku na urządzeniach mobilnych */
+  }
+
+  .monthly-summary .month-navigation h2 {
+    font-size: 20px; /* Zmniejszenie rozmiaru nagłówka na urządzeniach mobilnych */
+    margin: 0 10px; /* Mniejsze marginesy */
+  }
+}
