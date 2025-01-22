@@ -13,6 +13,7 @@ import {
 } from 'firebase/auth';
 
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   private themeService: ThemeService = inject(ThemeService);
+
   private db = getFirestore();
   constructor() {
     const auth = getAuth();
@@ -103,22 +105,6 @@ export class AuthService {
       console.error('Błąd zapisu użytkownika do Firestore:', error);
     });
   }
-  getUserFromFirestore(uid: string): Observable<any> {
-    const userRef = doc(this.db, 'users', uid);
-    return new Observable<any>((observer) => {
-      getDoc(userRef)
-        .then((docSnapshot) => {
-          if (docSnapshot.exists()) {
-            observer.next(docSnapshot.data());
-          } else {
-            observer.next(null); // User not found
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data from Firestore:", error);
-          observer.error(error);
-        });
-    });
-  }
+
 
 }

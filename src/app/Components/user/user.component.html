@@ -2,13 +2,13 @@
   <h2>User Details</h2>
 
   <!-- Pokazywanie szczegółów użytkownika -->
-  @if (userSignal | async; as user) {
+  @if (userPhotoURL && displayName && email) {
     <div class="user-info">
       <div class="user-avatar">
-        <img [src]="user.photoURL" alt="User Avatar" class="avatar">
+        <img [src]="userPhotoURL" alt="User Avatar" class="avatar">
       </div>
-      <p class="user-info"><strong>Email:</strong> {{ user.email }}</p>
-      <p class="user-info"><strong>nick:</strong> {{ user.displayName }}</p>
+      <p class="user-info"><strong>Email:</strong> {{ email }}</p>
+      <p class="user-info"><strong>nick:</strong> {{ displayName }}</p>
       <button class="btn-primary" (click)="authService.logout()">Wyloguj</button>
     </div>
   } @else {
