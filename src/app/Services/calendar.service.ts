@@ -9,7 +9,7 @@ import { TrainingModel } from '../Models/training.model';
   providedIn: 'root',
 })
 export class TrainingAndMealService {
-  private client: AngularFirestore = inject(AngularFirestore);
+  public client: AngularFirestore = inject(AngularFirestore);
   private afAuth: AngularFireAuth = inject(AngularFireAuth);
 
   getTrainings(): Observable<any[]> {

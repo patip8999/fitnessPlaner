@@ -27,6 +27,7 @@ export class EditComponent {
     day: 0,
     date: new Date(),
     id: '',
+    uid: '',
   };
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['meal'] && this.meal) {

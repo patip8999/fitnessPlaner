@@ -9,6 +9,7 @@
         @for(product of products; track product) {
         <li class="product-item" (click)="selectProduct(product)">
           {{ product.product_name || 'Brak nazwy' }} - {{ product.brands || 'Brak marki' }}
+          <button (click)="selectProduct(product)">Dodaj do kalendarza</button>
         </li>
         }
       </ul>
@@ -20,6 +21,15 @@
         <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || 'Brak danych' }} g</p>
         <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || 'Brak danych' }} g</p>
         <p><strong>Tłuszcze:</strong> {{ selectedProduct.nutriments.fat || 'Brak danych' }} g</p>
+  
+        <!-- Dodajemy pole do wyboru daty -->
+        <div>
+          <label for="mealDate">Wybierz datę posiłku:</label>
+          <input type="date" [(ngModel)]="selectedMealDate" id="mealDate" />
+        </div>
+  
+        <button (click)="addMealToCalendar()">Dodaj</button>
+        <button (click)="cancelAddMeal()">Anuluj</button>
       </div>
       }
     </div>

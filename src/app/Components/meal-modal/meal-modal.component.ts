@@ -19,7 +19,7 @@ export class MealModalComponent {
 
   model: mealModel = {
     name: '',
-
+    uid: '',
     calories: 0,
     weight: '',
     day: 0,
@@ -46,6 +46,7 @@ export class MealModalComponent {
       day: 0,
       date: new Date(),
       id: '',
+      uid: '',
     };
   }
 }
