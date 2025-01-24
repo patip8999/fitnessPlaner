@@ -9,7 +9,7 @@ import { mealModel } from '../../Models/meal.model';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './product-nutriments.component.html',
-  styleUrl: './product-nutriments.component.css'
+  styleUrl: './product-nutriments.component.css',
 })
 export class ProductNutrimentsComponent {
   searchQuery: string = '';
@@ -17,23 +17,25 @@ export class ProductNutrimentsComponent {
   error = '';
   nutriments: number = 0;
   openFoodFactsService: OpenFoodFactsService = inject(OpenFoodFactsService);
-  trainingAndMealService: TrainingAndMealService  = inject(TrainingAndMealService);
+  trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
   selectedProduct: any = null;
-  showDialog: boolean = false;  // Flag do kontrolowania wyświetlania dialogu
-  calories: number = 0; // Przech
+  showDialog: boolean = false;
+  calories: number = 0;
   selectedMealDate: string = '';
-  mealWeight: number = 100; // Domyślna waga to 100g
-  calculatedCalories: number = 0; // Pr
+  mealWeight: number = 100;
+  calculatedCalories: number = 0;
   searchProducts() {
     if (!this.searchQuery.trim()) {
       this.error = 'Wprowadź frazę do wyszukiwania.';
       this.products = [];
       return;
     }
-  
+
     this.openFoodFactsService.searchProductsByName(this.searchQuery).subscribe({
       next: (response) => {
-        console.log('Odpowiedź z API:', response); // Debugowanie
+        console.log('Odpowiedź z API:', response);
         if (response.products && response.products.length > 0) {
           this.products = response.products;
           this.error = '';
@@ -51,59 +53,54 @@ export class ProductNutrimentsComponent {
   }
   calculateCalories() {
     if (this.selectedProduct && this.selectedProduct.nutriments) {
-      // Pobieramy kalorie na 100g z nutriments
-      const caloriesPer100g = this.selectedProduct.nutriments['energy-kcal'] || 0;
-      
-      // Sprawdzamy, czy waga jest większa niż 0
+      const caloriesPer100g =
+        this.selectedProduct.nutriments['energy-kcal'] || 0;
+
       if (this.mealWeight > 0) {
-        this.calculatedCalories = (caloriesPer100g / 100) * this.mealWeight; // Obliczamy kalorie na podstawie wagi
+        this.calculatedCalories = (caloriesPer100g / 100) * this.mealWeight;
       } else {
-        this.calculatedCalories = 0; // Jeśli waga to 0, ustawiamy kalorie na 0
+        this.calculatedCalories = 0;
       }
 
-      console.log("Obliczone kalorie:", this.calculatedCalories); // Debugowanie wartości
+      console.log('Obliczone kalorie:', this.calculatedCalories);
     }
   }
   selectProduct(product: any): void {
     this.selectedProduct = product;
-    this.mealWeight = 100; // Domyślna waga to 100 g
-    this.calculateCalories(); // Obliczamy kalorie po wybraniu produktu
-    this.showDialog = true; // Wyświetlenie dialogu
+    this.mealWeight = 100;
+    this.calculateCalories();
+    this.showDialog = true;
   }
 
   addMealToCalendar(): void {
     if (this.selectedProduct) {
-      console.log("Dodawanie posiłku:", this.selectedProduct);
+      console.log('Dodawanie posiłku:', this.selectedProduct);
 
-      // Pobieranie kalorii
-      const calories = this.calculatedCalories; 
+      const calories = this.calculatedCalories;
 
-
-      // Sprawdzamy, czy data została wybrana, jeśli nie, używamy dzisiejszej daty
-      const mealDate = this.selectedMealDate ? new Date(this.selectedMealDate) : new Date();
+      const mealDate = this.selectedMealDate
+        ? new Date(this.selectedMealDate)
+        : new Date();
 
       const meal: mealModel = {
         id: this.trainingAndMealService.client.createId(),
         name: this.selectedProduct.product_name || 'Nieznany produkt',
         calories: calories,
-          weight: `${this.mealWeight} g`,
-        date: mealDate, // Używamy wybranej daty
+        weight: `${this.mealWeight} g`,
+        date: mealDate,
         day: 0,
-        uid: 'currentUserUid', // UID użytkownika
+        uid: 'currentUserUid',
       };
 
-      console.log("Dodany posiłek:", meal);
+      console.log('Dodany posiłek:', meal);
 
-      // Wywołanie serwisu, aby dodać posiłek
       this.trainingAndMealService.addMeal(meal);
 
-      // Zamknięcie dialogu po dodaniu
       this.showDialog = false;
     }
   }
-  // Metoda do anulowania
-  cancelAddMeal(): void {
-    this.showDialog = false; // Zamknięcie dialogu bez dodawania
-  }
 
+  cancelAddMeal(): void {
+    this.showDialog = false;
+  }
 }
