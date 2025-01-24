@@ -23,31 +23,52 @@
         {{ selectedProduct.nutriments["energy-kcal"] || "Brak danych" }} kcal
       </p>
       <div class="nutrient">
-        <p><strong>Tłuszcz:</strong> {{ selectedProduct.nutriments.fat || 'Brak danych' }} g</p>
+        <p>
+          <strong>Tłuszcz:</strong>
+          {{ selectedProduct.nutriments.fat || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Kwasy tłuszczowe nasycone:</strong> {{ selectedProduct.nutriments['saturated-fat'] || 'Brak danych' }} g</p>
+        <p>
+          <strong>Kwasy tłuszczowe nasycone:</strong>
+          {{ selectedProduct.nutriments["saturated-fat"] || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || 'Brak danych' }} g</p>
+        <p>
+          <strong>Węglowodany:</strong>
+          {{ selectedProduct.nutriments.carbohydrates || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Cukry:</strong> {{ selectedProduct.nutriments.sugars || 'Brak danych' }} g</p>
+        <p>
+          <strong>Cukry:</strong>
+          {{ selectedProduct.nutriments.sugars || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Błonnik:</strong> {{ selectedProduct.nutriments.fiber || 'Brak danych' }} g</p>
+        <p>
+          <strong>Błonnik:</strong>
+          {{ selectedProduct.nutriments.fiber || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || 'Brak danych' }} g</p>
+        <p>
+          <strong>Białko:</strong>
+          {{ selectedProduct.nutriments.proteins || "Brak danych" }} g
+        </p>
       </div>
-    
+
       <div class="nutrient">
-        <p><strong>Sól:</strong> {{ selectedProduct.nutriments.salt || 'Brak danych' }} g</p>
+        <p>
+          <strong>Sól:</strong>
+          {{ selectedProduct.nutriments.salt || "Brak danych" }} g
+        </p>
       </div>
       <div>
         <label for="mealWeight">Podaj wagę produktu (g):</label>

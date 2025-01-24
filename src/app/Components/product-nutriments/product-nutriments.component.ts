@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { OpenFoodFactsService } from '../../Services/open-food-facts.service';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { mealModel } from '../../Models/meal.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-nutriments',
@@ -16,6 +17,7 @@ export class ProductNutrimentsComponent {
   products: any[] = [];
   error = '';
   nutriments: number = 0;
+   private router: Router =  inject(Router);
   openFoodFactsService: OpenFoodFactsService = inject(OpenFoodFactsService);
   trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
@@ -50,6 +52,7 @@ export class ProductNutrimentsComponent {
         this.error = 'Wystąpił błąd podczas pobierania danych.';
       },
     });
+    
   }
   calculateCalories() {
     if (this.selectedProduct && this.selectedProduct.nutriments) {
@@ -98,6 +101,7 @@ export class ProductNutrimentsComponent {
 
       this.showDialog = false;
     }
+    this.router.navigate(['/home']);
   }
 
   cancelAddMeal(): void {
