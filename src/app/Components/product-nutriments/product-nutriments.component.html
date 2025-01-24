@@ -1,0 +1,31 @@
+<div class="search-container">
+    <div class="search-bar">
+      <input [(ngModel)]="searchQuery" placeholder="Wprowadź nazwę produktu" />
+      <button (click)="searchProducts()">Szukaj</button>
+    </div>
+  
+    <div class="results-container">
+      <ul class="product-list">
+        @for(product of products; track product) {
+        <li class="product-item" (click)="selectProduct(product)">
+          {{ product.product_name || 'Brak nazwy' }} - {{ product.brands || 'Brak marki' }}
+        </li>
+        }
+      </ul>
+  
+      @if(selectedProduct) {
+      <div class="product-details">
+        <h2>{{ selectedProduct.product_name }}</h2>
+        <p><strong>Kalorie:</strong> {{ selectedProduct.nutriments['energy-kcal'] || 'Brak danych' }} kcal</p>
+        <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || 'Brak danych' }} g</p>
+        <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || 'Brak danych' }} g</p>
+        <p><strong>Tłuszcze:</strong> {{ selectedProduct.nutriments.fat || 'Brak danych' }} g</p>
+      </div>
+      }
+    </div>
+  
+    @if(error) {
+      <p class="error-message">{{ error }}</p>
+    }
+  </div>
+  

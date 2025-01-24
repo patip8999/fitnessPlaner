@@ -13,6 +13,7 @@ import { UserComponent } from './Components/user/user.component';
 import { WeightControlComponent } from './Components/weight-control/weight-control.component';
 import { CalorieCalculatorComponent } from './Components/calorie-calculator/calorie-calculator.component';
 import { ForumComponent } from './Components/forum/forum.component';
+import { ProductNutrimentsComponent } from './Components/product-nutriments/product-nutriments.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -28,4 +29,5 @@ export const routes: Routes = [
     { path: 'weight', component: WeightControlComponent,canActivate: [authGuard] },
     { path: 'calories-calculator', component: CalorieCalculatorComponent,canActivate: [authGuard] },
     { path: 'forum', component: ForumComponent,  canActivate: [authGuard] },
+    { path: 'nutriments', component: ProductNutrimentsComponent,  canActivate: [authGuard] },
 ];

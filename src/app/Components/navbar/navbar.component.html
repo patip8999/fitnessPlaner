@@ -15,6 +15,7 @@
       Kalkulator zapotrzebowania kalorycznego
     </button>
     <button class="btn btn-primary" [routerLink]="['/forum']">Forum</button>
+    <button class="btn btn-primary" [routerLink]="['/nutriments']">Wartości odżywcze</button>
   </div>
   } @if (!(user$ | async)) {
   <div class="auth-buttons">
@@ -24,6 +25,11 @@
     <button (click)="navigateToRegister()" class="btn btn-light">
       Zarejestruj się
     </button>
+
+
+
+
+  
   </div>
   } @if (user$ | async; as user) {
   <div class="user-info">
