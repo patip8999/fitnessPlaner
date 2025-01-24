@@ -22,6 +22,8 @@ export class ProductNutrimentsComponent {
   showDialog: boolean = false;  // Flag do kontrolowania wyświetlania dialogu
   calories: number = 0; // Przech
   selectedMealDate: string = '';
+  mealWeight: number = 100; // Domyślna waga to 100g
+  calculatedCalories: number = 0; // Pr
   searchProducts() {
     if (!this.searchQuery.trim()) {
       this.error = 'Wprowadź frazę do wyszukiwania.';
@@ -47,23 +49,35 @@ export class ProductNutrimentsComponent {
       },
     });
   }
+  calculateCalories() {
+    if (this.selectedProduct && this.selectedProduct.nutriments) {
+      // Pobieramy kalorie na 100g z nutriments
+      const caloriesPer100g = this.selectedProduct.nutriments['energy-kcal'] || 0;
+      
+      // Sprawdzamy, czy waga jest większa niż 0
+      if (this.mealWeight > 0) {
+        this.calculatedCalories = (caloriesPer100g / 100) * this.mealWeight; // Obliczamy kalorie na podstawie wagi
+      } else {
+        this.calculatedCalories = 0; // Jeśli waga to 0, ustawiamy kalorie na 0
+      }
+
+      console.log("Obliczone kalorie:", this.calculatedCalories); // Debugowanie wartości
+    }
+  }
   selectProduct(product: any): void {
     this.selectedProduct = product;
-    // Debugowanie struktury nutriments
-    console.log('Nutriments:', this.selectedProduct.nutriments);
-    
-    // Pobieranie kalorii z nutriments
-    this.calories = this.selectedProduct.nutriments?.['energy-kcal'] || 0; // Użyj właściwego klucza
-    console.log('Wybrane kalorie:', this.calories); // Debugowanie wartości kalorii
-    
+    this.mealWeight = 100; // Domyślna waga to 100 g
+    this.calculateCalories(); // Obliczamy kalorie po wybraniu produktu
     this.showDialog = true; // Wyświetlenie dialogu
   }
+
   addMealToCalendar(): void {
     if (this.selectedProduct) {
       console.log("Dodawanie posiłku:", this.selectedProduct);
 
       // Pobieranie kalorii
-      const calories = this.calories || 0;
+      const calories = this.calculatedCalories; 
+
 
       // Sprawdzamy, czy data została wybrana, jeśli nie, używamy dzisiejszej daty
       const mealDate = this.selectedMealDate ? new Date(this.selectedMealDate) : new Date();
@@ -72,7 +86,7 @@ export class ProductNutrimentsComponent {
         id: this.trainingAndMealService.client.createId(),
         name: this.selectedProduct.product_name || 'Nieznany produkt',
         calories: calories,
-        weight: this.selectedProduct.quantity || 'N/A',
+          weight: `${this.mealWeight} g`,
         date: mealDate, // Używamy wybranej daty
         day: 0,
         uid: 'currentUserUid', // UID użytkownika

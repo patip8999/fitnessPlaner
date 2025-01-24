@@ -21,6 +21,12 @@
         <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || 'Brak danych' }} g</p>
         <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || 'Brak danych' }} g</p>
         <p><strong>Tłuszcze:</strong> {{ selectedProduct.nutriments.fat || 'Brak danych' }} g</p>
+          <div>
+    <label for="mealWeight">Podaj wagę produktu (g):</label>
+    <input type="number" id="mealWeight" [(ngModel)]="mealWeight" (input)="calculateCalories()" min="1" />
+  </div>
+
+  <p><strong>Przeliczone kalorie:</strong> {{ calculatedCalories }} kcal</p>
   
         <!-- Dodajemy pole do wyboru daty -->
         <div>
