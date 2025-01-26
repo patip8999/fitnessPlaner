@@ -118,3 +118,25 @@ button:hover {
     font-size: 14px; /* Mniejsze czcionki nagłówków */
   }
 }
+.calorie-description {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.calorie-description img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.calorie-image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.calorie-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+}

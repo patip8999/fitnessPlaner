@@ -1,10 +1,13 @@
 <div class="calorie-form-container">
   <h3>Kalkulator zapotrzebowania kalorycznego</h3>
-  <p>
-    Nasz kalkulator zapotrzebowania kalorycznego pomoże Ci określić, ile kalorii powinieneś spożywać codziennie, aby utrzymać swoją wagę, zbudować masę mięśniową lub schudnąć. 
-    Wprowadź swoje dane, takie jak płeć, wiek, wzrost, waga oraz poziom aktywności fizycznej, aby uzyskać dokładne obliczenia. 
-    Kalkulator obliczy Twoje dzienne zapotrzebowanie kaloryczne (TDEE) na podstawie wzoru uwzględniającego wszystkie te czynniki.
-  </p>
+  <div class="calorie-description">
+    <img src="assets/foto 4.jpg" alt="Zrzut ekranu kalkulatora" class="calorie-image" />
+    <p>
+      Nasz kalkulator zapotrzebowania kalorycznego pomoże Ci określić, ile kalorii powinieneś spożywać codziennie, aby utrzymać swoją wagę, zbudować masę mięśniową lub schudnąć. 
+      Wprowadź swoje dane, takie jak płeć, wiek, wzrost, waga oraz poziom aktywności fizycznej, aby uzyskać dokładne obliczenia. 
+      Kalkulator obliczy Twoje dzienne zapotrzebowanie kaloryczne (TDEE) na podstawie wzoru uwzględniającego wszystkie te czynniki.
+    </p>
+  </div>
   <form (ngSubmit)="calculateCalories()">
     <div class="form-group">
       <label for="gender">Płeć:</label>
@@ -65,5 +68,9 @@
       Twoje dzienne zapotrzebowanie kaloryczne (TDEE):
       {{ calorieData.tdee | number : "1.0-0" }} kcal
     </h4>
+  </div>
+
+  <div class="calorie-image-container">
+    <img src="assets/foto5.jpg" alt="Zdjęcie związane z aktywnością fizyczną" class="calorie-image"/>
   </div>
 </div>
