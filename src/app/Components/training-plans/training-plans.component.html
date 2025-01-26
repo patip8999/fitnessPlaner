@@ -2,8 +2,20 @@
   <div class="image-container">
     <img src="assets/foto.jpg" alt="Fitness Plan Image" class="plan-image" />
   </div>
+  
+  <div class="form-description">
+    <h2>Stwórz swój wymarzony plan fitness!</h2>
+    <p>
+      Zaprojektuj idealny harmonogram ćwiczeń dostosowany do Twoich celów i potrzeb. 
+      Dodaj dni treningowe, ustal czas trwania sesji, wprowadź linki do inspirujących filmów 
+      na YouTube i oszacuj kalorie, które planujesz spalić. Twoja aktywność fizyczna 
+      zaczyna się tutaj!
+    </p>
+  </div>
+  
   <input [(ngModel)]="planName" placeholder="Nazwa planu" class="form-control" />
   <input [(ngModel)]="planDescription" placeholder="Opis planu" class="form-control" />
+  
   @for(day of days; track day; let index = $index) {
     <div class="day-card">
       <div class="day-form">

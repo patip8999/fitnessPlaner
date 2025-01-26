@@ -1,60 +1,91 @@
+/* Główne kontener */
 .monthly-summary {
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   max-width: 900px;
   margin: 20px auto;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Układ ogólny */
 .monthly-summary .summary {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .monthly-summary .summary-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #254636;
   margin-bottom: 20px;
 }
 
-.monthly-summary table {
+/* Nawigacja między miesiącami */
+.monthly-summary .month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.monthly-summary table th,
-.monthly-summary table td {
-  padding: 10px 15px;
-  text-align: left;
-  border: 1px solid #ddd;
+.monthly-summary .nav-button {
+  background-color: var(--button-background, #254636);  /* Użycie zmiennej */
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.monthly-summary table th {
-  background-color: #e0f7fa;
+.monthly-summary .nav-button:hover {
+  background-color: var(--button-background, #2d6762);  /* Użycie zmiennej */
+  transform: scale(1.05);
+}
+
+.monthly-summary .month-navigation h2 {
+  font-size: 24px;
   font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin: 0;
+  padding: 0 20px;
 }
 
-.monthly-summary table td {
-  background-color: #f9f9f9;
+/* Sekcja podsumowania kalorii */
+.calories-summary {
+  width: 100%;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.monthly-summary table td.ng-style-changes {
+.calories-summary p {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.calories-summary strong {
   font-weight: bold;
+  color: #254636;
 }
 
-.monthly-summary table td:nth-child(even) {
-  background-color: #f0f0f0;
-}
-
+/* Formularz */
 .monthly-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .monthly-form label {
@@ -73,7 +104,7 @@
 }
 
 .monthly-form button[type="submit"] {
-  background-color: var(--button-background, #254636);
+  background-color: var(--button-background, #254636);  /* Użycie zmiennej */
   border: none;
   color: white;
   padding: 12px 25px;
@@ -81,82 +112,44 @@
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  transition: background-color 0.3s;
 }
 
 .monthly-form button[type="submit"]:hover {
-  background-color: var(--button-background, #254636);
+  background-color: var(--button-background, #2d6762);  /* Użycie zmiennej */
 }
 
+/* Stylowanie dla urządzeń mobilnych */
 @media (max-width: 768px) {
-  .monthly-form {
-    grid-template-columns: 1fr;
-  }
-  .monthly-form label {
-    font-size: 14px;
-  }
-}
-.monthly-summary .nav-button {
-  background-color: var(--button-background, #254636);
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: auto;
-  margin: 0 auto;
-}
-
-.monthly-summary .nav-button:hover {
-  background-color: var(--button-background, #254636);
-  transform: scale(1.05);
-}
-
-.monthly-summary .nav-button span {
-  margin: 0 6px;
-  font-size: 16px;
-}
-
-.monthly-summary .month-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.monthly-summary .month-navigation h2 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #333;
-  margin: 0 20px;
-}
-@media (max-width: 768px) {
-  /* Dostosowanie układu formularza */
-  .monthly-form {
-    grid-template-columns: 1fr;
-  }
-
-  .monthly-form label {
-    font-size: 14px;
-  }
-
   .monthly-summary .summary-title {
-    font-size: 22px; /* Dostosowanie rozmiaru nagłówka na urządzeniach mobilnych */
+    font-size: 22px;
   }
 
-  .monthly-summary table th,
-  .monthly-summary table td {
-    padding: 8px 10px; /* Zmniejszenie odstępów w tabeli na urządzeniach mobilnych */
+  .monthly-summary .month-navigation {
+    flex-direction: column;
+    align-items: center;
   }
 
   .monthly-summary .nav-button {
-    padding: 10px 18px; /* Zwiększenie klikowalnego obszaru przycisku */
-    font-size: 16px; /* Zwiększenie rozmiaru tekstu przycisku na urządzeniach mobilnych */
+    padding: 12px 18px;
+    font-size: 14px;
   }
 
   .monthly-summary .month-navigation h2 {
-    font-size: 20px; /* Zmniejszenie rozmiaru nagłówka na urządzeniach mobilnych */
-    margin: 0 10px; /* Mniejsze marginesy */
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
+  .monthly-form {
+    grid-template-columns: 1fr;
+  }
+
+  .monthly-form label {
+    font-size: 14px;
+  }
+
+  .calories-summary {
+    padding: 15px;
+    background-color: #fafafa;
   }
 }

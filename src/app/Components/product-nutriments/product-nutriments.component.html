@@ -1,14 +1,25 @@
 <div class="search-container">
   <div class="search-bar">
     <h3>Wyszukaj produkt i sprawdź jego wartości odżywcze</h3>
-    <input [(ngModel)]="searchQuery" placeholder="Wprowadź nazwę produktu" />
-    <button (click)="searchProducts()">Szukaj</button>
+    <input
+      [(ngModel)]="searchQuery"
+      placeholder="Wprowadź nazwę produktu"
+      class="search-input"
+    />
+    <button (click)="searchProducts()" class="btn-primary">Szukaj</button>
   </div>
 
+  <hr />
+
   <div class="results-container">
+    <h4>Lista produktów:</h4>
     <ul class="product-list">
       @for(product of products; track product) {
-      <li class="product-item" (click)="selectProduct(product)">
+      <li
+        class="product-item"
+        [class.selected]="product.id === selectedProduct?.id"
+        (click)="selectProduct(product)"
+      >
         {{ product.product_name || "Brak nazwy" }} -
         {{ product.brands || "Brak marki" }}
       </li>
@@ -18,6 +29,7 @@
     @if(selectedProduct) {
     <div class="product-details">
       <h2>{{ selectedProduct.product_name }}</h2>
+
       @if (selectedProduct.image_url) {
         <img
           [src]="selectedProduct.image_url"
@@ -25,61 +37,21 @@
           class="product-image"
         />
       }
-      <p>
-        <strong>Kalorie:</strong>
-        {{ selectedProduct.nutriments["energy-kcal"] || "Brak danych" }} kcal
-      </p>
-      <div class="nutrient">
-        <p>
-          <strong>Tłuszcz:</strong>
-          {{ selectedProduct.nutriments.fat || "Brak danych" }} g
-        </p>
+
+      <h4>Wartości odżywcze:</h4>
+      <p><strong>Kalorie:</strong> {{ selectedProduct.nutriments["energy-kcal"] || "Brak danych" }} kcal</p>
+      <div class="nutrients">
+        <p><strong>Tłuszcz:</strong> {{ selectedProduct.nutriments.fat || "Brak danych" }} g</p>
+        <p><strong>Kwasy tłuszczowe nasycone:</strong> {{ selectedProduct.nutriments["saturated-fat"] || "Brak danych" }} g</p>
+        <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || "Brak danych" }} g</p>
+        <p><strong>Cukry:</strong> {{ selectedProduct.nutriments.sugars || "Brak danych" }} g</p>
+        <p><strong>Błonnik:</strong> {{ selectedProduct.nutriments.fiber || "Brak danych" }} g</p>
+        <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || "Brak danych" }} g</p>
+        <p><strong>Sól:</strong> {{ selectedProduct.nutriments.salt || "Brak danych" }} g</p>
       </div>
 
-      <div class="nutrient">
-        <p>
-          <strong>Kwasy tłuszczowe nasycone:</strong>
-          {{ selectedProduct.nutriments["saturated-fat"] || "Brak danych" }} g
-        </p>
-      </div>
-
-      <div class="nutrient">
-        <p>
-          <strong>Węglowodany:</strong>
-          {{ selectedProduct.nutriments.carbohydrates || "Brak danych" }} g
-        </p>
-      </div>
-
-      <div class="nutrient">
-        <p>
-          <strong>Cukry:</strong>
-          {{ selectedProduct.nutriments.sugars || "Brak danych" }} g
-        </p>
-      </div>
-
-      <div class="nutrient">
-        <p>
-          <strong>Błonnik:</strong>
-          {{ selectedProduct.nutriments.fiber || "Brak danych" }} g
-        </p>
-      </div>
-
-      <div class="nutrient">
-        <p>
-          <strong>Białko:</strong>
-          {{ selectedProduct.nutriments.proteins || "Brak danych" }} g
-        </p>
-      </div>
-
-      <div class="nutrient">
-        <p>
-          <strong>Sól:</strong>
-          {{ selectedProduct.nutriments.salt || "Brak danych" }} g
-        </p>
-      </div>
-
-      
-      <div>
+      <h4>Obliczenia:</h4>
+      <div class="form-group">
         <label for="mealWeight">Podaj wagę produktu (g):</label>
         <input
           type="number"
@@ -87,18 +59,25 @@
           [(ngModel)]="mealWeight"
           (input)="calculateCalories()"
           min="1"
+          class="input-field"
+        />
+      </div>
+      <p><strong>Przeliczone kalorie:</strong> {{ calculatedCalories }} kcal</p>
+
+      <div class="form-group">
+        <label for="mealDate">Wybierz datę posiłku:</label>
+        <input
+          type="date"
+          [(ngModel)]="selectedMealDate"
+          id="mealDate"
+          class="input-field"
         />
       </div>
 
-      <p><strong>Przeliczone kalorie:</strong> {{ calculatedCalories }} kcal</p>
-
-      <div>
-        <label for="mealDate">Wybierz datę posiłku:</label>
-        <input type="date" [(ngModel)]="selectedMealDate" id="mealDate" />
+      <div class="button-group">
+        <button (click)="addMealToCalendar()" class="btn-primary">Dodaj</button>
+        <button (click)="cancelAddMeal()" class="btn-secondary">Anuluj</button>
       </div>
-
-      <button (click)="addMealToCalendar()">Dodaj</button>
-      <button (click)="cancelAddMeal()">Anuluj</button>
     </div>
     }
   </div>
