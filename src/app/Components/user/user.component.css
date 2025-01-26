@@ -1,19 +1,19 @@
 .user-details {
   font-family: Arial, sans-serif;
-  margin: 20px auto; 
+  margin: 20px auto;
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px; 
+  max-width: 500px;
+  text-align: center;
 }
 
 .user-details h2 {
   font-size: 24px;
   color: #254636;
   margin-bottom: 15px;
-  text-align: center; 
 }
 
 .user-info {
@@ -28,7 +28,6 @@
 
 .user-avatar {
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .user-avatar img.avatar {
@@ -49,7 +48,6 @@ button.btn-primary {
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
-  text-align: center;
   margin-top: 20px;
 }
 
@@ -57,31 +55,23 @@ button.btn-primary:hover {
   background-color: var(--button-background, #254636);
 }
 
-p.user-info {
-  margin-top: 10px;
-}
-
-
 .color-container {
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-
 .color-buttons {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);  
-  gap: 15px; 
-  margin: 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
   width: 100%;
-  max-width: 1000px; 
-  background-color: #ffffff; 
+  max-width: 1000px;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 .color-buttons button {
   background: linear-gradient(135deg, #ffffff, #e0e0e0);
@@ -92,9 +82,8 @@ p.user-info {
   color: #333;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%; 
-  max-width: 160px; 
-  text-align: center; 
+  width: 100%;
+  max-width: 160px;
 }
 
 .color-buttons button:hover {
@@ -107,33 +96,30 @@ p.user-info {
   transform: translateY(0);
   background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
 }
-h1 {
-  text-align: center; 
-  font-size: 28px;
-  color: #254636;
-  margin: 20px 0; 
-}
-input[type="text"] {
-  width: 100%; 
-  padding: 12px 15px; 
-  font-size: 16px; 
-  border: 2px solid #ccc;
-  border-radius: 8px; 
-  background-color: #fff; 
-  color: #333; 
-  margin-top: 10px; 
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
-}
 
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+  transition: border-color 0.3s ease;
+}
 
 input[type="text"]:focus {
-  border-color: #254636; 
-  outline: none; 
-  box-shadow: 0 0 5px rgba(37, 70, 54, 0.3); 
+  border-color: #254636;
+  box-shadow: 0 0 5px rgba(37, 70, 54, 0.3);
 }
 
-
 input[type="text"]::placeholder {
-  color: #aaa; 
-  font-style: italic; 
+  color: #aaa;
+  font-style: italic;
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  color: #254636;
+  margin: 20px 0;
 }

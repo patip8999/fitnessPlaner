@@ -1,0 +1,48 @@
+.app-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: var(--background-gradient);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    text-align: center;
+    margin-top: auto;  /* Ustala, że stopka zawsze będzie na dole */
+  }
+  
+  .app-footer .footer-content {
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .app-footer p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .app-footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .app-footer .footer-links a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .app-footer .footer-links a:hover {
+    color: #e0f7fa; /* Pasuje do stylu przycisków */
+  }
+  
+  @media (max-width: 768px) {
+    .app-footer .footer-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  }
