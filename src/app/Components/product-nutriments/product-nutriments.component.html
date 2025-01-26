@@ -18,6 +18,13 @@
     @if(selectedProduct) {
     <div class="product-details">
       <h2>{{ selectedProduct.product_name }}</h2>
+      @if (selectedProduct.image_url) {
+        <img
+          [src]="selectedProduct.image_url"
+          alt="Zdjęcie produktu {{ selectedProduct.product_name }}"
+          class="product-image"
+        />
+      }
       <p>
         <strong>Kalorie:</strong>
         {{ selectedProduct.nutriments["energy-kcal"] || "Brak danych" }} kcal
@@ -70,6 +77,8 @@
           {{ selectedProduct.nutriments.salt || "Brak danych" }} g
         </p>
       </div>
+
+      
       <div>
         <label for="mealWeight">Podaj wagę produktu (g):</label>
         <input
