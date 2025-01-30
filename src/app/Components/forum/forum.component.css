@@ -1,19 +1,20 @@
 .forum-container {
   width: 100%;
-  max-width: 1200px; /* Maksymalna szerokość forum */
-  margin: 0 auto; /* Wyśrodkowanie kontenera */
-  padding: 40px; /* Padding dla lepszego wyglądu */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
   background: var(--background-gradient);
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .forum-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .forum-header h1 {
-  font-size: 36px;
+  font-size: 32px;
   color: white;
   font-weight: bold;
   letter-spacing: 1px;
@@ -22,22 +23,24 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
 form label {
-  font-size: 18px;
-  color: #000000;
-  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
 }
 
 .form-control {
-  padding: 15px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: #f9f9f9;
   width: 100%;
+  transition: border-color 0.3s ease;
 }
 
 .form-control:focus {
@@ -47,131 +50,141 @@ form label {
 
 button[type="submit"] {
   background-color: var(--button-background, #254636);
-  color: #fff;
-  padding: 15px 25px;
-  font-size: 18px;
-  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button[type="submit"]:hover {
   background-color: darken(var(--button-background, #254636), 10%);
+  transform: scale(1.05);
 }
 
 .threads-list {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .threads-list h2 {
-  font-size: 28px;
-  color: #000000;
+  font-size: 24px;
+  color: #333;
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .thread-card {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 25px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .thread-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .thread-card h3 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  color: #000000;
-  margin-bottom: 15px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .thread-card p {
-  font-size: 16px;
-  color: #000000;
-  margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
 }
 
 .add-comment-btn {
   background-color: var(--button-background, #254636);
   color: white;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .add-comment-btn:hover {
   background-color: darken(var(--button-background, #254636), 10%);
+  transform: scale(1.05);
 }
 
 .comment-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .comment-input {
-  padding: 12px;
+  padding: 10px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: #f9f9f9;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: var(--button-background);
+  outline: none;
 }
 
 .comment-submit {
   background-color: var(--button-background, #254636);
-  color: #000000;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .comment-submit:hover {
   background-color: darken(var(--button-background, #254636), 10%);
+  transform: scale(1.05);
 }
 
 .comments h4 {
-  font-size: 20px;
-  color: #000000;
+  font-size: 18px;
+  color: #333;
   margin-bottom: 10px;
 }
 
 .comment {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comment small {
   display: block;
-  color: #000000;
+  color: #777;
   font-size: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .comment p {
-  color: #000000;
-  font-size: 16px;
+  color: #333;
+  font-size: 14px;
 }
 
 .comment-section p {
-  font-size: 16px;
-  color: #000000;
+  font-size: 14px;
+  color: #333;
   font-style: italic;
   text-align: center;
 }
@@ -186,7 +199,7 @@ button[type="submit"]:hover {
   }
 
   .thread-card {
-    padding: 15px;
+    padding: 10px;
   }
 
   .form-control, .comment-input {
