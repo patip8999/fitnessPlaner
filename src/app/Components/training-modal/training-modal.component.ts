@@ -30,6 +30,7 @@ export class TrainingModalComponent {
     date: new Date(),
     id: '',
     videoLink: '',
+    imageUrl: '',
   };
 
   addTraining(training: TrainingModel): void {
@@ -51,6 +52,7 @@ export class TrainingModalComponent {
       date: new Date(),
       id: '',
       videoLink: '',
+      imageUrl: '',
     };
   }
 }

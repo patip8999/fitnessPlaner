@@ -28,6 +28,7 @@ export class EditComponent {
     date: new Date(),
     id: '',
     uid: '',
+    imageUrl: '',
   };
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['meal'] && this.meal) {

@@ -94,15 +94,16 @@
         />
       </div>
     }
-    @if(imageLabel) {
+    @if(imageLabel){
       <div class="mb-3">
-        <label for="image" class="form-label">{{ imageLabel }}</label>
+        <label for="videoLink" class="form-label">{{ imageLabel }}</label>
         <input
-          type="file"
-          id="image"
+          type="string"
+          id="imageLabel"
           class="form-control"
-          (change)="onFileSelected($event)"
-          accept="image/*"
+          [(ngModel)]="model.imageUrl"
+          name="imageLabel"
+          required
         />
       </div>
     }

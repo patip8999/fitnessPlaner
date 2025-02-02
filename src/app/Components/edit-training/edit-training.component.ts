@@ -29,6 +29,7 @@ export class EditTrainingComponent {
     videoLink: '',
     date: new Date(),
     id: '',
+    imageUrl: '',
   };
   dateLabel: any;
   ngOnChanges(changes: SimpleChanges): void {

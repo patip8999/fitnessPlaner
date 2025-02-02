@@ -93,6 +93,7 @@ export class ProductNutrimentsComponent {
         date: mealDate,
         day: 0,
         uid: 'currentUserUid',
+        imageUrl: this.selectedProduct.image_url || '',
       };
 
       console.log('Dodany posiłek:', meal);

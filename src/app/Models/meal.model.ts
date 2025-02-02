@@ -3,7 +3,7 @@ export interface mealModel {
   readonly  calories: number;
   readonly weight: string;
   readonly day?: number;
- image?: File | string;
+ imageUrl: string;
   uid: string;
     date: Date;
     id: string;

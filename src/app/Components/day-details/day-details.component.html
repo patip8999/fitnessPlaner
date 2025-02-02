@@ -1,63 +1,66 @@
 <div class="day-details">
   <h2 class="day-title">Details for {{ day() | date : "fullDate" }}</h2>
 
-  @if( tdee ) {
-  <div class="calories-balance">
-    <h3>Balans kaloryczny:</h3>
-    <p class="balance-value">
-      {{
-        meals() | caloriesBalance : trainings() : tdee | number : "1.0-0"
-      }}
-      kcal
-    </p>
-    @if ((meals() | caloriesBalance : trainings() : tdee) > 0) {
-    <p>Nie przekroczyłeś zapotrzebowania kalorycznego</p>
-    } @else {
-    <p class="text-danger">Przekroczyłeś zapotrzebowanie kaloryczne</p>
-    }
-  </div>
-  } @if (meals().length > 0) {
-  <div class="meals">
-    <h3>Meals:</h3>
-    <ul class="meal-list">
-      @for (meal of meals(); track meal) {
-      <li class="meal-item">
-        <span class="meal-name">{{ meal.name }}</span> -
-        <span class="meal-calories">{{ meal.calories }} kcal</span> ({{
-          meal.weight
-        }}
-        g)
-      </li>
+  @if (tdee) {
+    <div class="calories-balance">
+      <h3>Balans kaloryczny:</h3>
+      <p class="balance-value">
+        {{ meals() | caloriesBalance : trainings() : tdee | number : "1.0-0" }} kcal
+      </p>
+      @if ((meals() | caloriesBalance : trainings() : tdee) > 0) {
+        <p>Nie przekroczyłeś zapotrzebowania kalorycznego</p>
+      } @else {
+        <p class="text-danger">Przekroczyłeś zapotrzebowanie kaloryczne</p>
       }
-    </ul>
-  </div>
-  } @if (trainings().length > 0) {
-  <div class="trainings">
-    <h3>Trainings:</h3>
-    <ul class="training-list">
-      @for (training of trainings(); track training.id) {
-      <li class="training-item">
-        <span class="training-name">{{ training.name }}</span> -
-        <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{
-          training.time
-        }}
-        min)
-      </li>
-      }
-    </ul>
-  </div>
-  } @if (videoUrl) {
-  <div class="youtube-video">
-    <h3>Watch the video:</h3>
-    <iframe
-      [src]="videoUrl"
-      width="560"
-      height="315"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-  </div>
+    </div>
+  }
+
+  @if (meals().length > 0) {
+    <div class="meals">
+      <h3>Meals:</h3>
+      <ul class="meal-list">
+        @for (meal of meals(); track meal) {
+          <li class="meal-item">
+            <span class="meal-name">{{ meal.name }}</span> -
+            <span class="meal-calories">{{ meal.calories }} kcal</span> ({{ meal.weight }} g)
+            @if (meal.imageUrl) {
+              <img [src]="meal.imageUrl" alt="Meal image" class="meal-image" (error)="onImageError($event)">
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (trainings().length > 0) {
+    <div class="trainings">
+      <h3>Trainings:</h3>
+      <ul class="training-list">
+        @for (training of trainings(); track training.id) {
+          <li class="training-item">
+            <span class="training-name">{{ training.name }}</span> -
+            <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{ training.time }} min)
+            @if (training.imageUrl) {
+              <img [src]="training.imageUrl" alt="Training image" class="training-image" (error)="onImageError($event)">
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (videoUrl) {
+    <div class="youtube-video">
+      <h3>Watch the video:</h3>
+      <iframe
+        [src]="videoUrl"
+        width="560"
+        height="315"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
   } @else {
-  <p>No video available for this training.</p>
+    <p>No video available for this training.</p>
   }
 </div>
