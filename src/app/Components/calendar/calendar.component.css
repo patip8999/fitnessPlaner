@@ -219,100 +219,41 @@ body {
 /* Dla ekranów o szerokości do 768px */
 @media screen and (max-width: 768px) {
   .layout-container {
-    flex-direction: column; /* Ułożenie elementów w kolumnie */
-    width: 100%; /* Cała szerokość ekranu */
+    flex-direction: column;
+    width: 100%;
+    padding: 15px;
   }
 
   .monthly-calendar,
   .weekly-view {
-    flex: 1 1 100%; /* Przekształcenie kart w pełną szerokość */
-    max-width: 100%;
-    margin-bottom: 20px; /* Przestrzeń między komponentami */
+    flex: 1 1 100%;
+    margin-bottom: 20px;
   }
 
-  .calendar-container {
-    flex-direction: column; /* Ułożenie elementów w kolumnie */
-    padding: 15px; /* Mniejsze paddingi */
-  }
-
-  .calendar-navigation button {
-    padding: 8px 12px; /* Mniejsze przyciski na mniejszych ekranach */
-    font-size: 12px;
-  }
-
+  .calendar-navigation button,
   .week-header button {
-    padding: 8px 12px; /* Mniejsze przyciski na mniejszych ekranach */
+    padding: 8px 12px;
     font-size: 12px;
   }
 
   .week-days {
-    flex-direction: column; /* Ułożenie dni tygodnia w kolumnie */
+    flex-direction: column;
     gap: 10px;
-  }
-
-  .day-details {
-    padding: 8px;
-    font-size: 14px; /* Zmniejszenie czcionki w szczegółach dnia */
-  }
-
-  .buttons-container {
-    flex-direction: column; /* Przyciski w kolumnie */
-    align-items: stretch;
-  }
-
-  .calendar-days div {
-    padding: 10px; /* Większe przestrzenie w kalendarzu */
-  }
-
-  .calendar-days div.selected {
-    font-size: 14px; /* Mniejsze fonty na mobile */
-  }
-
-  .quote-container {
-    font-size: 18px; /* Mniejsza czcionka w cytatach */
-    margin: 15px 0;
   }
 }
 
-/* Dla ekranów o szerokości do 480px (telefony) */
 @media screen and (max-width: 480px) {
   .calendar-container {
-    padding: 10px; /* Mniejsze paddingi */
+    padding: 10px;
   }
 
   .calendar-navigation button,
   .week-header button {
     padding: 6px 10px;
-    font-size: 10px; /* Zmniejszenie przycisków */
+    font-size: 10px;
   }
 
   .calendar-days div {
-    padding: 8px; /* Mniejsze przyciski */
-  }
-
-  .monthly-calendar,
-  .weekly-view {
-    flex: 1 1 100%; /* Cała szerokość ekranu */
-    margin-bottom: 15px;
-  }
-
-  .buttons-container {
-    gap: 5px; /* Mniejsze odstępy między przyciskami */
-  }
-
-  .calendar-days div:hover {
-    transform: none; /* Usuń efekt hover na małych ekranach */
-  }
-
-  .day-details h3 {
-    font-size: 18px; /* Mniejsza czcionka tytułów */
-  }
-
-  .btn-success {
-    padding: 8px 16px; /* Zmniejszenie rozmiaru przycisków */
-  }
-
-  .quote-container {
-    font-size: 16px; /* Zmniejszenie czcionki cytatu */
+    padding: 8px;
   }
 }

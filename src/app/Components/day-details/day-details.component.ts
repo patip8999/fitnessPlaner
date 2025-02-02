@@ -9,15 +9,20 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CalorieService } from '../../Services/calorie.service';
 import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
+import { FormsModule } from '@angular/forms';
+import { CommentsService } from '../../Services/comments.service';
 
 @Component({
   selector: 'app-day-details',
   standalone: true,
-  imports: [DatePipe, CaloriesBalancePipe, CommonModule],
+  imports: [DatePipe, CaloriesBalancePipe, CommonModule, FormsModule],
   templateUrl: './day-details.component.html',
   styleUrls: ['./day-details.component.css'],
 })
 export class DayDetailsComponent {
+  commentsService: CommentsService = inject(CommentsService);
+  readonly comment: WritableSignal<string> = signal('');
+  readonly comments: WritableSignal<any[]> = signal([]);
   readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
   readonly meals: WritableSignal<any[]> = signal<any[]>([]);
   readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
@@ -64,6 +69,7 @@ export class DayDetailsComponent {
         this.trainings.set(trainings);
         this.checkForVideo(trainings);
       });
+      this.loadComments();
   }
 
   private loadTdeeFromFirebase(): void {
@@ -131,8 +137,37 @@ export class DayDetailsComponent {
       );
     }
   }
-  onImageError(event: Event): void {
-    const imgElement = event.target as HTMLImageElement;
-    imgElement.src = 'assets/default-meal-image.jpg'; // Domyślne zdjęcie
+loadComments(): void {
+  const dayParam = this.day(); 
+  if (!dayParam) return; 
+
+  this.commentsService.getCommentsForDay(dayParam).subscribe((data) => {
+    this.comments.set(data);
+  });
+}
+
+  addComment(): void {
+    const newComment = this.comment();
+    console.log('Nowy komentarz:', newComment); 
+    if (!newComment.trim()) return; 
+  
+    const date = new Date();
+    this.commentsService.addComment(newComment, date); 
+  
+ 
+    this.comments.update((prevComments) => [
+      ...prevComments,
+      { text: newComment, date: date.toISOString().split('T')[0] },
+    ]);
+    
+   
+    this.comment.set('');
+  }
+
+  onCommentChange(event: Event): void {
+    const target = event.target as HTMLInputElement; 
+    this.comment.set(target.value); 
   }
 }
+
+
