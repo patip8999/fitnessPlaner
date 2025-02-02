@@ -94,7 +94,18 @@
         />
       </div>
     }
-  
+    @if(imageLabel) {
+      <div class="mb-3">
+        <label for="image" class="form-label">{{ imageLabel }}</label>
+        <input
+          type="file"
+          id="image"
+          class="form-control"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+      </div>
+    }
       <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
         Zapisz zmiany
       </button>

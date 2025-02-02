@@ -25,6 +25,7 @@ export class MealModalComponent {
     day: 0,
     date: new Date(),
     id: '',
+    image: '',
   };
 
   addMeal(meal: any): void {
@@ -37,7 +38,12 @@ export class MealModalComponent {
   onDateChange(date: string): void {
     this.model.date = new Date(date + 'T00:00:00');
   }
-
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.model.image = input.files[0];
+    }
+  }
   resetForm(): void {
     this.model = {
       name: '',
@@ -47,6 +53,7 @@ export class MealModalComponent {
       date: new Date(),
       id: '',
       uid: '',
+      image: '',
     };
   }
 }

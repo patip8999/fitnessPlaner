@@ -19,5 +19,8 @@ export class ModalComponent {
    @Input() videoLinkLabel: string = ''
   @Input() dateLabel: string = ''; 
   @Input() model: any = {}; 
+  @Input() imageLabel: string = '';
   @Output() save = new EventEmitter<any>(); 
+  @Output() imageSelected = new EventEmitter<File>();
+
 }

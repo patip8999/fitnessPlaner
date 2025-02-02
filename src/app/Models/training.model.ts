@@ -6,4 +6,5 @@ export interface TrainingModel {
   id: string;
   readonly videoLink: string;
   readonly isDone: boolean;
+    image?: File | string;
 }

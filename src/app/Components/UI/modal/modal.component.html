@@ -14,6 +14,8 @@
             [dateLabel]="dateLabel"
             [videoLinkLabel]="videoLinkLabel"
             [model]="model"
+            [imageLabel]="imageLabel"
+            (imageSelected)="imageSelected.emit($event)"
             (save)="save.emit($event)"
           ></app-form>
         </div>
