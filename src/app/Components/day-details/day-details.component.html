@@ -15,39 +15,37 @@
     </div>
   }
 
-  @if (meals().length > 0) {
-    <div class="meals">
-      <h3>Meals:</h3>
-      <ul class="meal-list">
-        @for (meal of meals(); track meal) {
-          <li class="meal-item">
-            <span class="meal-name">{{ meal.name }}</span> -
-            <span class="meal-calories">{{ meal.calories }} kcal</span> ({{ meal.weight }} g)
-            @if (meal.imageUrl) {
-              <img [src]="meal.imageUrl" alt="Meal image" class="meal-image" (error)="onImageError($event)">
-            }
-          </li>
-        }
-      </ul>
-    </div>
-  }
+  <div class="cards-container">
+    @for (meal of meals(); track meal) {
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ meal.name }}</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Kalorie: {{ meal.calories }} kcal</p>
+          <p class="card-text">Waga: {{ meal.weight }} g</p>
+          @if (meal.imageUrl) {
+            <img [src]="meal.imageUrl" alt="Meal image" class="card-image" (error)="onImageError($event)">
+          }
+        </div>
+      </div>
+    }
 
-  @if (trainings().length > 0) {
-    <div class="trainings">
-      <h3>Trainings:</h3>
-      <ul class="training-list">
-        @for (training of trainings(); track training.id) {
-          <li class="training-item">
-            <span class="training-name">{{ training.name }}</span> -
-            <span class="training-burned">{{ training.burnedKcal }} kcal</span> ({{ training.time }} min)
-            @if (training.imageUrl) {
-              <img [src]="training.imageUrl" alt="Training image" class="training-image" (error)="onImageError($event)">
-            }
-          </li>
-        }
-      </ul>
-    </div>
-  }
+    @for (training of trainings(); track training.id) {
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ training.name }}</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Spalone kalorie: {{ training.burnedKcal }} kcal</p>
+          <p class="card-text">Czas: {{ training.time }} min</p>
+          @if (training.imageUrl) {
+            <img [src]="training.imageUrl" alt="Training image" class="card-image" (error)="onImageError($event)">
+          }
+        </div>
+      </div>
+    }
+  </div>
 
   @if (videoUrl) {
     <div class="youtube-video">

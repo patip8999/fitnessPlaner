@@ -3,7 +3,7 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 1200px;
   margin: 30px auto;
   color: white;
 }
@@ -29,48 +29,63 @@
   color: #ffffff;
 }
 
-.meals,
-.trainings {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  border-radius: 8px;
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.meal-list,
-.training-list {
-  list-style-type: none;
-  padding: 0;
+.card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.meal-item,
-.training-item {
-  font-size: 1.1rem;
-  margin: 10px 0;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  color: white;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.card-body {
+  padding: 15px;
   color: #333;
 }
 
-.meal-item span,
-.training-item span {
-  font-weight: bold;
+.card-text {
+  font-size: 1.1rem;
+  margin: 10px 0;
 }
 
-.meal-name,
-.training-name {
-  color: #006400;
-}
-.meal-calories,
-.training-burned {
-  color: #d32f2f;
-}
-.meal-image, .training-image {
-  max-width: 100px;
-  max-height: 100px;
+.card-image {
+  max-width: 100%;
   border-radius: 8px;
-  margin-top: 8px;
-  display: block;
+  margin-top: 10px;
 }
+
+.youtube-video {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.youtube-video iframe {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
   .day-details {
     padding: 15px;
@@ -84,12 +99,11 @@
     font-size: 1.3rem;
   }
 
-  .meal-item,
-  .training-item {
-    font-size: 1rem;
+  .cards-container {
+    grid-template-columns: 1fr;
   }
-  .youtube-video iframe {
-    display: block;
-    margin: 0 auto;
+
+  .card {
+    margin-bottom: 20px;
   }
 }
