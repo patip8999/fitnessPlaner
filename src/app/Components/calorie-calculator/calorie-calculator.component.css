@@ -96,7 +96,7 @@ button:hover {
 @media screen and (max-width: 480px) {
   .calorie-form-container {
     padding: 10px; 
-    width: 95%; /
+    width: 95%; 
   }
 
   .calorie-form-container h3 {
@@ -115,7 +115,7 @@ button:hover {
   }
 
   .calorie-form-container h4 {
-    font-size: 14px; /
+    font-size: 14px; 
   }
 }
 .calorie-description {

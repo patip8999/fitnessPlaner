@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -11,6 +11,7 @@ import { CalorieService } from '../../Services/calorie.service';
 import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommentsService } from '../../Services/comments.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-day-details',
@@ -18,6 +19,7 @@ import { CommentsService } from '../../Services/comments.service';
   imports: [DatePipe, CaloriesBalancePipe, CommonModule, FormsModule],
   templateUrl: './day-details.component.html',
   styleUrls: ['./day-details.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DayDetailsComponent {
   commentsService: CommentsService = inject(CommentsService);
@@ -57,21 +59,20 @@ export class DayDetailsComponent {
   }
 
   private loadDetails(day: Date): void {
-    this.trainingAndMealService.getMealsByDate(day).subscribe((meals) => {
-      console.log('Pobrane posiłki:', meals);
-      this.meals.set(meals);
-    });
-
-    this.trainingAndMealService
-      .getTrainingsByDate(day)
+    this.trainingAndMealService.getMealsByDate(day)
+      .pipe(
+        switchMap((meals) => {
+          this.meals.set(meals);
+          return this.trainingAndMealService.getTrainingsByDate(day);
+        })
+      )
       .subscribe((trainings) => {
-        console.log('Pobrane treningi:', trainings);
         this.trainings.set(trainings);
         this.checkForVideo(trainings);
       });
-      this.loadComments();
+  
+    this.loadComments();
   }
-
   private loadTdeeFromFirebase(): void {
     this.calorieService.loadTdee().subscribe(
       (data) => {
