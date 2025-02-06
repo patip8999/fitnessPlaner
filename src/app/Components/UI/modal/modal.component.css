@@ -40,28 +40,28 @@
   }
   @media (max-width: 768px) {
     .modal-dialog {
-      max-width: 90%; /* Zwiększenie szerokości na mniejszych ekranach */
-      margin: 20px auto; /* Mniejszy margines dla lepszego dopasowania */
+      max-width: 90%; 
+      margin: 20px auto; 
     }
     
     .modal-content {
-      padding: 15px; /* Mniejsze paddingi w treści modala */
+      padding: 15px; 
     }
     
     .modal-header {
-      padding-bottom: 8px; /* Mniejsze paddingi w nagłówku */
+      padding-bottom: 8px; 
     }
     
     .modal-title {
-      font-size: 20px; /* Zmniejszenie rozmiaru czcionki tytułu */
+      font-size: 20px;
     }
     
     .btn-close {
-      font-size: 20px; /* Zmniejszenie rozmiaru czcionki dla przycisku zamykania */
+      font-size: 20px; 
     }
     
     .modal-body {
-      padding: 12px 0; /* Mniejsze paddingi w ciele modala */
+      padding: 12px 0; 
     }
   }
   

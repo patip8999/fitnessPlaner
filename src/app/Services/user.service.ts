@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private client: AngularFirestore = inject(AngularFirestore);
@@ -21,28 +21,27 @@ export class UserService {
             .subscribe({
               next: (userData) => {
                 if (userData.exists) {
-                  observer.next(userData.data()); 
+                  observer.next(userData.data());
                 } else {
-                  observer.next(null); 
+                  observer.next(null);
                 }
               },
               error: (error) => {
-                observer.error(error); 
+                observer.error(error);
               },
             });
         } else {
-          observer.next(null); 
+          observer.next(null);
         }
       });
     });
   }
   updateAvatarInFirestore(avatarURL: string, userId: string): void {
-    // Upewniamy się, że zapisujemy dane w kolekcji 'users' dla konkretnego użytkownika
     this.client
       .collection('users')
       .doc(userId)
       .update({
-        photoURL: avatarURL, // Zapisujemy URL awatara w Firestore
+        photoURL: avatarURL,
       })
       .then(() => {
         console.log('Avatar updated successfully');
@@ -57,15 +56,14 @@ export class UserService {
         .collection('users')
         .doc(userId)
         .update({
-          displayName: displayName, // Zapisanie nowego nicku
+          displayName: displayName,
         })
         .then(() => {
-          observer.next(); // Zakończenie operacji
+          observer.next();
         })
         .catch((error) => {
-          observer.error(error); // Obsługuje błędy
+          observer.error(error);
         });
     });
   }
-
 }

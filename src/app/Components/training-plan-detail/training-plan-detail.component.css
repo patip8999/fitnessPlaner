@@ -72,36 +72,36 @@
   }
   @media (max-width: 768px) {
     .card-container {
-      flex-direction: column; /* Ustawienie kart w kolumnach na małych ekranach */
+      flex-direction: column; 
       gap: 15px;
     }
   
     .card {
-      width: 100%; /* Karty będą miały szerokość 100% na urządzeniach mobilnych */
-      margin: 0 auto; /* Wyrównanie kart na środku */
-      padding: 15px; /* Mniejsze paddingi na małych ekranach */
+      width: 100%; 
+      margin: 0 auto; 
+      padding: 15px; 
     }
   
     .card-title {
-      font-size: 16px; /* Mniejszy rozmiar czcionki dla tytułów kart */
+      font-size: 16px; 
     }
   
     .form-group {
-      margin-bottom: 10px; /* Mniejsze marginesy w formularzu */
+      margin-bottom: 10px; 
     }
   
     .form-group input {
-      padding: 8px; /* Zmniejszenie paddingu w inputach */
+      padding: 8px; 
     }
   
     iframe {
-      width: 100%; /* Szerokość iframe na 100% */
-      height: auto; /* Automatyczna wysokość */
+      width: 100%; 
+      height: auto; 
     }
   
     .btn-primary {
-      padding: 10px 15px; /* Mniejsze paddingi przycisków */
-      font-size: 14px; /* Zmniejszenie czcionki przycisków */
+      padding: 10px 15px; 
+      font-size: 14px; 
     }
   }
   

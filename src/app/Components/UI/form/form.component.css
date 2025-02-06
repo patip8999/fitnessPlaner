@@ -40,26 +40,26 @@
   }
   @media (max-width: 768px) {
     .form-group {
-      margin-bottom: 12px; /* Zmniejszenie marginesu, aby formularz lepiej pasował do mniejszych ekranów */
+      margin-bottom: 12px; 
     }
   
     label {
-      font-size: 14px; /* Zmniejszenie rozmiaru czcionki etykiety */
+      font-size: 14px; 
     }
   
     input.form-control {
-      font-size: 14px; /* Zmniejszenie rozmiaru czcionki w polu input */
-      padding: 8px; /* Mniejsze paddingi w inputach */
-      border-radius: 4px; /* Zmniejszenie zaokrąglenia inputów */
+      font-size: 14px; 
+      padding: 8px; 
+      border-radius: 4px; 
     }
   
     button[type="submit"] {
-      font-size: 14px; /* Zmniejszenie rozmiaru czcionki przycisku */
-      padding: 10px 20px; /* Mniejsze paddingi w przycisku */
+      font-size: 14px; 
+      padding: 10px 20px; 
     }
   
     button[type="submit"]:hover {
-      background-color: #254636; /* Utrzymanie ciemniejszego koloru przy hoverze */
+      background-color: #254636; 
     }
   }
   

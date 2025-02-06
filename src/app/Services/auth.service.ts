@@ -11,11 +11,10 @@ import {
   signOut,
   User,
   updateProfile,
-  UserCredential
+  UserCredential,
 } from 'firebase/auth';
 
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
-
 
 @Injectable({
   providedIn: 'root',
@@ -43,26 +42,27 @@ export class AuthService {
     });
   }
 
-
-  register(email: string, password: string, displayName: string): Promise<UserCredential | void> {
+  register(
+    email: string,
+    password: string,
+    displayName: string
+  ): Promise<UserCredential | void> {
     const auth = getAuth();
     return createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         if (result.user) {
-          // Ustaw displayName dla użytkownika
           return updateProfile(result.user, {
             displayName: displayName,
           }).then(() => {
-            // Zapisz użytkownika w Firestore
             this.saveUserToFirestore(result.user);
-            return result; // Zwróć wynik, aby zachować łańcuch obietnic
+            return result;
           });
         }
-        return; // Dodane dla pełnego pokrycia ścieżki
+        return;
       })
       .catch((error) => {
         console.error('Błąd rejestracji użytkownika:', error);
-        throw error; // Przerzuć błąd, aby zachować obsługę w wyższym poziomie kodu
+        throw error;
       });
   }
   login(email: string, password: string) {
@@ -107,24 +107,27 @@ export class AuthService {
   private saveUserToFirestore(user: User) {
     const db = getFirestore();
     const userRef = doc(db, 'users', user.uid);
-  
-    // Sprawdzamy, czy dokument już istnieje w Firestore
-    getDoc(userRef).then((docSnap) => {
-      if (!docSnap.exists()) {
-        // Jeśli dokument nie istnieje, zapisujemy dane użytkownika
-        setDoc(userRef, {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-          createdAt: new Date().toISOString(),
-        }, { merge: true }).catch((error) => {
-          console.error('Błąd zapisu użytkownika do Firestore:', error);
-        });
-      }
-    }).catch((error) => {
-      console.error('Błąd podczas sprawdzania istnienia dokumentu:', error);
-    });
-  }
 
+    getDoc(userRef)
+      .then((docSnap) => {
+        if (!docSnap.exists()) {
+          setDoc(
+            userRef,
+            {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName || '',
+              photoURL: user.photoURL || '',
+              createdAt: new Date().toISOString(),
+            },
+            { merge: true }
+          ).catch((error) => {
+            console.error('Błąd zapisu użytkownika do Firestore:', error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Błąd podczas sprawdzania istnienia dokumentu:', error);
+      });
+  }
 }

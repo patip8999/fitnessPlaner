@@ -32,18 +32,25 @@ export class EditComponent {
   };
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['meal'] && this.meal) {
+      console.log("Załadowano posiłek do edycji:", this.meal);
+  
       this.model = {
         ...this.meal,
+        weight: this.meal.weight || '0g',
         date: new Date(this.meal.date),
+        imageUrl: this.meal.imageUrl || '',
       };
     }
   }
+  
 
-  saveMeal(updatedMeal: any): void {
-    if (this.model.name && this.model.calories > 0 && this.model.weight) {
+  saveMeal(): void {
+    console.log("Próba zapisania posiłku:", this.model);
+  
+    if (this.model.name && this.model.calories > 0 && this.model.weight.trim().length > 0) {
       this.Save.emit(this.model);
     } else {
-      console.error('Model jest niekompletny lub zawiera błędy:', this.model);
+      console.error("Model jest niekompletny lub zawiera błędy:", this.model);
     }
   }
 

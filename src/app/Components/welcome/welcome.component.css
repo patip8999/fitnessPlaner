@@ -90,7 +90,7 @@ html, body {
   transform: scale(1.05);
 }
 
-/* Układ zdjęć */
+
 .welcome-images {
   display: flex;
   justify-content: center;

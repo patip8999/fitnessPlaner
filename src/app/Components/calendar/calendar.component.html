@@ -65,7 +65,7 @@
         </h4>
         <div>
           <h4>Treningi</h4>
-          @for (training of getTrainingsForDay(day.date); track training) {
+          @for (training of getTrainingsForDay(day.date); track training.id) {
           <div>
             {{ training.name }} - {{ training.burnedKcal }} kcal
             {{ training.time }}min
@@ -101,7 +101,7 @@
         </div>
         <div>
           <h4>Posiłki</h4>
-          @for (meal of getMealsForDay(day.date); track meal) {
+          @for (meal of getMealsForDay(day.date); track meal.id) {
           <div>
             {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
           </div>

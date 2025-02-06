@@ -1,4 +1,4 @@
-/* Podstawowy styl */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -161,7 +161,7 @@
     font-size: 16px;
   }
   
-  /* Responsive Design */
+ 
   @media screen and (max-width: 768px) {
     .layout-container {
       flex-direction: column;

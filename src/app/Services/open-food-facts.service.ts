@@ -11,12 +11,10 @@ export class OpenFoodFactsService {
   private apiBaseUrl = 'https://world.openfoodfacts.org/api/v0/product';
   constructor() {}
 
-  // Pobierz szczegóły produktu na podstawie jego kodu kreskowego
   getProductByBarcode(barcode: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${barcode}.json`);
   }
 
-  // Wyszukaj produkty na podstawie zapytania
   searchProducts(query: string): Observable<any> {
     const searchUrl = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&json=1`;
     return this.http.get<any>(searchUrl);
@@ -26,9 +24,10 @@ export class OpenFoodFactsService {
     return this.http.get<any>(url);
   }
   searchProductsByName(name: string): Observable<any> {
-    const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(name)}&search_simple=1&action=process&json=1`;
-    console.log('Wysyłanie żądania do URL:', url); // Debugowanie
+    const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(
+      name
+    )}&search_simple=1&action=process&json=1`;
+    console.log('Wysyłanie żądania do URL:', url); 
     return this.http.get<any>(url);
   }
-
 }

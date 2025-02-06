@@ -30,7 +30,6 @@
     <div class="threads-list">
       <h2>Wątki</h2>
 
-      <!-- Użycie @for jak w Twoim zapytaniu -->
       @for (thread of threads; track thread.id) {
         <div class="thread-card">
           <h3>{{ thread.title }}</h3>
@@ -42,12 +41,12 @@
             {{ thread.showComments ? 'Ukryj komentarze' : 'Pokaż komentarze' }}
           </button>
 
-          <!-- Rozwijanie komentarzy -->
+      
           @if (thread.showComments) {
             <div class="comments">
               <h4>Komentarze:</h4>
 
-              <!-- Komentarze -->
+       
               @if (thread.comments && thread.comments.length > 0) {
                 @for (comment of thread.comments; track comment.id) {
                   <div class="comment">
@@ -62,7 +61,7 @@
                 <p>Brak komentarzy</p>
               }
 
-              <!-- Formularz dodawania komentarza -->
+      
               <div class="comment-form">
                 <textarea 
                   [(ngModel)]="thread.newComment" 

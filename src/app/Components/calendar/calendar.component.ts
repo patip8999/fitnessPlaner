@@ -236,9 +236,11 @@ export class CalendarComponent {
 public  closeModal(): void {
   this.showModal.set(false);
 }
-  public editMeal(meal: mealModel): void {
-    this.selectedMeal = { ...meal };
-  }
+public editMeal(meal: mealModel): void {
+  console.log('Edytowany posiłek:', meal);
+  this.selectedMeal = { ...meal };
+}
+
 public  toggleTrainingDone(training: TrainingModel): void {
   const updatedTraining = { ...training, isDone: !training.isDone };
   this.saveEditedTraining(updatedTraining);

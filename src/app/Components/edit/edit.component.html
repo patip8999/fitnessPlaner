@@ -1,11 +1,12 @@
 <app-modal
   [modalId]="'meal2Modal'"
-  [title]="'Dodaj posiłek'"
+  [title]="'Edytuj posiłek'"
   [nameLabel]="'Nazwa posiłku'"
   [caloriesLabel]="'Kalorie'"
   [weightLabel]="'Waga (g)'"
+  [imageLabel]="'Zdjęcie'"
   [model]="model"
-  (save)="saveMeal($event)"
+  (save)="saveMeal()"
 ></app-modal>
 
 

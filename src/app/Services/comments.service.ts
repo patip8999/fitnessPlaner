@@ -68,14 +68,14 @@ export class CommentsService {
         .then((user) => {
           const uid = user?.uid;
           if (uid) {
-            const dayString = day.toISOString().split('T')[0]; // Ustawienie daty w formacie YYYY-MM-DD
+            const dayString = day.toISOString().split('T')[0];
             
-            // Pobieramy komentarze dla danego użytkownika i dnia
+   
             this.client
               .collection('comments', (ref) =>
                 ref
                   .where('uid', '==', uid)
-                  .where('date', '==', dayString) // Filtrujemy po dacie
+                  .where('date', '==', dayString) 
               )
               .valueChanges()
               .subscribe((comments) => {

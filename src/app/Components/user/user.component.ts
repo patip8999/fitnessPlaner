@@ -61,7 +61,7 @@ export class UserComponent {
       .then((user) => {
         if (user && user.uid) {
           this.userService.updateAvatarInFirestore(newAvatarURL, user.uid);
-          this.userPhotoURL = newAvatarURL; // Zaktualizowanie awatara w komponencie
+          this.userPhotoURL = newAvatarURL;
           console.log('Awatar zapisany pomyślnie!');
         }
       })

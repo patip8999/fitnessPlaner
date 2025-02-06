@@ -1,16 +1,16 @@
 .plan-form {
   font-family: Arial, sans-serif;
-  margin: 0 auto; /* Wyśrodkowanie formularza */
+  margin: 0 auto; 
   padding: 20px;
-  max-width: 900px; /* Ustawienie maksymalnej szerokości formularza */
+  max-width: 900px; 
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Wyśrodkowanie zawartości */
+  align-items: center; 
 }
 
 .input-container {
-  width: 100%; /* Zapewnienie, że kontener z formularzem ma pełną szerokość */
+  width: 100%; 
 }
 
 input.form-control {
@@ -18,7 +18,7 @@ input.form-control {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 60%; /* Formatyzowanie szerokości inputów */
+  width: 60%; 
   margin-top: 10px;
 }
 
@@ -33,9 +33,8 @@ input.form-control:focus {
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 15px;
-  width: 60%; /* Zapewnienie, że karty dni zajmują całą szerokość formularza */
+  width: 60%; 
 }
-
 .day-form {
   display: flex;
   flex-direction: column;
@@ -52,7 +51,7 @@ button.btn-primary {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 60%; /* Zapewnienie, że przycisk zajmuje całą szerokość formularza */
+  width: 60%; 
   text-align: center;
   margin-top: 10px;
 }
@@ -70,7 +69,7 @@ button.btn-danger {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 100%; /* Zapewnienie, że przycisk zajmuje całą szerokość formularza */
+  width: 100%; 
   margin-top: 10px;
 }
 
@@ -92,37 +91,37 @@ button.btn-danger:hover {
 }
 @media (max-width: 768px) {
   .plan-form {
-    width: 100%; /* Zapewnienie, że formularz zajmuje pełną szerokość na mniejszych ekranach */
-    padding: 15px; /* Zmniejszenie paddingu na mniejszych ekranach */
+    width: 100%; 
+    padding: 15px; 
   }
 
   .input-container {
-    width: 100%; /* Kontener formularza na pełnej szerokości */
+    width: 100%; 
   }
 
   input.form-control {
-    width: 100%; /* Zmiana szerokości inputów na 100% dla małych ekranów */
-    font-size: 14px; /* Zmniejszenie rozmiaru czcionki dla inputów */
+    width: 100%; 
+    font-size: 14px; 
   }
 
   .day-card {
-    width: 100%; /* Karty dni na pełnej szerokości */
-    padding: 10px; /* Zmniejszenie paddingu kart */
+    width: 100%; 
+    padding: 10px;
   }
 
   button.btn-primary,
   button.btn-danger {
-    width: 100%; /* Przycisk zajmuje pełną szerokość formularza */
-    font-size: 14px; /* Zmniejszenie rozmiaru czcionki przycisków */
-    padding: 10px; /* Mniejsze paddingi przycisków */
+    width: 100%; 
+    font-size: 14px;
+    padding: 10px;
   }
 
   .image-container {
-    width: 100%; /* Kontener na obrazek na pełnej szerokości */
+    width: 100%; 
   }
 
   .plan-image {
-    max-width: 100%; /* Obrazek wypełnia całą szerokość kontenera */
+    max-width: 100%;
     height: auto;
   }
 }

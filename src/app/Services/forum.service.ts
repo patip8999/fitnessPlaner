@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { catchError, map, Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserModel } from '../Models/User.model';
 
 export interface Thread {
@@ -11,10 +10,10 @@ export interface Thread {
   content: string;
   authorId: string;
   createdAt: Date;
-  newComment?: string; // For user to input new comment
-  showCommentForm?: boolean; // To toggle the comment form visibility
+  newComment?: string;
+  showCommentForm?: boolean;
   comments?: Comment[];
-  showComments?: boolean;  // Add comments property to store comments related to the thread
+  showComments?: boolean;
 }
 
 export interface Comment {
@@ -35,14 +34,14 @@ export class ForumService {
     public afAuth: AngularFireAuth
   ) {}
 
-  // Load threads from Firestore
   getThreads(): Observable<Thread[]> {
-    return this.firestore.collection<Thread>('threads').valueChanges({ idField: 'id' });
+    return this.firestore
+      .collection<Thread>('threads')
+      .valueChanges({ idField: 'id' });
   }
 
-  // Create a new thread
   createThread(thread: Thread): Promise<void> {
-    return this.afAuth.currentUser.then(user => {
+    return this.afAuth.currentUser.then((user) => {
       if (user) {
         const threadId = this.firestore.createId();
         return this.firestore
@@ -59,24 +58,24 @@ export class ForumService {
   }
 
   addComment(threadId: string, comment: Comment): Promise<void> {
-    return this.afAuth.currentUser.then(user => {
+    return this.afAuth.currentUser.then((user) => {
       if (user) {
-        const commentId = this.firestore.createId(); // Generate a new ID for the comment
+        const commentId = this.firestore.createId();
         return this.firestore
-          .collection('threads') // Access threads collection
-          .doc(threadId) // Find the thread by threadId
-          .collection('comments') // Access comments subcollection
-          .doc(commentId) // Use the generated commentId for the document
+          .collection('threads')
+          .doc(threadId)
+          .collection('comments')
+          .doc(commentId)
           .set({
-            ...comment, // Store the comment data
+            ...comment,
             authorId: user.uid,
-            createdAt: new Date(), // Set the creation timestamp
+            createdAt: new Date(),
           });
       }
       return Promise.reject('User not authenticated');
     });
   }
-  // Fetch all comments for a thread
+
   getComments(threadId: string): Observable<Comment[]> {
     return this.firestore
       .collection('threads')
@@ -88,7 +87,7 @@ export class ForumService {
           comments.map((comment: any) => ({
             id: comment.id,
             content: comment.content,
-            authorId: comment.authorId, // Pobierz authorId
+            authorId: comment.authorId,
             createdAt: comment.createdAt?.toDate() || new Date(),
             threadId: threadId,
           }))
@@ -96,9 +95,10 @@ export class ForumService {
       );
   }
 
- // forum.service.ts
-getUserEmail(uid: string): Observable<UserModel | undefined> {
-  return this.firestore.collection('users').doc<UserModel>(uid).valueChanges();
-}
-
+  getUserEmail(uid: string): Observable<UserModel | undefined> {
+    return this.firestore
+      .collection('users')
+      .doc<UserModel>(uid)
+      .valueChanges();
+  }
 }

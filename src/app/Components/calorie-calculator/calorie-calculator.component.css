@@ -1,4 +1,4 @@
-/* Styl podstawowy formularza */
+
 .calorie-form-container {
   max-width: 600px;
   margin: 30px auto;
@@ -63,59 +63,59 @@ button:hover {
   margin-top: 20px;
 }
 
-/* Media queries - responsywność */
 
-/* Dla ekranów o szerokości do 768px */
+
+
 @media screen and (max-width: 768px) {
   .calorie-form-container {
-    padding: 15px; /* Mniejsze paddingi */
-    width: 90%; /* Formularz wypełnia większą część ekranu */
+    padding: 15px; 
+    width: 90%; 
   }
 
   .calorie-form-container h3 {
-    font-size: 20px; /* Mniejsze nagłówki */
+    font-size: 20px; 
   }
 
   .form-group input,
   .form-group select {
-    font-size: 14px; /* Zmniejszenie czcionki w polach formularza */
-    padding: 8px; /* Mniejsze paddingi */
+    font-size: 14px;
+    padding: 8px; 
   }
 
   button {
-    font-size: 14px; /* Zmniejszenie rozmiaru przycisków */
-    padding: 8px; /* Mniejsze przyciski */
+    font-size: 14px; 
+    padding: 8px; 
   }
 
   .calorie-form-container h4 {
-    font-size: 16px; /* Mniejsze czcionki nagłówków */
+    font-size: 16px; 
   }
 }
 
-/* Dla ekranów o szerokości do 480px (telefony) */
+
 @media screen and (max-width: 480px) {
   .calorie-form-container {
-    padding: 10px; /* Zmniejszenie paddingów */
-    width: 95%; /* Formularz prawie całą szerokość ekranu */
+    padding: 10px; 
+    width: 95%; /
   }
 
   .calorie-form-container h3 {
-    font-size: 18px; /* Mniejsze nagłówki */
+    font-size: 18px; 
   }
 
   .form-group input,
   .form-group select {
-    font-size: 12px; /* Zmniejszenie czcionki w polach formularza */
-    padding: 6px; /* Mniejsze paddingi */
+    font-size: 12px; 
+    padding: 6px; 
   }
 
   button {
-    font-size: 12px; /* Zmniejszenie rozmiaru przycisków */
-    padding: 6px; /* Mniejsze przyciski */
+    font-size: 12px; 
+    padding: 6px; 
   }
 
   .calorie-form-container h4 {
-    font-size: 14px; /* Mniejsze czcionki nagłówków */
+    font-size: 14px; /
   }
 }
 .calorie-description {

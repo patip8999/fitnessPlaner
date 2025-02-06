@@ -1,48 +1,48 @@
-/* Styl dla zdjęcia w górnej części sekcji */
+
 .plan-image {
-  width: 50%; /* Ustalamy szerokość zdjęcia na 80% szerokości kontenera */
-  max-width: 900px; /* Maksymalna szerokość zdjęcia */
-  height: auto; /* Zachowanie proporcji zdjęcia */
-  margin: 0 auto 20px auto; /* Wyśrodkowanie zdjęcia i przerwa poniżej */
-  display: block; /* Wyświetlanie jako blok, aby zachować przestrzeń */
-  border-radius: 8px; /* Zaokrąglone rogi zdjęcia */
-  padding: 20px; /* Padding wokół zdjęcia */
+  width: 50%; 
+  max-width: 900px; 
+  height: auto; 
+  margin: 0 auto 20px auto;
+  display: block;
+  border-radius: 8px; 
+  padding: 20px; 
 }
 
-/* Styl głównego kontenera */
+
 .fitness-plan-select {
   padding: 20px;
   background: var(--background-gradient);
   border-radius: 10px;
   color: #333;
-  max-width: 900px; /* Ustalamy maksymalną szerokość formularza */
-  margin: 0 auto; /* Wyśrodkowanie formularza */
-  text-align: center; /* Wyśrodkowanie wszystkich elementów wewnątrz */
+  max-width: 900px; 
+  margin: 0 auto; 
+  text-align: center; 
 }
 
-/* Wyśrodkowanie i stylizacja tytułów */
+
 h3 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-/* Kontener kart z planami */
+
 .plan-cards-container {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  justify-content: center; /* Wyśrodkowanie kart */
+  justify-content: center; 
   margin: 0 auto;
   max-width: 780px;
 }
 
-/* Styl dla pojedynczej karty planu */
+
 .plan-card {
   background: #f0f0f0;
   border-radius: 8px;
   padding: 20px;
-  width: 250px; /* Ustalamy szerokość karty */
+  width: 250px; 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -51,12 +51,12 @@ h3 {
   transition: all 0.3s ease;
 }
 
-/* Styl dla wybranej karty */
+
 .plan-card.selected {
   background: #dcdcdc;
 }
 
-/* Styl tytułu karty */
+
 .plan-title {
   font-size: 20px;
   font-weight: bold;
@@ -64,7 +64,7 @@ h3 {
   margin-bottom: 15px;
 }
 
-/* Styl przycisków w grupie */
+
 .button-group {
   display: flex;
   justify-content: space-between;
@@ -78,19 +78,19 @@ h3 {
   padding: 8px 12px;
 }
 
-/* Styl formularza daty */
+
 .form-group {
   margin-top: 20px;
 }
 
 #startDate {
-  width: 100%; /* Ustalamy szerokość inputu */
+  width: 100%; 
   padding: 8px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-/* Styl przycisku rozpoczęcia planu */
+
 .btn-primary {
   margin-top: 20px;
   background-color: var(--button-background, #254636);

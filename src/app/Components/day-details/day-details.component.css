@@ -86,7 +86,7 @@
   border-radius: 10px;
 }
 .comment-section {
-  background-color: rgba(0, 0, 0, 0.5); /* delikatne tło */
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
