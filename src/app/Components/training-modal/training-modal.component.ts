@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { TrainingModel } from '../../Models/training.model';
@@ -13,16 +13,14 @@ import { Router } from '@angular/router';
   styleUrl: './training-modal.component.css',
 })
 export class TrainingModalComponent {
-  addMeal($event: Event) {
-    throw new Error('Method not implemented.');
-  }
+ 
   private readonly trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
   );
-  router: Router = inject(Router);
-  private training: TrainingModel[] = [];
-  traingns: any[] = [];
-  model: TrainingModel = {
+
+  private training = signal<any[]>([]);
+  
+  model = signal<TrainingModel>( {
     name: '',
     burnedKcal: 0,
     isDone: false,
@@ -31,20 +29,22 @@ export class TrainingModalComponent {
     id: '',
     videoLink: '',
     imageUrl: '',
-  };
+  });
 
   addTraining(training: TrainingModel): void {
     this.trainingAndMealService.addTraining(training);
-    this.training.push(training);
-    console.log('Meal added:', training);
-    this.router.navigate(['/home']);
-    this.resetForm();
+    this.training.update((training) => [...training, training]);
+ this.resetForm();
   }
-  onDateChange(date: string): void {
-    this.model.date = new Date(`${date}T00:00:00`);
+
+ onDateChange(date: string): void {
+    this.model.update((currentModel) => ({
+      ...currentModel,
+      date: new Date(date + 'T00:00:00'),
+    }));
   }
   resetForm(): void {
-    this.model = {
+    this.model.set({
       name: '',
       burnedKcal: 0,
       isDone: false,
@@ -53,6 +53,6 @@ export class TrainingModalComponent {
       id: '',
       videoLink: '',
       imageUrl: '',
-    };
+    });
   }
 }
