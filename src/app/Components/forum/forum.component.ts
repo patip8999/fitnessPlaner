@@ -16,7 +16,7 @@ import { CommonModule, DatePipe } from '@angular/common';
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css'],
   imports: [FormsModule, CommonModule, DatePipe],
-  encapsulation: ViewEncapsulation.ShadowDom,
+
 })
 export class ForumComponent implements OnInit {
   threads = signal<Thread[]>([]);
