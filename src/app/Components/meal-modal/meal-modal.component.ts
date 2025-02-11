@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { FormsModule } from '@angular/forms';
 import { mealModel } from '../../Models/meal.model';
@@ -15,9 +15,9 @@ export class MealModalComponent {
   trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
   );
-  meals: any[] = [];
+  meals = signal<any[]>([]);
 
-  model: mealModel = {
+  model = signal<mealModel> ( {
     name: '',
     uid: '',
     calories: 0,
@@ -26,21 +26,25 @@ export class MealModalComponent {
     date: new Date(),
     id: '',
     imageUrl: '',
-  };
+  });
 
   addMeal(meal: any): void {
+    
     this.trainingAndMealService.addMeal(meal);
-    this.meals.push(meal);
+    this.meals.update((meals) => [...meals, meal]);
     console.log('Meal added:', meal);
-  this.resetForm()
+    this.resetForm();
   }
 
   onDateChange(date: string): void {
-    this.model.date = new Date(date + 'T00:00:00');
+    this.model.update((currentModel) => ({
+      ...currentModel,
+      date: new Date(date + 'T00:00:00'),
+    }));
   }
  
   resetForm(): void {
-    this.model = {
+    this.model.set({
       name: '',
       calories: 0,
       weight: '',
@@ -49,6 +53,6 @@ export class MealModalComponent {
       id: '',
       uid: '',
       imageUrl: '',
-    };
+    });
   }
 }
