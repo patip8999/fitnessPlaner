@@ -18,11 +18,11 @@ import { ModalComponent } from '../UI/modal/modal.component';
   styleUrl: './edit-training.component.css',
 })
 export class EditTrainingComponent {
-  @Input() training: TrainingModel | null = null;
-  @Output() Save: EventEmitter<TrainingModel> =
+  @Input() public training: TrainingModel | null = null;
+  @Output() readonly Save: EventEmitter<TrainingModel> =
     new EventEmitter<TrainingModel>();
-  @Output() close = new EventEmitter<void>();
-  model = signal<TrainingModel>( {
+  @Output() readonly close = new EventEmitter<void>();
+  readonly model = signal<TrainingModel>( {
     name: '',
     isDone: false,
     burnedKcal: 0,
@@ -50,7 +50,7 @@ export class EditTrainingComponent {
     }
   }
 
-  closeModal() {
+  closeModal(): void {
     this.close.emit();
   }
 }

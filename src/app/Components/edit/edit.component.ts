@@ -18,10 +18,10 @@ import { ModalComponent } from '../UI/modal/modal.component';
   styleUrl: './edit.component.css',
 })
 export class EditComponent {
-  @Input() meal: mealModel | null = null;
-  @Output() Save: EventEmitter<mealModel> = new EventEmitter<mealModel>();
-  @Output() close = new EventEmitter<void>();
-  model = signal<mealModel> ( {
+  @Input() public  meal: mealModel | null = null;
+  @Output() readonly  Save: EventEmitter<mealModel> = new EventEmitter<mealModel>();
+  @Output() readonly  close = new EventEmitter<void>();
+  readonly  model = signal<mealModel> ( {
     name: '',
     calories: 0,
     weight: '',
@@ -57,7 +57,7 @@ export class EditComponent {
     }
   }
 
-  closeModal() {
+ closeModal(): void {
     this.close.emit();
   }
 }

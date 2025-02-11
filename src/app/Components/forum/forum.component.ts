@@ -19,17 +19,17 @@ import { CommonModule, DatePipe } from '@angular/common';
 
 })
 export class ForumComponent implements OnInit {
-  threads = signal<Thread[]>([]);
-  model = signal<Thread>({
+readonly  threads = signal<Thread[]>([]);
+readonly model = signal<Thread>({
     id: '',
     title: '',
     content: '',
     authorId: '',
     createdAt: new Date(),
   });
-  authService: AuthService = inject(AuthService);
-  authorCache = new Map<string, string>();
-  forumService: ForumService = inject(ForumService);
+  readonly authService: AuthService = inject(AuthService);
+ private readonly authorCache = new Map<string, string>();
+  readonly forumService: ForumService = inject(ForumService);
 
   ngOnInit(): void {
     this.loadThreads();
@@ -45,7 +45,7 @@ export class ForumComponent implements OnInit {
     );
   }
 
-  loadThreads(): void {
+  private loadThreads(): void {
     this.forumService.getThreads().subscribe((threads) => {
       this.threads.set(threads);
       threads.forEach((thread) => {
@@ -61,7 +61,7 @@ export class ForumComponent implements OnInit {
     });
   }
 
-  loadUserEmail(comment: Comment): void {
+  private  loadUserEmail(comment: Comment): void {
     if (this.authorCache.has(comment.authorId)) {
       comment.authorEmail = this.authorCache.get(comment.authorId);
     } else {
