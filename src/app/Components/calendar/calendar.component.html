@@ -1,50 +1,39 @@
 <div class="quote-container">
-  @if(currentQuote) {
-  <h2 >{{ currentQuote.name }}</h2>
+  @if (currentQuote()) {
+    <h2>{{ currentQuote()?.name }}</h2>
   }
-  
 </div>
 
-
 <div class="button-container">
-  <button
-    type="button"
-    class="btn btn-success"
-    data-bs-toggle="modal"
-    data-bs-target="#mealModal"
-  >
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mealModal">
     Dodaj Posiłek
   </button>
-  <button
-    type="button"
-    class="btn btn-success"
-    data-bs-toggle="modal"
-    data-bs-target="#trainingModal"
-  >
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#trainingModal">
     Dodaj Trening
   </button>
 </div>
+
 <div class="layout-container">
   <div class="monthly-calendar">
     <div class="calendar-navigation">
       <button (click)="prevMonth()">Poprzedni</button>
-      <span>{{ months[currentMonth] }} {{ currentYear }}</span>
+      <span>{{ months[currentMonth()] }} {{ currentYear() }}</span>
       <button (click)="nextMonth()">Następny</button>
     </div>
     <div class="day-names">
       @for (day of dayNames; track day) {
-      <span>{{ day }}</span>
+        <span>{{ day }}</span>
       }
     </div>
     <div class="calendar-days">
-      @for (day of calendarDays; track day) {
-      <div
-        [class.other-month]="day.isOtherMonth"
-        [class.has-events]="hasEventsForDay(day.date)"
-        (click)="selectDay(day.date)"
-      >
-        {{ day.date.getDate() }}
-      </div>
+      @for (day of calendarDays(); track day) {
+        <div
+          [class.other-month]="day.isOtherMonth"
+          [class.has-events]="hasEventsForDay(day.date)"
+          (click)="selectDay(day.date)"
+        >
+          {{ day.date.getDate() }}
+        </div>
       }
     </div>
   </div>
@@ -52,80 +41,77 @@
   <div class="weekly-view">
     <div class="week-header">
       <button (click)="prevWeek()">Poprzedni tydzień</button>
-      <span>
-        {{ getWeekRange() }}
-      </span>
+      <span>{{ weekRange() }}</span>
       <button (click)="nextWeek()">Następny tydzień</button>
     </div>
     <div class="week-days">
-      @for (day of currentWeek; track day) {
-      <div class="day-details">
-        <h4 [routerLink]="['/day-details', day.date | date : 'yyyy-MM-dd']">
-          {{ day.date | date : "EEEE, d MMMM" }}
-        </h4>
-        <div>
-          <h4>Treningi</h4>
-          @for (training of getTrainingsForDay(day.date); track training.id) {
+      @for (day of currentWeek(); track day) {
+        <div class="day-details">
+          <h4 [routerLink]="['/day-details', day.date | date : 'yyyy-MM-dd']">
+            {{ day.date | date : "EEEE, d MMMM" }}
+          </h4>
           <div>
-            {{ training.name }} - {{ training.burnedKcal }} kcal
-            {{ training.time }}min
+            <h4>Treningi</h4>
+            @for (training of getTrainingsForDay(day.date); track training.id) {
+              <div>
+                {{ training.name }} - {{ training.burnedKcal }} kcal {{ training.time }}min
+              </div>
+              <div class="buttons-container">
+                <button
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#meal3Modal"
+                  (click)="editTraining(training)"
+                >
+                  Edytuj
+                </button>
+                <button
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  (click)="deleteTraining(training.id)"
+                >
+                  Usuń
+                </button>
+                <label class="form-check-label">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    [checked]="training.isDone"
+                    (change)="toggleTrainingDone(training)"
+                  />
+                  Zrobiony
+                </label>
+              </div>
+            }
           </div>
-          <div class="buttons-container">
-            <button
-              class="btn btn-link btn-sm"
-              style="font-size: 0.8rem; text-decoration: none"
-              data-bs-toggle="modal"
-              data-bs-target="#meal3Modal"
-              (click)="editTraining(training)"
-            >
-              Edytuj
-            </button>
-            <button
-              class="btn btn-link btn-sm"
-              style="font-size: 0.8rem; text-decoration: none"
-              (click)="deleteTraining(training.id)"
-            >
-              Usuń
-            </button>
-            <label class="form-check-label">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                [checked]="training.isDone"
-                (change)="toggleTrainingDone(training)"
-              />
-              Zrobiony
-            </label>
-          </div>
-          }
-        </div>
-        <div>
-          <h4>Posiłki</h4>
-          @for (meal of getMealsForDay(day.date); track meal.id) {
           <div>
-            {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
+            <h4>Posiłki</h4>
+            @for (meal of getMealsForDay(day.date); track meal.id) {
+              <div>
+                {{ meal.name }} - {{ meal.calories }} kcal ({{ meal.weight }} g)
+              </div>
+              <div class="buttons-container">
+                <button
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#meal2Modal"
+                  (click)="editMeal(meal)"
+                >
+                  Edytuj
+                </button>
+                <button
+                  class="btn btn-link btn-sm"
+                  style="font-size: 0.8rem; text-decoration: none"
+                  (click)="deleteMeal(meal.id)"
+                >
+                  Usuń
+                </button>
+              </div>
+            }
           </div>
-          <div class="buttons-container">
-            <button
-              class="btn btn-link btn-sm"
-              style="font-size: 0.8rem; text-decoration: none"
-              data-bs-toggle="modal"
-              data-bs-target="#meal2Modal"
-              (click)="editMeal(meal)"
-            >
-              Edytuj
-            </button>
-            <button
-              class="btn btn-link btn-sm"
-              style="font-size: 0.8rem; text-decoration: none"
-              (click)="deleteMeal(meal.id)"
-            >
-              Usuń
-            </button>
-          </div>
-          }
         </div>
-      </div>
       }
     </div>
   </div>
@@ -135,13 +121,12 @@
 <app-training-modal></app-training-modal>
 
 <app-edit
-  [meal]="selectedMeal"
+  [meal]="selectedMeal()"
   (Save)="saveEditedMeal($event)"
   (close)="closeModal()"
 ></app-edit>
 <app-edit-training
-  [training]="selectedTraining"
+  [training]="selectedTraining()"
   (Save)="saveEditedTraining($event)"
   (close)="closeModal()"
->
-</app-edit-training>
+></app-edit-training>

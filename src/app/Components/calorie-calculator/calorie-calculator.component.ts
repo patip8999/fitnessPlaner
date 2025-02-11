@@ -11,9 +11,9 @@ import { CalorieService } from '../../Services/calorie.service';
   styleUrl: './calorie-calculator.component.css',
 })
 export class CalorieCalculatorComponent {
-  calorieService: CalorieService = inject(CalorieService);
-  @Output() tdeeCalculated = new EventEmitter<number>();
-  calorieData = {
+  private calorieService: CalorieService = inject(CalorieService);
+  @Output() public tdeeCalculated = new EventEmitter<number>();
+  public calorieData = {
     gender: 'male',
     age: 25,
     height: 170,
@@ -22,11 +22,11 @@ export class CalorieCalculatorComponent {
     tdee: 0,
   };
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadTdeeFromFirebase();
   }
 
-  calculateCalories(): void {
+  public calculateCalories(): void {
     const { gender, age, height, weight, activityLevel } = this.calorieData;
 
     const bmr =
