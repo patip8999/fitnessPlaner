@@ -4,17 +4,20 @@ import { DatePipe } from '@angular/common';
 import { TrainingModel } from '../../Models/training.model';
 import { mealModel } from '../../Models/meal.model';
 import { WeightControlComponent } from '../weight-control/weight-control.component';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-monthly-summary',
   standalone: true,
   imports: [DatePipe, WeightControlComponent],
   templateUrl: './monthly-summary.component.html',
   styleUrls: ['./monthly-summary.component.css'],
+  
 })
 export class MonthlySummaryComponent {
   meals = signal<mealModel[]>([]);
   trainings = signal<TrainingModel[]>([]);
   currentMonth: Date = new Date();
+  isDataLoaded = false;
 
   trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
@@ -28,12 +31,17 @@ export class MonthlySummaryComponent {
   changeMonth(offset: number): void {
     const newMonth = new Date(this.currentMonth);
     newMonth.setMonth(this.currentMonth.getMonth() + offset);
-    this.currentMonth = newMonth;
-    this.loadMonthlyDetails();
-    this.cdr.markForCheck();
+    
+    // Sprawdzanie, czy nowy miesiąc jest różny od obecnego
+    if (newMonth.getTime() !== this.currentMonth.getTime()) {
+      this.currentMonth = newMonth;
+      this.loadMonthlyDetails();
+      this.cdr.markForCheck();
+    }
   }
-
   loadMonthlyDetails(): void {
+    console.log('Loading monthly details for month:', this.currentMonth);
+  
     const startOfMonth = new Date(
       this.currentMonth.getFullYear(),
       this.currentMonth.getMonth(),
@@ -44,20 +52,24 @@ export class MonthlySummaryComponent {
       this.currentMonth.getMonth() + 1,
       0
     );
-
+  
     this.trainingAndMealService
       .getMealsByDateRange(startOfMonth, endOfMonth)
+      .pipe(take(1))  // Zakończenie subskrypcji po pierwszym elemencie
       .subscribe((meals) => {
+        console.log('Meals loaded:', meals);
         this.meals.set(meals || []);
       });
-
+  
     this.trainingAndMealService
       .getTrainingsByDateRange(startOfMonth, endOfMonth)
+      .pipe(take(1))  // Zakończenie subskrypcji po pierwszym elemencie
       .subscribe((trainings) => {
+        console.log('Trainings loaded:', trainings);
         this.trainings.set(trainings || []);
       });
   }
-
+  
   totalCalories(): number {
     const meals = this.meals();
     return meals.reduce(

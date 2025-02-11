@@ -14,10 +14,10 @@
   <div class="results-container">
     <h4>Lista produktów:</h4>
     <ul class="product-list">
-      @for(product of products; track product) {
+      @for(product of products(); track product) {
       <li
         class="product-item"
-        [class.selected]="product.id === selectedProduct?.id"
+        [class.selected]="product.id === selectedProduct()?.id"
         (click)="selectProduct(product)"
       >
         {{ product.product_name || "Brak nazwy" }} -
@@ -26,28 +26,28 @@
       }
     </ul>
 
-    @if(selectedProduct) {
+    @if(selectedProduct()) {
     <div class="product-details">
-      <h2>{{ selectedProduct.product_name }}</h2>
+      <h2>{{ selectedProduct().product_name }}</h2>
 
-      @if (selectedProduct.image_url) {
+      @if (selectedProduct().image_url) {
         <img
-          [src]="selectedProduct.image_url"
-          alt="Zdjęcie produktu {{ selectedProduct.product_name }}"
+          [src]="selectedProduct().image_url"
+          alt="Zdjęcie produktu {{ selectedProduct().product_name }}"
           class="product-image"
         />
       }
 
       <h4>Wartości odżywcze:</h4>
-      <p><strong>Kalorie:</strong> {{ selectedProduct.nutriments["energy-kcal"] || "Brak danych" }} kcal</p>
+      <p><strong>Kalorie:</strong> {{ selectedProduct().nutriments["energy-kcal"] || "Brak danych" }} kcal</p>
       <div class="nutrients">
-        <p><strong>Tłuszcz:</strong> {{ selectedProduct.nutriments.fat || "Brak danych" }} g</p>
-        <p><strong>Kwasy tłuszczowe nasycone:</strong> {{ selectedProduct.nutriments["saturated-fat"] || "Brak danych" }} g</p>
-        <p><strong>Węglowodany:</strong> {{ selectedProduct.nutriments.carbohydrates || "Brak danych" }} g</p>
-        <p><strong>Cukry:</strong> {{ selectedProduct.nutriments.sugars || "Brak danych" }} g</p>
-        <p><strong>Błonnik:</strong> {{ selectedProduct.nutriments.fiber || "Brak danych" }} g</p>
-        <p><strong>Białko:</strong> {{ selectedProduct.nutriments.proteins || "Brak danych" }} g</p>
-        <p><strong>Sól:</strong> {{ selectedProduct.nutriments.salt || "Brak danych" }} g</p>
+        <p><strong>Tłuszcz:</strong> {{ selectedProduct().nutriments.fat || "Brak danych" }} g</p>
+        <p><strong>Kwasy tłuszczowe nasycone:</strong> {{ selectedProduct().nutriments["saturated-fat"] || "Brak danych" }} g</p>
+        <p><strong>Węglowodany:</strong> {{ selectedProduct().nutriments.carbohydrates || "Brak danych" }} g</p>
+        <p><strong>Cukry:</strong> {{ selectedProduct().nutriments.sugars || "Brak danych" }} g</p>
+        <p><strong>Błonnik:</strong> {{ selectedProduct().nutriments.fiber || "Brak danych" }} g</p>
+        <p><strong>Białko:</strong> {{ selectedProduct().nutriments.proteins || "Brak danych" }} g</p>
+        <p><strong>Sól:</strong> {{ selectedProduct().nutriments.salt || "Brak danych" }} g</p>
       </div>
 
       <h4>Obliczenia:</h4>
@@ -57,12 +57,12 @@
           type="number"
           id="mealWeight"
           [(ngModel)]="mealWeight"
-          (input)="calculateCalories()"
+          (input)="calculatedCalories()"
           min="1"
           class="input-field"
         />
       </div>
-      <p><strong>Przeliczone kalorie:</strong> {{ calculatedCalories }} kcal</p>
+      <p><strong>Przeliczone kalorie:</strong> {{ calculatedCalories() }} kcal</p>
 
       <div class="form-group">
         <label for="mealDate">Wybierz datę posiłku:</label>
@@ -82,7 +82,7 @@
     }
   </div>
 
-  @if(error) {
-  <p class="error-message">{{ error }}</p>
+  @if(error()) {
+  <p class="error-message">{{ error() }}</p>
   }
 </div>

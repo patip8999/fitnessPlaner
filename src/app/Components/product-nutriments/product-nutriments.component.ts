@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OpenFoodFactsService } from '../../Services/open-food-facts.service';
 import { TrainingAndMealService } from '../../Services/calendar.service';
@@ -10,102 +10,93 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './product-nutriments.component.html',
-  styleUrl: './product-nutriments.component.css',
+  styleUrls: ['./product-nutriments.component.css'],
 })
 export class ProductNutrimentsComponent {
-  searchQuery: string = '';
-  products: any[] = [];
-  error = '';
-  nutriments: number = 0;
-   private router: Router =  inject(Router);
+  private router: Router = inject(Router);
   openFoodFactsService: OpenFoodFactsService = inject(OpenFoodFactsService);
   trainingAndMealService: TrainingAndMealService = inject(
     TrainingAndMealService
   );
-  selectedProduct: any = null;
-  showDialog: boolean = false;
-  calories: number = 0;
-  selectedMealDate: string = '';
-  mealWeight: number = 100;
-  calculatedCalories: number = 0;
-  searchProducts() {
-    if (!this.searchQuery.trim()) {
-      this.error = 'Wprowadź frazę do wyszukiwania.';
-      this.products = [];
+  searchQuery = signal<string>('');
+  products = signal<any[]>([]);
+  error = signal<string>('');
+  selectedProduct = signal<any>(null);
+  showDialog = signal<boolean>(false);
+  mealWeight = signal<number>(100);
+  calculatedCalories = computed(() => {
+    const selectedProduct = this.selectedProduct();
+    const weight = this.mealWeight();
+
+    if (selectedProduct && selectedProduct.nutriments && weight > 0) {
+      const caloriesPer100g = selectedProduct.nutriments['energy-kcal'] || 0;
+      return (caloriesPer100g / 100) * weight;
+    }
+    return 0;
+  });
+  selectedMealDate = signal<string>('');
+
+  searchProducts(): void {
+    if (!this.searchQuery().trim()) {
+      this.error.set('Wprowadź frazę do wyszukiwania.');
+      this.products.set([]);
       return;
     }
 
-    this.openFoodFactsService.searchProductsByName(this.searchQuery).subscribe({
-      next: (response) => {
-        console.log('Odpowiedź z API:', response);
-        if (response.products && response.products.length > 0) {
-          this.products = response.products;
-          this.error = '';
-        } else {
-          this.products = [];
-          this.error = 'Nie znaleziono produktów dla podanej frazy.';
-        }
-      },
-      error: (err) => {
-        console.error('Błąd podczas żądania:', err);
-        this.products = [];
-        this.error = 'Wystąpił błąd podczas pobierania danych.';
-      },
-    });
-    
+    this.openFoodFactsService
+      .searchProductsByName(this.searchQuery())
+      .subscribe({
+        next: (response) => {
+          if (response.products && response.products.length > 0) {
+            this.products.set(response.products);
+            this.error.set('');
+          } else {
+            this.products.set([]);
+            this.error.set('Nie znaleziono produktów dla podanej frazy.');
+          }
+        },
+        error: (err) => {
+          console.error('Błąd podczas żądania:', err);
+          this.products.set([]);
+          this.error.set('Wystąpił błąd podczas pobierania danych.');
+        },
+      });
   }
-  calculateCalories() {
-    if (this.selectedProduct && this.selectedProduct.nutriments) {
-      const caloriesPer100g =
-        this.selectedProduct.nutriments['energy-kcal'] || 0;
 
-      if (this.mealWeight > 0) {
-        this.calculatedCalories = (caloriesPer100g / 100) * this.mealWeight;
-      } else {
-        this.calculatedCalories = 0;
-      }
-
-      console.log('Obliczone kalorie:', this.calculatedCalories);
-    }
-  }
   selectProduct(product: any): void {
-    this.selectedProduct = product;
-    this.mealWeight = 100;
-    this.calculateCalories();
-    this.showDialog = true;
+    this.selectedProduct.set(product);
+    this.mealWeight.set(100);
+    this.showDialog.set(true);
   }
 
   addMealToCalendar(): void {
-    if (this.selectedProduct) {
-      console.log('Dodawanie posiłku:', this.selectedProduct);
-
-      const calories = this.calculatedCalories;
-
-      const mealDate = this.selectedMealDate
-        ? new Date(this.selectedMealDate)
-        : new Date();
-
-      const meal: mealModel = {
-        id: this.trainingAndMealService.client.createId(),
-        name: this.selectedProduct.product_name || 'Nieznany produkt',
-        calories: calories,
-        weight: `${this.mealWeight} g`,
-        date: mealDate,
-        day: 0,
-        uid: 'currentUserUid',
-        imageUrl: this.selectedProduct.image_url || '',
-      };
-
-      console.log('Dodany posiłek:', meal);
-
-      this.trainingAndMealService.addMeal(meal);
-
-      this.showDialog = false;
+    const selectedProduct = this.selectedProduct();
+    if (!selectedProduct) {
+      alert('Proszę wybrać produkt.');
+      return;
     }
+
+    const mealDate = this.selectedMealDate()
+      ? new Date(this.selectedMealDate())
+      : new Date();
+
+    const meal: mealModel = {
+      id: this.trainingAndMealService.client.createId(),
+      name: selectedProduct.product_name || 'Nieznany produkt',
+      calories: this.calculatedCalories(),
+      weight: `${this.mealWeight()} g`,
+      date: mealDate,
+      day: 0,
+      uid: 'currentUserUid',
+      imageUrl: selectedProduct.image_url || '',
+    };
+
+    this.trainingAndMealService.addMeal(meal);
+    this.showDialog.set(false);
     this.router.navigate(['/home']);
   }
 
   cancelAddMeal(): void {
-    this.showDialog = false;
+    this.showDialog.set(false);
   }
 }
