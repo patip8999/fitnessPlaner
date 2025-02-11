@@ -1,14 +1,14 @@
 <div class="day-details">
   <h2 class="day-title">Details for {{ day() | date : "fullDate" }}</h2>
 
-  @if (tdee()) {
+  @if (tdee) {
     <div class="calories-balance">
       <h3>Bilans kaloryczny:</h3>
       <p>(Twoje zapotrzebowanie kaloryczne, minus spożyte kalorie, plus kalorie spalone podczas aktywności fizycznej)</p>
       <p class="balance-value">
-        {{ meals() | caloriesBalance : trainings() : tdee() | number : "1.0-0" }} kcal
+        {{ meals() | caloriesBalance : trainings() : tdee | number : "1.0-0" }} kcal
       </p>
-      @if ((meals() | caloriesBalance : trainings() : tdee()) > 0) {
+      @if ((meals() | caloriesBalance : trainings() : tdee) > 0) {
         <p>Nie przekroczyłeś zapotrzebowania kalorycznego</p>
       } @else {
         <p class="text-danger">Przekroczyłeś zapotrzebowanie kaloryczne</p>

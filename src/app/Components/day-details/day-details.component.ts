@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } fr
 import { ActivatedRoute } from '@angular/router';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { YoutubeService, YouTubeVideoResponse } from '../../Services/youtube.service';
+import {
+  YoutubeService,
+  YouTubeVideoResponse,
+} from '../../Services/youtube.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CalorieService } from '../../Services/calorie.service';
 import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
@@ -19,23 +22,26 @@ import { switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DayDetailsComponent {
-  private readonly commentsService: CommentsService = inject(CommentsService);
-  private readonly calorieService: CalorieService = inject(CalorieService);
-  private readonly youtubeService: YoutubeService = inject(YoutubeService);
+  commentsService: CommentsService = inject(CommentsService);
+  readonly comment: WritableSignal<string> = signal('');
+  readonly comments: WritableSignal<any[]> = signal([]);
+  readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
+  readonly meals: WritableSignal<any[]> = signal<any[]>([]);
+  readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
+  tdee: number = 0;
+  calorieService: CalorieService = inject(CalorieService);
+  youtubeService: YoutubeService = inject(YoutubeService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly trainingAndMealService: TrainingAndMealService = inject(TrainingAndMealService);
-  private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
-
-  public readonly comment: WritableSignal<string> = signal('');
-  public readonly comments: WritableSignal<any[]> = signal([]);
-  public readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
-  public readonly meals: WritableSignal<any[]> = signal<any[]>([]);
-  public readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
-  public readonly tdee: WritableSignal<number> = signal(0);
-
-  public videoDetails: any = null;
-  public videoId: string | null = null;
-  public videoUrl: SafeResourceUrl | null = null;
+  private readonly trainingAndMealService: TrainingAndMealService = inject(
+    TrainingAndMealService
+  );
+  videoDetails: any = null;
+  videoId: string | null = null;
+  sanitizer: DomSanitizer = inject(DomSanitizer);
+  videoUrl: SafeResourceUrl | null = null;
+  calorieData = {
+    tdee: 0,
+  };
 
   constructor() {
     this.route.paramMap.subscribe((params) => {
@@ -54,10 +60,12 @@ export class DayDetailsComponent {
 
   private loadDetails(day: Date): void {
     this.trainingAndMealService.getMealsByDate(day)
-      .pipe(switchMap((meals) => {
-        this.meals.set(meals);
-        return this.trainingAndMealService.getTrainingsByDate(day);
-      }))
+      .pipe(
+        switchMap((meals) => {
+          this.meals.set(meals);
+          return this.trainingAndMealService.getTrainingsByDate(day);
+        })
+      )
       .subscribe((trainings) => {
         this.trainings.set(trainings);
         this.checkForVideo(trainings);
@@ -65,13 +73,12 @@ export class DayDetailsComponent {
   
     this.loadComments();
   }
-
   private loadTdeeFromFirebase(): void {
     this.calorieService.loadTdee().subscribe(
       (data) => {
         if (data) {
-          this.tdee.set(data.tdee);
-          console.log('Pobrano TDEE z Firebase:', data.tdee);
+          this.tdee = data.tdee;
+          console.log('Pobrano TDEE z Firebase:', this.tdee);
         } else {
           console.log('Brak danych o TDEE w Firebase');
         }
@@ -87,16 +94,18 @@ export class DayDetailsComponent {
     if (videoTraining) {
       console.log('Training with video link found:', videoTraining);
       this.videoId = this.extractVideoId(videoTraining.videoLink);
-      this.videoId ? this.loadVideoDetails(this.videoId) : this.clearVideoData();
+      if (this.videoId) {
+        this.loadVideoDetails(this.videoId);
+      } else {
+        console.error('Brak ID wideo w linku');
+        this.videoUrl = null;
+      }
     } else {
-      this.clearVideoData();
+      console.log('Brak linku do wideo');
+      this.videoId = null;
+      this.videoDetails = null;
+      this.videoUrl = null;
     }
-  }
-
-  private clearVideoData(): void {
-    this.videoId = null;
-    this.videoDetails = null;
-    this.videoUrl = null;
   }
 
   private extractVideoId(url: string): string | null {
@@ -107,48 +116,59 @@ export class DayDetailsComponent {
     return match ? match[1] : null;
   }
 
-  private loadVideoDetails(videoId: string): void {
-    this.youtubeService.getVideoDetails(videoId).subscribe(
-      (response: YouTubeVideoResponse) => {
-        console.log('Odpowiedź z YouTube:', response);
-        if (response.items?.length) {
-          this.videoDetails = response.items[0];
-          this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-            `https://www.youtube.com/embed/${videoId}`
-          );
-        } else {
-          this.clearVideoData();
+  private loadVideoDetails(videoId: string | null): void {
+    if (videoId) {
+      this.youtubeService.getVideoDetails(videoId).subscribe(
+        (response: YouTubeVideoResponse) => {
+          console.log('Odpowiedź z YouTube:', response);
+          if (response.items && response.items.length > 0) {
+            this.videoDetails = response.items[0];
+            this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+              `https://www.youtube.com/embed/${videoId}`
+            );
+          } else {
+            console.error('Brak wyników dla wideo');
+            this.videoDetails = null;
+            this.videoUrl = null;
+          }
+        },
+        (error) => {
+          console.error('Błąd ładowania wideo:', error);
         }
-      },
-      (error) => {
-        console.error('Błąd ładowania wideo:', error);
-      }
-    );
+      );
+    }
   }
+loadComments(): void {
+  const dayParam = this.day(); 
+  if (!dayParam) return; 
 
-  private loadComments(): void {
-    const dayParam = this.day();
-    if (!dayParam) return;
-    this.commentsService.getCommentsForDay(dayParam).subscribe((data) => {
-      this.comments.set(data);
-    });
-  }
+  this.commentsService.getCommentsForDay(dayParam).subscribe((data) => {
+    this.comments.set(data);
+  });
+}
 
-  public addComment(): void {
-    const newComment = this.comment().trim();
-    if (!newComment) return;
-    
+  addComment(): void {
+    const newComment = this.comment();
+    console.log('Nowy komentarz:', newComment); 
+    if (!newComment.trim()) return; 
+  
     const date = new Date();
-    this.commentsService.addComment(newComment, date);
+    this.commentsService.addComment(newComment, date); 
+  
+ 
     this.comments.update((prevComments) => [
       ...prevComments,
       { text: newComment, date: date.toISOString().split('T')[0] },
     ]);
+    
+   
     this.comment.set('');
   }
 
-  public onCommentChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.comment.set(target.value);
+  onCommentChange(event: Event): void {
+    const target = event.target as HTMLInputElement; 
+    this.comment.set(target.value); 
   }
 }
+
+
