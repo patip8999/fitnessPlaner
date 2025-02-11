@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 import { TrainingModel } from '../../Models/training.model';
@@ -21,7 +22,7 @@ export class EditTrainingComponent {
   @Output() Save: EventEmitter<TrainingModel> =
     new EventEmitter<TrainingModel>();
   @Output() close = new EventEmitter<void>();
-  model: TrainingModel = {
+  model = signal<TrainingModel>( {
     name: '',
     isDone: false,
     burnedKcal: 0,
@@ -30,20 +31,20 @@ export class EditTrainingComponent {
     date: new Date(),
     id: '',
     imageUrl: '',
-  };
+  });
   dateLabel: any;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['training'] && this.training) {
-      this.model = {
+      this.model.set( {
         ...this.training,
         date: new Date(this.training.date),
-      };
+      });
     }
   }
 
   saveTraining(): void {
-    if (this.model.name && this.model.burnedKcal > 0 && this.model.time) {
-      this.Save.emit(this.model);
+    if (this.model().name && this.model().burnedKcal > 0 && this.model().time) {
+      this.Save.emit(this.model());
     } else {
       console.error('Model jest niekompletny lub zawiera błędy:', this.model);
     }

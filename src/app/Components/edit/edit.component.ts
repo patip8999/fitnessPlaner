@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 import { mealModel } from '../../Models/meal.model';
@@ -20,7 +21,7 @@ export class EditComponent {
   @Input() meal: mealModel | null = null;
   @Output() Save: EventEmitter<mealModel> = new EventEmitter<mealModel>();
   @Output() close = new EventEmitter<void>();
-  model: mealModel = {
+  model = signal<mealModel> ( {
     name: '',
     calories: 0,
     weight: '',
@@ -29,26 +30,28 @@ export class EditComponent {
     id: '',
     uid: '',
     imageUrl: '',
-  };
+  });
+
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['meal'] && this.meal) {
-      console.log("Załadowano posiłek do edycji:", this.meal);
+
   
-      this.model = {
+      this.model.set( {
         ...this.meal,
         weight: this.meal.weight || '0g',
         date: new Date(this.meal.date),
         imageUrl: this.meal.imageUrl || '',
-      };
+      });
     }
   }
   
 
   saveMeal(): void {
-    console.log("Próba zapisania posiłku:", this.model);
+
   
-    if (this.model.name && this.model.calories > 0 && this.model.weight.trim().length > 0) {
-      this.Save.emit(this.model);
+    if (this.model().name && this.model().calories > 0 && this.model().weight.trim().length > 0) {
+      this.Save.emit(this.model());
     } else {
       console.error("Model jest niekompletny lub zawiera błędy:", this.model);
     }
