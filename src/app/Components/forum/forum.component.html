@@ -10,7 +10,7 @@
       <input 
         type="text" 
         id="title" 
-        [(ngModel)]="model.title" 
+        [(ngModel)]="model().title" 
         name="title" 
         required 
         class="form-control" />
@@ -18,7 +18,7 @@
       <label for="content">Treść</label>
       <textarea 
         id="content" 
-        [(ngModel)]="model.content" 
+        [(ngModel)]="model().content" 
         name="content" 
         required 
         class="form-control">
@@ -30,7 +30,7 @@
     <div class="threads-list">
       <h2>Wątki</h2>
 
-      @for (thread of threads; track thread.id) {
+      @for (thread of threads(); track thread.id) {
         <div class="thread-card">
           <h3>{{ thread.title }}</h3>
           <p>{{ thread.content }}</p>

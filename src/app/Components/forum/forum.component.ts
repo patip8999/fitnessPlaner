@@ -1,6 +1,11 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ForumService, Thread, Comment } from '../../Services/forum.service';
-import { catchError, map, Observable, of, take } from 'rxjs';
 import { AuthService } from '../../Services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -11,50 +16,58 @@ import { CommonModule, DatePipe } from '@angular/common';
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css'],
   imports: [FormsModule, CommonModule, DatePipe],
-  encapsulation: ViewEncapsulation.ShadowDom 
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class ForumComponent implements OnInit {
-  threads: Thread[] = [];
-  model: Thread = { id: '', title: '', content: '', authorId: '', createdAt: new Date() };
+  threads = signal<Thread[]>([]);
+  model = signal<Thread>({
+    id: '',
+    title: '',
+    content: '',
+    authorId: '',
+    createdAt: new Date(),
+  });
   authService: AuthService = inject(AuthService);
-  authorCache: Map<string, string> = new Map();
-
-  constructor(private forumService: ForumService) {}
+  authorCache = new Map<string, string>();
+  forumService: ForumService = inject(ForumService);
 
   ngOnInit(): void {
     this.loadThreads();
   }
 
   toggleComments(threadId: string): void {
-    const thread = this.threads.find((t) => t.id === threadId);
-    if (thread) {
-      thread.showComments = !thread.showComments;
-    }
+    this.threads.update((threads) =>
+      threads.map((thread) =>
+        thread.id === threadId
+          ? { ...thread, showComments: !thread.showComments }
+          : thread
+      )
+    );
   }
+
   loadThreads(): void {
     this.forumService.getThreads().subscribe((threads) => {
-      this.threads = threads;
-      this.threads.forEach((thread) => {
-
+      this.threads.set(threads);
+      threads.forEach((thread) => {
         this.forumService.getComments(thread.id).subscribe((comments) => {
-          thread.comments = comments;
-   
-          thread.comments.forEach((comment) => {
-            this.loadUserEmail(comment);
-          });
+          comments.forEach((comment) => this.loadUserEmail(comment));
+          this.threads.update((currentThreads) =>
+            currentThreads.map((t) =>
+              t.id === thread.id ? { ...t, comments } : t
+            )
+          );
         });
       });
     });
   }
+
   loadUserEmail(comment: Comment): void {
-   
     if (this.authorCache.has(comment.authorId)) {
       comment.authorEmail = this.authorCache.get(comment.authorId);
     } else {
       this.forumService.getUserEmail(comment.authorId).subscribe((user) => {
         if (user) {
           comment.authorEmail = user.email;
-        
           this.authorCache.set(comment.authorId, user.email);
         } else {
           comment.authorEmail = 'Nieznany autor';
@@ -64,49 +77,58 @@ export class ForumComponent implements OnInit {
   }
 
   addThread(): void {
-    if (this.model.title && this.model.content) {
-      this.forumService.createThread(this.model).then(() => {
-        this.model = { id: '', title: '', content: '', authorId: '', createdAt: new Date() };
+    const currentModel = this.model();
+    if (currentModel.title && currentModel.content) {
+      this.forumService.createThread(currentModel).then(() => {
+        this.model.set({
+          id: '',
+          title: '',
+          content: '',
+          authorId: '',
+          createdAt: new Date(),
+        });
         this.loadThreads();
       });
     }
   }
 
   showCommentForm(threadId: string): void {
-    const thread = this.threads.find((t) => t.id === threadId);
-    if (thread) {
-      thread.showCommentForm = !thread.showCommentForm;
-    }
+    this.threads.update((threads) =>
+      threads.map((thread) =>
+        thread.id === threadId
+          ? { ...thread, showCommentForm: !thread.showCommentForm }
+          : thread
+      )
+    );
   }
 
   addComment(threadId: string): void {
-    const thread = this.threads.find((t) => t.id === threadId);
+    const thread = this.threads().find((t) => t.id === threadId);
     if (thread) {
-      const commentContent = thread.newComment || ''; 
-  
+      const commentContent = thread.newComment || '';
       if (commentContent) {
         this.authService.getCurrentUser().subscribe((user) => {
           if (user) {
             const comment: Comment = {
-              id: '', 
-              content: commentContent, 
-              authorId: user.uid, 
-              createdAt: new Date(), 
+              id: '',
+              content: commentContent,
+              authorId: user.uid,
+              createdAt: new Date(),
               threadId,
             };
-            
-       
             this.forumService.addComment(threadId, comment).then(() => {
-              thread.newComment = '';
-              thread.showCommentForm = false;
-              this.loadThreads(); 
-            }).catch((err) => {
-              console.error("Error adding comment:", err);
+              this.threads.update((threads) =>
+                threads.map((t) =>
+                  t.id === threadId
+                    ? { ...t, newComment: '', showCommentForm: false }
+                    : t
+                )
+              );
+              this.loadThreads();
             });
           }
         });
       }
     }
   }
-
-}  
+}
