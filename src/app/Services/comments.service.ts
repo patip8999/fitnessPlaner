@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { catchError, from, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentsService {
   public client: AngularFirestore = inject(AngularFirestore);
@@ -32,36 +32,35 @@ export class CommentsService {
         });
     });
   }
-  
-  addComment(comment: string, date: Date): void {
-    if (!comment.trim()) return;
-  
-    this.afAuth.currentUser
-      .then((user) => {
+
+  addComment(comment: string, date: Date): Observable<void> {
+    if (!comment.trim()) return of();
+
+    return from(this.afAuth.currentUser).pipe(
+      switchMap((user) => {
         if (user) {
           const commentId = this.client.createId();
-          this.client
-            .collection('comments')
-            .doc(commentId)
-            .set({
-              text: comment,
-              uid: user.uid,
-              date: date.toISOString().split('T')[0],
-            })
-            .then(() => {
-              console.log('Komentarz dodany do Firebase');
-            })
-            .catch((err) => {
-              console.error('Błąd podczas dodawania komentarza do Firebase:', err);
-            });
+          return from(
+            this.client
+              .collection('comments')
+              .doc(commentId)
+              .set({
+                text: comment,
+                uid: user.uid,
+                date: date.toISOString().split('T')[0],
+              })
+          );
         } else {
-          console.error('Brak użytkownika');
+          throw new Error('Brak użytkownika');
         }
+      }),
+      catchError((err) => {
+        console.error('Błąd podczas dodawania komentarza:', err);
+        throw err;
       })
-      .catch((err) => {
-        console.error('Błąd podczas pobierania użytkownika:', err);
-      });
+    );
   }
+
   getCommentsForDay(day: Date): Observable<any[]> {
     return new Observable<any[]>((observer) => {
       this.afAuth.currentUser
@@ -69,13 +68,10 @@ export class CommentsService {
           const uid = user?.uid;
           if (uid) {
             const dayString = day.toISOString().split('T')[0];
-            
-   
+
             this.client
               .collection('comments', (ref) =>
-                ref
-                  .where('uid', '==', uid)
-                  .where('date', '==', dayString) 
+                ref.where('uid', '==', uid).where('date', '==', dayString)
               )
               .valueChanges()
               .subscribe((comments) => {
@@ -92,5 +88,4 @@ export class CommentsService {
         });
     });
   }
-  
 }

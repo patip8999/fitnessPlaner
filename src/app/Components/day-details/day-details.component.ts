@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  WritableSignal,
+  computed,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingAndMealService } from '../../Services/calendar.service';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -11,7 +18,7 @@ import { CalorieService } from '../../Services/calorie.service';
 import { CaloriesBalancePipe } from '../../Pipes/calories-balance.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommentsService } from '../../Services/comments.service';
-import { switchMap } from 'rxjs';
+import { switchMap, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-day-details',
@@ -22,32 +29,35 @@ import { switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DayDetailsComponent {
-  commentsService: CommentsService = inject(CommentsService);
-  readonly comment: WritableSignal<string> = signal('');
-  readonly comments: WritableSignal<any[]> = signal([]);
-  readonly day: WritableSignal<Date | null> = signal<Date | null>(null);
-  readonly meals: WritableSignal<any[]> = signal<any[]>([]);
-  readonly trainings: WritableSignal<any[]> = signal<any[]>([]);
-  tdee: number = 0;
-  calorieService: CalorieService = inject(CalorieService);
-  youtubeService: YoutubeService = inject(YoutubeService);
-  private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly trainingAndMealService: TrainingAndMealService = inject(
-    TrainingAndMealService
-  );
-  videoDetails: any = null;
-  videoId: string | null = null;
-  sanitizer: DomSanitizer = inject(DomSanitizer);
-  videoUrl: SafeResourceUrl | null = null;
-  calorieData = {
-    tdee: 0,
-  };
+  private commentsService = inject(CommentsService);
+  private calorieService = inject(CalorieService);
+  private youtubeService = inject(YoutubeService);
+  private route = inject(ActivatedRoute);
+  private trainingAndMealService = inject(TrainingAndMealService);
+  private sanitizer = inject(DomSanitizer);
+
+  readonly comment = signal<string>('');
+  readonly comments = signal<any[]>([]);
+  readonly day = signal<Date | null>(null);
+  readonly meals = signal<any[]>([]);
+  readonly trainings = signal<any[]>([]);
+  readonly tdee = signal<number>(0);
+  readonly videoDetails = signal<any>(null);
+  readonly videoId = signal<string | null>(null);
+  readonly videoUrl = computed<SafeResourceUrl | null>(() => {
+    const id = this.videoId();
+    return id
+      ? this.sanitizer.bypassSecurityTrustResourceUrl(
+          `https://www.youtube.com/embed/${id}`
+        )
+      : null;
+  });
+  readonly isLoading = signal<boolean>(false);
+  readonly error = signal<string | null>(null);
 
   constructor() {
     this.route.paramMap.subscribe((params) => {
       const dayParam = params.get('day');
-      console.log('Dzień z parametru URL:', dayParam);
-
       if (dayParam) {
         const day = new Date(dayParam);
         this.day.set(day);
@@ -59,52 +69,62 @@ export class DayDetailsComponent {
   }
 
   private loadDetails(day: Date): void {
-    this.trainingAndMealService.getMealsByDate(day)
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    this.trainingAndMealService
+      .getMealsByDate(day)
       .pipe(
         switchMap((meals) => {
           this.meals.set(meals);
           return this.trainingAndMealService.getTrainingsByDate(day);
+        }),
+        catchError((err) => {
+          this.error.set('Wystąpił błąd podczas ładowania danych.');
+          this.isLoading.set(false);
+          return of([]);
         })
       )
-      .subscribe((trainings) => {
-        this.trainings.set(trainings);
-        this.checkForVideo(trainings);
+      .subscribe({
+        next: (trainings) => {
+          this.trainings.set(trainings);
+          this.checkForVideo(trainings);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          this.error.set('Wystąpił błąd podczas ładowania danych.');
+          this.isLoading.set(false);
+        },
       });
-  
+
     this.loadComments();
   }
+
   private loadTdeeFromFirebase(): void {
-    this.calorieService.loadTdee().subscribe(
-      (data) => {
+    this.calorieService.loadTdee().subscribe({
+      next: (data) => {
         if (data) {
-          this.tdee = data.tdee;
-          console.log('Pobrano TDEE z Firebase:', this.tdee);
+          this.tdee.set(data.tdee);
         } else {
-          console.log('Brak danych o TDEE w Firebase');
+          this.error.set('Brak danych o TDEE w Firebase.');
         }
       },
-      (err) => {
-        console.error('Błąd ładowania TDEE:', err);
-      }
-    );
+      error: (err) => {
+        this.error.set('Błąd ładowania TDEE z Firebase.');
+      },
+    });
   }
 
   private checkForVideo(trainings: any[]): void {
     const videoTraining = trainings.find((training) => training.videoLink);
     if (videoTraining) {
-      console.log('Training with video link found:', videoTraining);
-      this.videoId = this.extractVideoId(videoTraining.videoLink);
-      if (this.videoId) {
-        this.loadVideoDetails(this.videoId);
+      const videoId = this.extractVideoId(videoTraining.videoLink);
+      if (videoId) {
+        this.videoId.set(videoId);
+        this.loadVideoDetails(videoId);
       } else {
-        console.error('Brak ID wideo w linku');
-        this.videoUrl = null;
+        this.error.set('Nieprawidłowy link do wideo.');
       }
-    } else {
-      console.log('Brak linku do wideo');
-      this.videoId = null;
-      this.videoDetails = null;
-      this.videoUrl = null;
     }
   }
 
@@ -112,63 +132,53 @@ export class DayDetailsComponent {
     const regex =
       /(?:youtube\.com\/(?:[^\/\n\s]+\/)+|(?:v\/|e\/|u\/\w\/|embed\/|shorts\/|watch\?v=)|youtu\.be\/)([^#&?]*).*/;
     const match = url.match(regex);
-    console.log('Extracted video ID:', match ? match[1] : null);
     return match ? match[1] : null;
   }
 
-  private loadVideoDetails(videoId: string | null): void {
-    if (videoId) {
-      this.youtubeService.getVideoDetails(videoId).subscribe(
-        (response: YouTubeVideoResponse) => {
-          console.log('Odpowiedź z YouTube:', response);
-          if (response.items && response.items.length > 0) {
-            this.videoDetails = response.items[0];
-            this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-              `https://www.youtube.com/embed/${videoId}`
-            );
-          } else {
-            console.error('Brak wyników dla wideo');
-            this.videoDetails = null;
-            this.videoUrl = null;
-          }
-        },
-        (error) => {
-          console.error('Błąd ładowania wideo:', error);
+  private loadVideoDetails(videoId: string): void {
+    this.youtubeService.getVideoDetails(videoId).subscribe({
+      next: (response: YouTubeVideoResponse) => {
+        if (response.items && response.items.length > 0) {
+          this.videoDetails.set(response.items[0]);
+        } else {
+          this.error.set('Brak wyników dla wideo.');
         }
-      );
-    }
+      },
+      error: (err) => {
+        this.error.set('Błąd ładowania wideo.');
+      },
+    });
   }
-loadComments(): void {
-  const dayParam = this.day(); 
-  if (!dayParam) return; 
 
-  this.commentsService.getCommentsForDay(dayParam).subscribe((data) => {
-    this.comments.set(data);
-  });
-}
+  private loadComments(): void {
+    const day = this.day();
+    if (!day) return;
+
+    this.commentsService.getCommentsForDay(day).subscribe({
+      next: (data) => this.comments.set(data),
+      error: (err) => this.error.set('Błąd ładowania komentarzy.'),
+    });
+  }
 
   addComment(): void {
-    const newComment = this.comment();
-    console.log('Nowy komentarz:', newComment); 
-    if (!newComment.trim()) return; 
-  
+    const newComment = this.comment().trim();
+    if (!newComment) return;
+
     const date = new Date();
-    this.commentsService.addComment(newComment, date); 
-  
- 
-    this.comments.update((prevComments) => [
-      ...prevComments,
-      { text: newComment, date: date.toISOString().split('T')[0] },
-    ]);
-    
-   
-    this.comment.set('');
+    this.commentsService.addComment(newComment, date).subscribe({
+      next: () => {
+        this.comments.update((prevComments) => [
+          ...prevComments,
+          { text: newComment, date: date.toISOString().split('T')[0] },
+        ]);
+        this.comment.set('');
+      },
+      error: (err) => this.error.set('Błąd dodawania komentarza.'),
+    });
   }
 
   onCommentChange(event: Event): void {
-    const target = event.target as HTMLInputElement; 
-    this.comment.set(target.value); 
+    const target = event.target as HTMLInputElement;
+    this.comment.set(target.value);
   }
 }
-
-
