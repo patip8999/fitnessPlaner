@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map, Observable, tap } from 'rxjs';
+import { from, map, Observable, switchMap, tap } from 'rxjs';
 import { TrainingPlanModel } from '../Models/training-plan.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -48,22 +48,22 @@ export class FitnessPlanService {
         })
       );
   }
-  updateFitnessPlan(plan: TrainingPlanModel): void {
-    this.client
+ updateFitnessPlan(plan: TrainingPlanModel): Observable<void> {
+    return this.client
       .collection('FitnessPlans', (ref) => ref.where('id', '==', plan.id))
       .get()
-      .subscribe((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.client
-            .doc(`FitnessPlans/${doc.id}`)
-            .update(plan)
-            .then(() => console.log('Plan fitness zaktualizowany'))
-            .catch((err) =>
-              console.error('Błąd przy aktualizacji planu fitness', err)
-            );
-        });
-      });
+      .pipe(
+        switchMap((querySnapshot) => {
+          const batch = this.client.firestore.batch();
+          querySnapshot.forEach((doc) => {
+            const docRef = this.client.firestore.collection('FitnessPlans').doc(doc.id);
+            batch.update(docRef, plan);
+          });
+          return from(batch.commit());
+        })
+      );
   }
+
   deleteFitnessPlan(planId: string): void {
     this.client
       .collection('FitnessPlans', (ref) => ref.where('id', '==', planId))
